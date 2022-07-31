@@ -1,0 +1,15 @@
+.skillNode {
+  padding: 2px;
+  margin: 2px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  &__siblings {
+    width: 80%;
+    padding: 0.5px;
+    font-size: 10px;
+  }
+}
