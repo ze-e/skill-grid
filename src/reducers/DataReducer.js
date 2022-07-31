@@ -12,8 +12,7 @@ export const initialState = {
 
 export const ACTIONS = {
   HELLO_WORLD: 'hello-world',
-  ADD_CHILD: 'add-child',
-  GET_SKILLS: 'get-skills'
+  ADD_CHILD: 'add-child'
 }
 
 function DataReducer (state, action) {
@@ -26,12 +25,12 @@ function DataReducer (state, action) {
   }
 }
 
-function addChild (state, { newItem, parent }) {
+function addChild (state, { newItem }) {
   const stateCopy = { ...state }
 
   // add newItem id to parent
   stateCopy.data.forEach(column => {
-    const newParent = column.contents.find(skill => skill.id === parent.id)
+    const newParent = column.contents.find(skill => skill.id === newItem.parents[0].id)
     newParent?.descendants.push(newItem.id)
   })
 

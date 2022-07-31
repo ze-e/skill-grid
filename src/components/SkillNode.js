@@ -22,14 +22,13 @@ export default function SkillNode ({ item }) {
     const newItem = {
       id: uuidv4(),
       column: item.column + 1,
-      position: item.descendants.length + 1,
       name: `${item.name}'s ${item.descendants.length + 1} child`,
       xp: 10,
       parents: [item.id],
       descendants: []
     }
 
-    dispatch({ type: ACTIONS.ADD_CHILD, payload: { newItem, parent: item } })
+    dispatch({ type: ACTIONS.ADD_CHILD, payload: { newItem } })
   }
 
   function NodeData ({ item, children }) {
