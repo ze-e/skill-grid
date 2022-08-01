@@ -17,9 +17,11 @@ export default function SkillColumn ({ id, skills }) {
     // find the first available item from the last column and add it as parent
     // since columns start at one, you need to subtract 2
     const parentSkills = state.data[id - 2].contents
-    for (const skill in parentSkills) {
-      if (parentSkills[skill].descendants.length < 3) return [parentSkills[skill].id]
+
+    for (let i = parentSkills.length - 1; i >= 0; i--) {
+      if (parentSkills[i].descendants.length < 3) return [parentSkills[i].id]
     }
+
     // if none are available, then you cannot add a new item
     return null
   }

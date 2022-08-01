@@ -59,6 +59,7 @@ function removeItem (state, { item }) {
   // remove item from column
   const column = stateCopy.data.find(column => column.id === item.column)
   column.contents.filter(c => c.id !== item.id)
+
   // if item is only one in column, delete column
   if (column.contents.length === 0) stateCopy.data.filter(c => c.id !== column.id)
   const sortFunc = (a, b) => {
