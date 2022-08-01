@@ -45,12 +45,12 @@ export default function SkillNode ({ item }) {
   return (
     <>
       <NodeData item={item}>
-      <button
+        {item.column !== 1 && <button
           className="skillNode__delete"
           type='button'
           onClick={() => { dispatch({ type: ACTIONS.REMOVE_ITEM, payload: { item } }) }}>
           Delete
-        </button>
+        </button>}
       {(!descendants || descendants?.length < 3) &&
         <button
           className="skillNode__addItem"

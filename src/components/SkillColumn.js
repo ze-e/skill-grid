@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 export default function SkillColumn ({ id, skills }) {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
+
   const [disableButton, setDisableButton] = useState(false)
 
   useEffect(() => {
@@ -13,7 +14,7 @@ export default function SkillColumn ({ id, skills }) {
     if (id === 1 || skills.length > 2) setDisableButton(true)
   })
 
-  function setDefaultParent () {
+  function setDefaultParent (id) {
     // find the first available item from the last column and add it as parent
     // since columns start at one, you need to subtract 2
     const parentSkills = state.data[id - 2].contents
@@ -32,7 +33,7 @@ export default function SkillColumn ({ id, skills }) {
       column: id,
       name: 'New Skill!',
       xp: 10,
-      parents: setDefaultParent(),
+      parents: setDefaultParent(id),
       descendants: []
     }
     if (newItem.parents) dispatch({ type: ACTIONS.ADD_CHILD, payload: { newItem } })

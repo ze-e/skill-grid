@@ -65,7 +65,7 @@ function removeItem (state, { item }) {
     function setDefaultParent (id) {
       // find the first available item from the last column and add it as parent
       // since columns start at one, you need to subtract 2
-      const parentSkills = state.data[id - 2].contents
+      const parentSkills = stateCopy.data[id - 2].contents
 
       for (let i = parentSkills.length - 1; i >= 0; i--) {
         if (parentSkills[i].descendants.length < 3) return [parentSkills[i].id]
@@ -79,14 +79,13 @@ function removeItem (state, { item }) {
 
     // if column is in the middle reconnect parents and children
     else {
-      // column.contents.map(i => i.column--)
       stateCopy.data = stateCopy.data.filter(c => c.id !== column.id)
       stateCopy.data.slice(column.id - 1).forEach(c => {
         c.id--
         c.contents.forEach(i => {
           i.column--
-          i.parents = setDefaultParent(column.id)
-          stateCopy.data[column.id - 2].contents.find(d => d.id === i.parents[0]).descendants.push(i.id)
+          i.parents = setDefaultParent(i.column)
+          if (i.parents) stateCopy.data[column.id - 2].contents.find(d => d.id === i.parents[0])?.descendants.push(i.id)
         })
       })
     }
