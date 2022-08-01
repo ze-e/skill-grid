@@ -32,7 +32,8 @@ export default function SkillNode ({ item }) {
   }
 
   function NodeData ({ item, children }) {
-    const color = state.data.find(c => c.id === item.column).color
+    const color = state.data.find(c => c.id === item.column)?.color
+
     return (
       <div className='skillNode' style={{ border: `3px solid ${color}` }}>
         <h3>{item.name}</h3>

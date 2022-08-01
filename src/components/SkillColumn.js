@@ -39,22 +39,6 @@ export default function SkillColumn ({ id, skills }) {
     else setDisableButton(true)
   }
 
-  // const sortFunc = (a, b) => {
-  //   if (a.parents.length > 0 && b.parents.length > 0) {
-  //     const parent = ('' + a.parents[0]).localeCompare(b.parents[0])
-  //     if (parent !== 0) {
-  //       // sort by the index of their parent in the column
-  //       return state.data[a.column - 1].contents.findIndex(item => item.id === a.parents[0]) - state.data[b.column - 1].contents.findIndex(item => item.id === b.parents[0])
-  //     }
-  //     return parent
-  //   }
-  // }
-
-  // const sortFunc = (a, b) => {
-  //     return state.data[a.column - 2].contents.findIndex(item => item.id === a.parents[0]) - state.data[b.column - 2].contents.findIndex(item => item.id === b.parents[0])
-  //   }
-  // }
-
   return (
     <div className='skillColumn'>
       {skills.length > 0 && skills.map(skill => {

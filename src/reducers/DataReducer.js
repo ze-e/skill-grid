@@ -54,19 +54,43 @@ function removeItem (state, { item }) {
 
   // remove newItem id from parent
   const newParents = stateCopy.data[item.column - 2].contents.filter(skill => item.parents.includes(skill.id))
-  newParents.length > 0 && newParents.forEach(parent => parent.descendants?.filter(i => i !== item.id))
+  if (newParents.length > 0) newParents.forEach(parent => { parent.descendants = parent.descendants.filter(i => i !== item.id) })
 
   // remove item from column
   const column = stateCopy.data.find(column => column.id === item.column)
-  column.contents.filter(c => c.id !== item.id)
+  column.contents = column.contents.filter(c => c.id !== item.id)
 
   // if item is only one in column, delete column
-  if (column.contents.length === 0) stateCopy.data.filter(c => c.id !== column.id)
-  const sortFunc = (a, b) => {
-    return stateCopy.data[a.column - 2].contents.findIndex(i => i.id === a.parents[0]) - stateCopy.data[b.column - 2].contents.findIndex(i => i.id === b.parents[0])
-  }
+  if (column.contents.length === 0) {
+    function setDefaultParent (id) {
+      // find the first available item from the last column and add it as parent
+      // since columns start at one, you need to subtract 2
+      const parentSkills = state.data[id - 2].contents
 
-  column.contents.sort(sortFunc)
+      for (let i = parentSkills.length - 1; i >= 0; i--) {
+        if (parentSkills[i].descendants.length < 3) return [parentSkills[i].id]
+      }
+
+      // if none are available, then you cannot add a new item
+      return null
+    }
+
+    if (column.id === stateCopy.data.length) stateCopy.data = stateCopy.data.filter(c => c.id !== column.id)
+
+    // if column is in the middle reconnect parents and children
+    else {
+      // column.contents.map(i => i.column--)
+      stateCopy.data = stateCopy.data.filter(c => c.id !== column.id)
+      stateCopy.data.slice(column.id - 1).forEach(c => {
+        c.id--
+        c.contents.forEach(i => {
+          i.column--
+          i.parents = setDefaultParent(column.id)
+          stateCopy.data[column.id - 2].contents.find(d => d.id === i.parents[0]).descendants.push(i.id)
+        })
+      })
+    }
+  }
   return stateCopy
 }
 
