@@ -12,7 +12,8 @@ export const initialState = {
 
 export const ACTIONS = {
   HELLO_WORLD: 'hello-world',
-  ADD_CHILD: 'add-child'
+  ADD_CHILD: 'add-child',
+  REMOVE_ITEM: 'remove-item'
 }
 
 function DataReducer (state, action) {
@@ -21,6 +22,7 @@ function DataReducer (state, action) {
       console.log('HELLO', action.payload)
       return state
     case ACTIONS.ADD_CHILD: return addChild(state, action.payload)
+    case ACTIONS.REMOVE_ITEM: return removeItem(state, action.payload)
     default: throw new Error(`Unknown action type: ${action.type}`)
   }
 }
@@ -30,28 +32,40 @@ function addChild (state, { newItem }) {
 
   // add newItem id to parent
   stateCopy.data.forEach(column => {
-    const newParent = column.contents.find(skill => skill.id === newItem.parents[0].id)
+    const newParent = column.contents.find(skill => skill.id === newItem.parents[0])
     newParent?.descendants.push(newItem.id)
   })
 
   // add newItem to column if column exists, otherwise create new column
-  const column = stateCopy.data.find(column => column.id === newItem.column)
-  column
-    ? column.contents.push(newItem)
-    : stateCopy.data.push({ id: newItem.column, color: createColor(), contents: [newItem] })
-
-  // sort by parent
   const sortFunc = (a, b) => {
-    if (a.parents.length > 0 && b.parents.length > 0) {
-      const parent = ('' + a.parents[0]).localeCompare(b.parents[0])
-      if (parent !== 0) {
-        // sort by the index of their parent in the column
-        return stateCopy.data[a.column - 1].contents.findIndex(item => item.id === a.parents[0]) - stateCopy.data[b.column - 1].contents.findIndex(item => item.id === b.parents[0])
-      }
-      return parent
-    }
+    return state.data[a.column - 2].contents.findIndex(item => item.id === a.parents[0]) - state.data[b.column - 2].contents.findIndex(item => item.id === b.parents[0])
   }
-  stateCopy.data.forEach(column => column.contents.sort((a, b) => sortFunc(a, b)))
+  let column = stateCopy.data.find(column => column.id === newItem.column)
+  if (column) column.contents = [...column.contents, newItem].sort(sortFunc)
+  else {
+    stateCopy.data = [...stateCopy.data, { id: newItem.column, color: createColor(), contents: [newItem] }]
+    column = stateCopy.data.find(column => column.id === newItem.column)
+  }
+  return stateCopy
+}
+
+function removeItem (state, { item }) {
+  const stateCopy = { ...state }
+
+  // remove newItem id from parent
+  const newParents = stateCopy.data[item.column - 2].contents.filter(skill => item.parents.includes(skill.id))
+  newParents.length > 0 && newParents.forEach(parent => parent.descendants?.filter(i => i !== item.id))
+
+  // remove item from column
+  const column = stateCopy.data.find(column => column.id === item.column)
+  column.contents.filter(c => c.id !== item.id)
+  // if item is only one in column, delete column
+  if (column.contents.length === 0) stateCopy.data.filter(c => c.id !== column.id)
+  const sortFunc = (a, b) => {
+    return stateCopy.data[a.column - 2].contents.findIndex(i => i.id === a.parents[0]) - stateCopy.data[b.column - 2].contents.findIndex(i => i.id === b.parents[0])
+  }
+
+  column.contents.sort(sortFunc)
   return stateCopy
 }
 

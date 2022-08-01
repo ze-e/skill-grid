@@ -11,19 +11,14 @@ export default function SkillColumn ({ id, skills }) {
   useEffect(() => {
     // first column can only contain one item
     if (id === 1 || skills.length > 2) setDisableButton(true)
-    else {
-      // if all members of the previous column have three descendants, you cannot add any more to the column
-      // since columns start at one, you need to subtract 2
-      if (state.data[id - 2].contents.every(skill => skill.descendants.length >= 3)) setDisableButton(true)
-    }
   })
 
   function setDefaultParent () {
     // find the first available item from the last column and add it as parent
     // since columns start at one, you need to subtract 2
-    const parentSkills = state.data[id].contents
+    const parentSkills = state.data[id - 2].contents
     for (const skill in parentSkills) {
-      if (parentSkills[skill].descendants.length < 3) return parentSkills[skill].id
+      if (parentSkills[skill].descendants.length < 3) return [parentSkills[skill].id]
     }
     // if none are available, then you cannot add a new item
     return null
@@ -41,6 +36,22 @@ export default function SkillColumn ({ id, skills }) {
     if (newItem.parents) dispatch({ type: ACTIONS.ADD_CHILD, payload: { newItem } })
     else setDisableButton(true)
   }
+
+  // const sortFunc = (a, b) => {
+  //   if (a.parents.length > 0 && b.parents.length > 0) {
+  //     const parent = ('' + a.parents[0]).localeCompare(b.parents[0])
+  //     if (parent !== 0) {
+  //       // sort by the index of their parent in the column
+  //       return state.data[a.column - 1].contents.findIndex(item => item.id === a.parents[0]) - state.data[b.column - 1].contents.findIndex(item => item.id === b.parents[0])
+  //     }
+  //     return parent
+  //   }
+  // }
+
+  // const sortFunc = (a, b) => {
+  //     return state.data[a.column - 2].contents.findIndex(item => item.id === a.parents[0]) - state.data[b.column - 2].contents.findIndex(item => item.id === b.parents[0])
+  //   }
+  // }
 
   return (
     <div className='skillColumn'>

@@ -19,7 +19,7 @@ function App () {
             })}
         </div>
         }
-        <code>{JSON.stringify(state)}</code>
+        <code>{JSON.stringify(state, null, 2)}</code>
       </DataContext.Provider>
   )
 }
