@@ -4,17 +4,17 @@ import PropTypes from 'prop-types'
 import { DataContext } from '../contexts/DataContext'
 import { v4 as uuidv4 } from 'uuid'
 
-export default function SkillNode ({ item }) {
+export default function LevelNode ({ item }) {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
 
-  const [allSkills, setAllSkills] = useState([])
+  const [allLevels, setAllLevels] = useState([])
   useEffect(() => {
-    const skills = state.data.map(column => column.contents).reduce((a, b) => a.concat(b), [])
-    setAllSkills(skills)
+    const levels = state.data.map(column => column.contents).reduce((a, b) => a.concat(b), [])
+    setAllLevels(levels)
   }, [state])
 
-  const parents = item.parents?.length > 0 ? allSkills.filter(p => item.parents?.includes(p.id)) : null
-  const descendants = item.descendants?.length > 0 ? allSkills.filter(p => item.descendants?.includes(p.id)) : null
+  const parents = item.parents?.length > 0 ? allLevels.filter(p => item.parents?.includes(p.id)) : null
+  const descendants = item.descendants?.length > 0 ? allLevels.filter(p => item.descendants?.includes(p.id)) : null
 
   const [showFamily, setShowFamily] = useState(false)
 
@@ -35,7 +35,7 @@ export default function SkillNode ({ item }) {
     const color = state.data.find(c => c.id === item.column)?.color
 
     return (
-      <div className='skillNode' style={{ border: `3px solid ${color}` }}>
+      <div className='levelNode' style={{ border: `3px solid ${color}` }}>
         <h3>{item.name}</h3>
         <h4>{item.xp}</h4>
         {children}
@@ -46,20 +46,20 @@ export default function SkillNode ({ item }) {
     <>
       <NodeData item={item}>
         {item.column !== 1 && <button
-          className="skillNode__delete"
+          className="levelNode__delete"
           type='button'
           onClick={() => { dispatch({ type: ACTIONS.REMOVE_ITEM, payload: { item } }) }}>
           Delete
         </button>}
       {(!descendants || descendants?.length < 3) &&
         <button
-          className="skillNode__addItem"
+          className="levelNode__addItem"
           type='button'
           onClick={() => { addChild() }}>
           Add Child
         </button>
       }
-        {showFamily && <div className="skillNode__siblings">
+        {showFamily && <div className="levelNode__siblings">
           {parents?.length > 0 &&
             <>
             <h3>Parents:</h3>
@@ -73,13 +73,13 @@ export default function SkillNode ({ item }) {
             </>
           }
         </div>}
-        <button className="skillNode__showFamily" type='button' onClick={() => { setShowFamily(!showFamily) }}>{!showFamily ? 'Show Related' : 'Hide Related'}</button>
+        <button className="levelNode__showFamily" type='button' onClick={() => { setShowFamily(!showFamily) }}>{!showFamily ? 'Show Related' : 'Hide Related'}</button>
       </NodeData>
     </>
   )
 }
 
-SkillNode.propTypes = {
+LevelNode.propTypes = {
   item: PropTypes.any,
   children: PropTypes.any
 }

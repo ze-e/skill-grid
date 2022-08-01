@@ -1,26 +1,26 @@
 import React, { useState, useEffect, useContext } from 'react'
-import SkillNode from './SkillNode'
+import LevelNode from './LevelNode'
 import PropTypes from 'prop-types'
 import { DataContext } from '../contexts/DataContext'
 import { v4 as uuidv4 } from 'uuid'
 
-export default function SkillColumn ({ id, skills }) {
+export default function LevelColumn ({ id, levels }) {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
 
   const [disableButton, setDisableButton] = useState(false)
 
   useEffect(() => {
     // first column can only contain one item
-    if (id === 1 || skills.length > 2) setDisableButton(true)
+    if (id === 1 || levels.length > 2) setDisableButton(true)
   })
 
   function setDefaultParent (id) {
     // find the first available item from the last column and add it as parent
     // since columns start at one, you need to subtract 2
-    const parentSkills = state.data[id - 2].contents
+    const parentLevels = state.data[id - 2].contents
 
-    for (let i = parentSkills.length - 1; i >= 0; i--) {
-      if (parentSkills[i].descendants.length < 3) return [parentSkills[i].id]
+    for (let i = parentLevels.length - 1; i >= 0; i--) {
+      if (parentLevels[i].descendants.length < 3) return [parentLevels[i].id]
     }
 
     // if none are available, then you cannot add a new item
@@ -31,7 +31,7 @@ export default function SkillColumn ({ id, skills }) {
     const newItem = {
       id: uuidv4(),
       column: id,
-      name: 'New Skill!',
+      name: 'New Level!',
       xp: 10,
       parents: setDefaultParent(id),
       descendants: []
@@ -41,24 +41,24 @@ export default function SkillColumn ({ id, skills }) {
   }
 
   return (
-    <div className='skillColumn'>
-      {skills.length > 0 && skills.map(skill => {
-        return <SkillNode
-          key={skill.id}
-          item={skill}
+    <div className='levelColumn'>
+      {levels.length > 0 && levels.map(level => {
+        return <LevelNode
+          key={level.id}
+          item={level}
         />
       })}
         {!disableButton && <button
-          className="skillColumn__addItem"
+          className="levelColumn__addItem"
           type='button'
           onClick={() => { addItem() }}>
-          Add New Skill
+          Add New Level
         </button>}
     </div>
   )
 }
 
-SkillColumn.propTypes = {
+LevelColumn.propTypes = {
   id: PropTypes.number,
-  skills: PropTypes.array
+  levels: PropTypes.array
 }

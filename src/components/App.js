@@ -1,5 +1,5 @@
 import React, { useReducer } from 'react'
-import SkillColumn from './SkillColumn'
+import LevelColumn from './LevelColumn'
 
 import { DataContext } from '../contexts/DataContext'
 import DataReducer, { initialState, ACTIONS } from '../reducers/DataReducer'
@@ -11,10 +11,10 @@ function App () {
       <DataContext.Provider value={{ state, dispatch, ACTIONS }}>
         { <div className='main'>
             {state?.data.length > 0 && state.data.map(column => {
-              return <SkillColumn
+              return <LevelColumn
                 key={column.id}
                 id={column.id}
-                skills={column.contents}
+                levels={column.contents}
               />
             })}
         </div>

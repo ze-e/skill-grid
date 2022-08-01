@@ -32,7 +32,7 @@ function addChild (state, { newItem }) {
 
   // add newItem id to parent
   stateCopy.data.forEach(column => {
-    const newParent = column.contents.find(skill => skill.id === newItem.parents[0])
+    const newParent = column.contents.find(level => level.id === newItem.parents[0])
     newParent?.descendants.push(newItem.id)
   })
 
@@ -53,7 +53,7 @@ function removeItem (state, { item }) {
   const stateCopy = { ...state }
 
   // remove newItem id from parent
-  const newParents = stateCopy.data[item.column - 2].contents.filter(skill => item.parents.includes(skill.id))
+  const newParents = stateCopy.data[item.column - 2].contents.filter(level => item.parents.includes(level.id))
   if (newParents.length > 0) newParents.forEach(parent => { parent.descendants = parent.descendants.filter(i => i !== item.id) })
 
   // remove item from column
@@ -65,10 +65,10 @@ function removeItem (state, { item }) {
     function setDefaultParent (id) {
       // find the first available item from the last column and add it as parent
       // since columns start at one, you need to subtract 2
-      const parentSkills = stateCopy.data[id - 2].contents
+      const parentLevels = stateCopy.data[id - 2].contents
 
-      for (let i = parentSkills.length - 1; i >= 0; i--) {
-        if (parentSkills[i].descendants.length < 3) return [parentSkills[i].id]
+      for (let i = parentLevels.length - 1; i >= 0; i--) {
+        if (parentLevels[i].descendants.length < 3) return [parentLevels[i].id]
       }
 
       // if none are available, then you cannot add a new item
