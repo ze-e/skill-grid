@@ -3,6 +3,7 @@ import LevelNode from './LevelNode'
 import PropTypes from 'prop-types'
 import { DataContext } from '../contexts/DataContext'
 import { v4 as uuidv4 } from 'uuid'
+import { createColor } from '../utils/color'
 
 export default function LevelColumn ({ id, levels }) {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
@@ -35,7 +36,8 @@ export default function LevelColumn ({ id, levels }) {
       name: 'New Level!',
       xp: 10,
       parents: setDefaultParent(id),
-      descendants: []
+      descendants: [],
+      color: createColor()
     }
     if (newItem.parents) dispatch({ type: ACTIONS.ADD_CHILD, payload: { newItem } })
     else setDisableButton(true)

@@ -24,17 +24,18 @@ export default function LevelNode ({ item }) {
       name: `${item.name}'s ${item.descendants.length + 1} child`,
       xp: 10,
       parents: [item.id],
-      descendants: []
+      descendants: [],
+      color: item.color
     }
 
     dispatch({ type: ACTIONS.ADD_CHILD, payload: { newItem } })
   }
 
   function NodeData ({ item, children }) {
-    const color = state.data.find(c => c.id === item?.column)?.color
+    // const color = state.data.find(c => c.id === item?.column)?.color
 
     return (
-      <div className='levelNode' style={{ border: `3px solid ${color}` }}>
+      <div className='levelNode' style={{ border: `3px solid ${item?.color}` }}>
         <h3>{item?.name}</h3>
         {children}
       </div>

@@ -3,6 +3,7 @@ import { createColor } from '../utils/color'
 
 function createData () {
   columnData.forEach(column => { column.contents = itemData.filter(i => i.column === column.id) })
+  columnData.forEach(c => { c.contents.forEach(i => { i.color = createColor() }) })
   return columnData
 }
 
