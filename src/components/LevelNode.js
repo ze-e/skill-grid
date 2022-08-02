@@ -32,8 +32,6 @@ export default function LevelNode ({ item }) {
   }
 
   function NodeData ({ item, children }) {
-    // const color = state.data.find(c => c.id === item?.column)?.color
-
     return (
       <div className='levelNode' style={{ border: `3px solid ${item?.color}` }}>
         <h3>{item?.name}</h3>
@@ -51,7 +49,7 @@ export default function LevelNode ({ item }) {
           onClick={() => { dispatch({ type: ACTIONS.REMOVE_ITEM, payload: { item } }) }}>
           Delete
         </button>}
-      {(!descendants || descendants?.length < 3) &&
+      {((!descendants || descendants?.length < 3) && (!state.data[item.column] || state.data[item.column].contents.length < 6)) &&
         <button
           className="levelNode__addItem"
           type='button'

@@ -5,7 +5,7 @@ import { DataContext } from '../contexts/DataContext'
 import { v4 as uuidv4 } from 'uuid'
 import { createColor } from '../utils/color'
 
-export default function LevelColumn ({ id, levels }) {
+export default function LevelColumn ({ id, color, levels }) {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
 
   const [disableButton, setDisableButton] = useState(false)
@@ -44,7 +44,7 @@ export default function LevelColumn ({ id, levels }) {
   }
 
   return (
-    <div className='levelColumn'>
+    <div className='levelColumn' style={{ border: `3px solid ${color}` }}>
       {levels.length > 0 && levels.map(level => {
         return <LevelNode
           key={level.id}
@@ -63,5 +63,6 @@ export default function LevelColumn ({ id, levels }) {
 
 LevelColumn.propTypes = {
   id: PropTypes.number,
+  color: PropTypes.string,
   levels: PropTypes.array
 }

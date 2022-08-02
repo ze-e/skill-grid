@@ -98,7 +98,7 @@ function removeItem (state, { item }) {
     }
   } else {
     // if it is not, then reassign children
-    stateCopy.data[item.column].contents.filter(l => item.descendants.includes(l.id)).forEach(i => { i.parents = setDefaultParent(i.column) })
+    stateCopy.data[item.column]?.contents.filter(l => item.descendants.includes(l.id)).forEach(i => { i.parents = setDefaultParent(i.column) })
   }
 
   const sortFunc = (a, b) => {

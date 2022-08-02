@@ -14,6 +14,7 @@ function App () {
               return <LevelColumn
                 key={column.id}
                 id={column.id}
+                color={column.color}
                 levels={column.contents}
               />
             })}
