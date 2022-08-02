@@ -12,7 +12,8 @@ export default function LevelColumn ({ id, levels }) {
   useEffect(() => {
     // first column can only contain one item
     if (id === 1 || levels.length > 2) setDisableButton(true)
-  })
+    else setDisableButton(false)
+  }, [id, levels])
 
   function setDefaultParent (id) {
     // find the first available item from the last column and add it as parent

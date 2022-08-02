@@ -8,6 +8,7 @@ export default function LevelNode ({ item }) {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
 
   const [allLevels, setAllLevels] = useState([])
+
   useEffect(() => {
     const levels = state.data.map(column => column.contents).reduce((a, b) => a.concat(b), [])
     setAllLevels(levels)
@@ -15,8 +16,6 @@ export default function LevelNode ({ item }) {
 
   const parents = item.parents?.length > 0 ? allLevels.filter(p => item.parents?.includes(p.id)) : null
   const descendants = item.descendants?.length > 0 ? allLevels.filter(p => item.descendants?.includes(p.id)) : null
-
-  const [showFamily, setShowFamily] = useState(false)
 
   function addChild () {
     const newItem = {
@@ -32,12 +31,11 @@ export default function LevelNode ({ item }) {
   }
 
   function NodeData ({ item, children }) {
-    const color = state.data.find(c => c.id === item.column)?.color
+    const color = state.data.find(c => c.id === item?.column)?.color
 
     return (
       <div className='levelNode' style={{ border: `3px solid ${color}` }}>
-        <h3>{item.name}</h3>
-        <h4>{item.xp}</h4>
+        <h3>{item?.name}</h3>
         {children}
       </div>
     )
@@ -45,6 +43,7 @@ export default function LevelNode ({ item }) {
   return (
     <>
       <NodeData item={item}>
+        <h4>XP: {item?.xp}</h4>
         {item.column !== 1 && <button
           className="levelNode__delete"
           type='button'
@@ -59,27 +58,20 @@ export default function LevelNode ({ item }) {
           Add Child
         </button>
       }
-        {showFamily && <div className="levelNode__siblings">
+        <div className="levelNode__siblings">
           {parents?.length > 0 &&
             <>
-            <h3>Parents:</h3>
+            <h3>Previous Skill:</h3>
             {parents.map(parent => <NodeData key={parent.id} item={parent} />)}
             </>
           }
-          {descendants?.length > 0 &&
-            <>
-              <h3>Descendants:</h3>
-              {descendants.map(descendant => <NodeData key={descendant.id} item={descendant} />)}
-            </>
-          }
-        </div>}
-        <button className="levelNode__showFamily" type='button' onClick={() => { setShowFamily(!showFamily) }}>{!showFamily ? 'Show Related' : 'Hide Related'}</button>
+        </div>
       </NodeData>
     </>
   )
 }
 
 LevelNode.propTypes = {
-  item: PropTypes.any,
+  item: PropTypes.object,
   children: PropTypes.any
 }

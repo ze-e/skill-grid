@@ -19,7 +19,6 @@ function App () {
             })}
         </div>
         }
-        <code>{JSON.stringify(state, null, 2)}</code>
       </DataContext.Provider>
   )
 }
