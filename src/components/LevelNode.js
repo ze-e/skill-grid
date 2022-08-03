@@ -22,16 +22,11 @@ export default function LevelNode ({ item, column, blank }) {
     // blanks and first column are always visible
     if (blank) setVisible(true)
     else if (item.column === 1) setVisible(true)
-    // make visible if item is the only child of its parent
-    else if (parents?.length > 0 && parents[0]?.descendants.length === 1) setVisible(true)
-    // make visible if item is the middle child of its parent (2/3)
-    else if (parents?.length > 0 && parents[0]?.descendants.length > 1 && parents[0]?.descendants[1] === item.id) setVisible(true)
-    // make visible if item is on the top edge
-    else if (column[0].id === item.id) setVisible(true)
-    // make visible if item is on the bottom edge
-    else if (column.length - 1 === column.findIndex(i => i.id === item.id)) setVisible(true)
-    else setVisible(false)
-  }, [state])
+    // make visible if item is the first child of its parent
+    else if (parents?.length > 0 && parents[0]?.descendants.length > 0 && parents[0]?.descendants[0] === item.id) setVisible(true)
+    // make visible if column size is less than 4
+    else if (column.length < 3) setVisible(true)
+  }, [parent])
 
   function addChild () {
     const newItem = {
@@ -57,8 +52,8 @@ export default function LevelNode ({ item, column, blank }) {
   }
   return (
     <>
-      <div>{!visible && visible.toString()}</div>
-      {visible && <NodeData item={item}>
+      {visible
+        ? <NodeData item={item}>
         {!blank
           ? <>
           <h4>XP: {item.xp}</h4>
@@ -87,7 +82,14 @@ export default function LevelNode ({ item, column, blank }) {
           </>
           : <div className="levelNode__blank"></div>
         }
-      </NodeData>}
+      </NodeData>
+        : <button
+          className="levelNode__expand"
+          type='button'
+          onClick={() => { setVisible(true) }}>
+          + Show More
+        </button>
+      }
     </>
   )
 }
