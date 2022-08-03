@@ -22,8 +22,10 @@ export default function LevelNode ({ item, column, blank }) {
     // blanks and first column are always visible
     if (blank) setVisible(true)
     else if (item.column === 1) setVisible(true)
-    // make visible if item is the first child of its parent
-    else if (parents?.length > 0 && parents[0]?.descendants.length > 0 && parents[0]?.descendants[0] === item.id) setVisible(true)
+    // make visible if item is the only child of its parent
+    else if (parents?.length > 0 && parents[0]?.descendants.length === 1) setVisible(true)
+    // make visible if item is the second child of its parent
+    else if (parents?.length > 0 && parents[0]?.descendants.length > 1 && parents[0]?.descendants[1] === item.id) setVisible(true)
     // make visible if column size is less than 4
     else if (column.length < 3) setVisible(true)
   }, [parent])

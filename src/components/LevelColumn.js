@@ -29,20 +29,6 @@ export default function LevelColumn ({ id, color, levels }) {
     return null
   }
 
-  // function addBuffers (array) {
-  //   const arrayCopy = [...array]
-  //   const prevColumn = state.data[id - 2] && state.data[id - 2]
-  //   const blankParents = []
-  //   if (prevColumn) prevColumn.contents.forEach((i, index) => { if (i.descendants?.length === 0) blankParents.push(index) })
-  //   console.log('blanks', blankParents)
-  //   if (blankParents.length > 0) {
-  //     blankParents.forEach(i => {
-  //       arrayCopy.splice(i, 0, { id: uuidv4(), column: id, blank: true })
-  //     })
-  //   }
-  //   return arrayCopy
-  // }
-
   function addItem () {
     const newItem = {
       id: uuidv4(),
@@ -58,8 +44,7 @@ export default function LevelColumn ({ id, color, levels }) {
   }
 
   return (
-    <div className='levelColumn' style={{ border: `3px solid ${color}` }}>
-      {/* {levels.length > 0 && addBuffers(levels).map(level => { */}
+    <div className='levelColumn' style={{ border: `1px solid ${color}` }}>
       {levels.length > 0 && levels.map(level => {
         return <LevelNode
           key={level.id}
