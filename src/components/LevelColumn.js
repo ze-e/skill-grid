@@ -11,6 +11,10 @@ export default function LevelColumn ({ id, color, levels }) {
   const [disableButton, setDisableButton] = useState(false)
 
   useEffect(() => {
+    console.log(JSON.stringify(state, null, 2))
+  }, [])
+
+  useEffect(() => {
     // first column can only contain one item
     if (id === 1 || levels.length > 2) setDisableButton(true)
     else setDisableButton(false)
@@ -34,7 +38,7 @@ export default function LevelColumn ({ id, color, levels }) {
       id: uuidv4(),
       column: id,
       name: 'New Level!',
-      xp: 10,
+      skills: ['New skill'],
       parents: setDefaultParent(id),
       descendants: [],
       color: createColor()
@@ -47,10 +51,9 @@ export default function LevelColumn ({ id, color, levels }) {
     <div className='levelColumn' style={{ border: `1px solid ${color}` }}>
       {levels.length > 0 && levels.map(level => {
         return <LevelNode
-          key={level.id}
+          key={level.key}
           item={level}
           column={levels}
-          blank={level.blank}
         />
       })}
         {!disableButton && <button

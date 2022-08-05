@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { DataContext } from '../contexts/DataContext'
 import { v4 as uuidv4 } from 'uuid'
 
-export default function LevelNode ({ item, column, blank }) {
+export default function LevelNode ({ item, column }) {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
 
   const [allLevels, setAllLevels] = useState([])
@@ -12,6 +12,7 @@ export default function LevelNode ({ item, column, blank }) {
 
   const parents = item.parents?.length > 0 ? allLevels.filter(p => item.parents?.includes(p.id)) : null
   const descendants = item.descendants?.length > 0 ? allLevels.filter(p => item.descendants?.includes(p.id)) : null
+  const xp = item.skills.length * 10
 
   useEffect(() => {
     const levels = state.data.map(c => c.contents).reduce((a, b) => a.concat(b), [])
@@ -19,23 +20,22 @@ export default function LevelNode ({ item, column, blank }) {
   }, [state])
 
   useEffect(() => {
-    // blanks and first column are always visible
-    if (blank) setVisible(true)
-    else if (item.column === 1) setVisible(true)
-    // make visible if item is the only child of its parent
-    else if (parents?.length > 0 && parents[0]?.descendants.length === 1) setVisible(true)
-    // make visible if item is the second child of its parent
-    else if (parents?.length > 0 && parents[0]?.descendants.length > 1 && parents[0]?.descendants[1] === item.id) setVisible(true)
-    // make visible if column size is less than 4
-    else if (column.length < 3) setVisible(true)
-  }, [parent])
+    // if (item.column === 1) setVisible(true)
+    // // make visible if item is the only child of its parent
+    // else if (parents?.length > 0 && parents[0]?.descendants.length === 1) setVisible(true)
+    // // make visible if item is the second child of its parent
+    // else if (parents?.length > 0 && parents[0]?.descendants.length > 1 && parents[0]?.descendants[1] === item.id) setVisible(true)
+    // // make visible if column size is less than 4
+    // else if (column.length < 3) setVisible(true)
+    setVisible(true)
+  }, [parents])
 
   function addChild () {
     const newItem = {
       id: uuidv4(),
       column: item.column + 1,
       name: `${item.name}'s ${item.descendants.length + 1} child`,
-      xp: 10,
+      skills: ['My new skill'],
       parents: [item.id],
       descendants: [],
       color: item.color
@@ -56,9 +56,7 @@ export default function LevelNode ({ item, column, blank }) {
     <>
       {visible
         ? <NodeData item={item}>
-        {!blank
-          ? <>
-          <h4>XP: {item.xp}</h4>
+          <h4>XP: {xp}</h4>
           {item.column !== 1 && <button
             className="levelNode__delete"
             type='button'
@@ -81,9 +79,6 @@ export default function LevelNode ({ item, column, blank }) {
               </>
             }
           </div>
-          </>
-          : <div className="levelNode__blank"></div>
-        }
       </NodeData>
         : <button
           className="levelNode__expand"
@@ -98,7 +93,6 @@ export default function LevelNode ({ item, column, blank }) {
 
 LevelNode.propTypes = {
   item: PropTypes.object,
-  blank: PropTypes.bool,
   column: PropTypes.array,
   children: PropTypes.any
 }

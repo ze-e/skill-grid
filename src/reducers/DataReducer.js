@@ -1,8 +1,10 @@
+import { v4 as uuidv4 } from 'uuid'
 import { itemData, columnData } from '../data/sampleData'
 import { createColor } from '../utils/color'
 
 function createData () {
   columnData.forEach(column => { column.contents = itemData.filter(i => i.column === column.id) })
+  columnData.forEach(column => { column.key = uuidv4() })
   columnData.forEach(c => { c.contents.forEach(i => { i.color = createColor() }) })
   return columnData
 }
@@ -82,9 +84,8 @@ function removeItem (state, { item }) {
 
   // if item is only one in column, delete column
   if (column.contents.length === 0) {
-    if (column.id === stateCopy.data.length) {
-      stateCopy.data = stateCopy.data.filter(c => c.id !== column.id)
-    } else {
+    stateCopy.data = stateCopy.data.filter(c => c.id !== column.id)
+    if (column.id !== stateCopy.data.length) {
       // if column is in the middle reconnect parents and children
       stateCopy.data = stateCopy.data.filter(c => c.id !== column.id)
       stateCopy.data.slice(column.id - 1).forEach(c => {
@@ -101,10 +102,14 @@ function removeItem (state, { item }) {
     stateCopy.data[item.column]?.contents.filter(l => item.descendants.includes(l.id)).forEach(i => { i.parents = setDefaultParent(i.column) })
   }
 
+  // reassign column ids
+  stateCopy.data.map(c => c.id > column.id ? c.id-- : c.id)
+
   const sortFunc = (a, b) => {
     return stateCopy.data[a.column - 2].contents.findIndex(item => item.id === a.parents[0]) - stateCopy.data[b.column - 2].contents.findIndex(item => item.id === b.parents[0])
   }
   column.contents.sort(sortFunc)
+  console.log('column' + JSON.stringify(stateCopy.data, null, 2))
   return stateCopy
 }
 
