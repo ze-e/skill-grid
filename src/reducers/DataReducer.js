@@ -104,12 +104,15 @@ function deleteItem (state, { item }) {
   return stateCopy
 }
 
-function setParents (state, { quest, parents }) {
-  if (parents.length < 1) return state
+function setParents (state, { quest, parentIds }) {
+  if (!parentIds || parentIds.length < 1) return state
   const stateCopy = { ...state }
-  quest.parents = [...parents.map(p => p.id)]
+  quest.parents = [...parentIds]
   updateQuest(stateCopy.data.levels, quest)
-  parents.forEach(p => { attachChild(stateCopy.data.levels, quest) })
+
+  // remove quest from old parents and attach to new
+  const prevLevel = getPrevLevel(stateCopy.data.levels, getQuestLevel(stateCopy.data.levels, quest.id).id)
+  prevLevel.quests.forEach(q => { parentIds.includes(q.id) ? q.descendants.push(quest.id) : q.descendants.filter(d => d !== quest.id) })
 
   return stateCopy
 }

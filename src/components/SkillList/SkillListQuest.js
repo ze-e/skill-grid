@@ -1,8 +1,8 @@
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useContext, useState, useEffect, useRef } from 'react'
 import PropTypes from 'prop-types'
 import { DataContext } from '../../contexts/DataContext'
 import { getParents, getDescendants } from '../../utils/quest'
-import { getNextLevel, getQuestLevel } from '../../utils/level'
+import { getNextLevel, getQuestLevel, getPrevLevel } from '../../utils/level'
 import { v4 as uuidv4 } from 'uuid'
 
 // import { debug } from '../../utils/debug'
@@ -11,14 +11,17 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
   const [parents, setParents] = useState(null)
   const [descendants, setDescendants] = useState(null)
+  const [prevLevel, setPrevLevel] = useState(getPrevLevel(state.data.levels, getQuestLevel(state.data.levels, quest.id).id))
 
-  // const [inputParents, setInputParents] = useState([]);
+  const parentInputRef = useRef(null)
+  const [inputParents, setInputParents] = useState(parents)
   const [inputName, setInputName] = useState(quest.name)
   const [edit, setEdit] = useState(false)
 
   useEffect(() => {
     setParents(getParents(state.data?.levels, quest))
     setDescendants(getDescendants(state.data?.levels, quest))
+    setPrevLevel(getPrevLevel(state.data.levels, getQuestLevel(state.data.levels, quest.id).id))
   }, [state])
 
   // add child to next level
@@ -35,12 +38,6 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
     dispatch({ type: ACTIONS.ADD_ITEM, payload: { newItem: newQuest, levelId: getNextLevel(state.data.levels, getQuestLevel(state.data.levels, quest.id).id).id } })
   }
 
-  function handleSubmit (e) {
-    e.preventDefault()
-    dispatch({ type: ACTIONS.CHANGE_NAME, payload: { quest, name: inputName } })
-    setEdit(false)
-  }
-
   return (
     <div className='skillListQuest'>
         {/* <code>{quest.id}</code> */}
@@ -49,7 +46,7 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
               ? <h4 className='skillListQuest__title' style={{ border: `3px solid ${quest.color}` }}>
               {`Quest ${index + 1} - ${quest.name}`}
             </h4>
-              : <form onSubmit={(e) => { handleSubmit(e) }}>
+              : <form onSubmit={(e) => { e.preventDefault(); dispatch({ type: ACTIONS.CHANGE_NAME, payload: { quest, name: inputName } }); setEdit(false) }}>
               <input onChange={(e) => { setInputName(e.target.value) }} value={inputName} placeholder="Enter name..." minLength={3} maxLength={15}/>
               <button type="submit">Submit Name</button>
             </form>
@@ -73,24 +70,40 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
               Delete
             </button>}
           </div>
-          <div className='m-flex'>
-          <div className="m-flexColumn skillListQuest__family">
-            {parents != null && <h5>Prerequisites:</h5>}
-            {parents != null && parents.map(p =>
-              <div key={p.id} style={{ border: `3px solid ${p.color}` }}>
-                {p.name}
-              </div>
-            )}
+          {!edit
+            ? <div className='m-flex'>
+            <div className="m-flexColumn skillListQuest__family">
+              {parents != null && <h5>Prerequisites:</h5>}
+              {parents != null && parents.map(p =>
+                <div key={p.id} style={{ border: `3px solid ${p.color}` }}>
+                  {p.name}
+                </div>
+              )}
+            </div>
+            <div className="m-flexColumn">
+              {descendants != null && <h5>Next lesson:</h5>}
+              {descendants != null && descendants.map(d =>
+                <div key={d.id} style={{ border: `3px solid ${d.color}` }}>
+                  {d.name}
+                </div>
+              )}
+            </div>
           </div>
-          <div className="m-flexColumn">
-            {descendants != null && <h5>Next lesson:</h5>}
-            {descendants != null && descendants.map(d =>
-              <div key={d.id} style={{ border: `3px solid ${d.color}` }}>
-                {d.name}
-              </div>
-            )}
-          </div>
-        </div>
+            : <form onSubmit={(e) => { e.preventDefault(); dispatch({ type: ACTIONS.SET_PARENTS, payload: { quest, parentIds: inputParents } }); setEdit(false) }}>
+            <select
+              name="parents"
+              multiple
+              value={inputParents}
+              onChange={(e) => { setInputParents([...parentInputRef.current.selectedOptions].map(option => option.value)) }}
+              ref={parentInputRef}
+            >
+              {prevLevel && prevLevel.quests.map(q => {
+                return <option key={q.id} value={q.id}>{q.name}</option>
+              })}
+            </select>
+            <button type="submit">Submit Parents</button>
+          </form>
+          }
         {quest.skills.map((skill, index) =>
           <div key={skill} className='skillListQuest__skill'>{`Skill ${index + 1} - ${skill}`}
             <span className='skillListQuest__skillXP'>+10 XP/Gold</span>
