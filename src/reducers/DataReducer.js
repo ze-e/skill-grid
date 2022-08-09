@@ -1,3 +1,4 @@
+import SETTINGS from '../config/constants'
 import { data } from '../data/sampleData'
 import { createColor } from '../utils/color'
 import { getLevel, getLevelIndex, getQuestLevel, getPrevLevel, getQuestLevelIndex } from '../utils/level'
@@ -98,26 +99,32 @@ function deleteItem (state, { item }) {
     })
   }
 
-  sortQuests(stateCopy)
+  sortQuests(stateCopy, level)
 
   return stateCopy
 }
 
 function addSkill (state, { quest, skill }) {
+  if (quest.skills.length === SETTINGS.MAX_SKILLS) return state
+
   const stateCopy = { ...state }
   quest.skills.push(skill)
   const level = getQuestLevel(stateCopy.data.levels, quest.id)
   level.quests.map(q => q.id === quest.id ? quest : q)
   stateCopy.data.levels.map(l => l.id === level.id ? level : l)
+
   return stateCopy
 }
 
 function deleteSkill (state, { quest, skill }) {
+  if (quest.skills.length === 1) return state
+
   const stateCopy = { ...state }
-  quest.skills.filter(s => s !== skill)
+  quest.skills = quest.skills.filter(s => s !== skill)
   const level = getQuestLevel(stateCopy.data.levels, quest.id)
   level.quests.map(q => q.id === quest.id ? quest : q)
   stateCopy.data.levels.map(l => l.id === level.id ? level : l)
+
   return stateCopy
 }
 

@@ -25,7 +25,6 @@ export default function SkillListQuest ({ index, quest }) {
             { <button
             className="m-skillListButton button"
             type='button'
-            // onClick={() => { dispatch({ type: ACTIONS.REMOVE_ITEM, payload: { item: quest } }) }}>
             onClick={() => { dispatch({ type: ACTIONS.DELETE_ITEM, payload: { item: quest } }) }}>
             Delete
           </button>}
@@ -51,8 +50,20 @@ export default function SkillListQuest ({ index, quest }) {
         {quest.skills.map((skill, index) =>
           <div key={skill} className='skillListQuest__skill'>{`Skill ${index + 1} - ${skill}`}
             <span className='skillListQuest__skillXP'>+10 XP/Gold</span>
+            {quest.skills.length > 1 && <button
+              className="m-skillListButton button"
+              type='button'
+              onClick={() => { dispatch({ type: ACTIONS.DELETE_SKILL, payload: { quest, skill } }) }}>
+              Delete Skill
+            </button>}
           </div>
         )}
+        <button
+          className="m-skillListButton button"
+          type='button'
+          onClick={() => { dispatch({ type: ACTIONS.ADD_SKILL, payload: { quest, skill: `My New Skill ${Math.floor(Math.random() * 1000)}` } }) }}>
+          Add Skill
+        </button>
     </div>
   )
 }
