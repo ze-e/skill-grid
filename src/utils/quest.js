@@ -1,4 +1,5 @@
 
+import { debug } from './debug'
 export function setDefaultParent (levels, currentLevelIndex) {
   // find the first available item from the last column and add it as parent
   const parentQuests = levels[currentLevelIndex - 1]?.quests
@@ -13,6 +14,13 @@ export function setDefaultParent (levels, currentLevelIndex) {
   return null
 }
 
+export function attachChild (levels, child) {
+  const parents = getParents(levels, child)
+  debug({ parents }, 'before')
+  if (parents) parents.forEach(p => p.descendants.push(child.id))
+  debug({ parents }, 'after')
+}
+
 export function getAllQuests (levels) {
   return levels.map(l => l.quests).reduce((a, b) => a.concat(b), [])
 }
@@ -23,4 +31,11 @@ export function getParents (levels, quest) {
 
 export function getDescendants (levels, quest) {
   return quest?.descendants?.length > 0 ? getAllQuests(levels).filter(q => quest.descendants.includes(q.id)) : null
+}
+
+export function sortQuests (levels) {
+  const sortFunc = (questA, questB) => {
+    return getPrevLevel(levels, getQuestLevel(levels, questA.id).id).quests.findIndex(item => item.id === questA.parents[0]) - getPrevLevel(levels, getQuestLevel(levels, questB.id).id).quests.findIndex(item => item.id === questB.parents[0])
+  }
+  return level.quests.sort(sortFunc)
 }

@@ -1,9 +1,10 @@
 import { data } from '../data/sampleData'
 import { createColor } from '../utils/color'
 import { getLevel, getLevelIndex, getQuestLevel, getPrevLevel, getQuestLevelIndex } from '../utils/level'
+import { attachChild, getDescendants, setDefaultParent, sortQuests } from '../utils/quest'
 
 import { v4 as uuidv4 } from 'uuid'
-import { setDefaultParent } from '../utils/quest'
+
 // import { debug } from '../utils/debug'
 function createData () {
   data.levels.forEach(level => {
@@ -21,7 +22,9 @@ export const initialState = {
 export const ACTIONS = {
   HELLO_WORLD: 'hello-world',
   ADD_ITEM: 'add-item',
-  DELETE_ITEM: 'delete-item'
+  DELETE_ITEM: 'delete-item',
+  ADD_SKILL: 'add-skill',
+  DELETE_SKILL: 'delete-skill'
 }
 
 function DataReducer (state, action) {
@@ -31,6 +34,8 @@ function DataReducer (state, action) {
       return state
     case ACTIONS.ADD_ITEM: return addItem(state, action.payload)
     case ACTIONS.DELETE_ITEM: return deleteItem(state, action.payload)
+    case ACTIONS.ADD_SKILL: return addSkill(state, action.payload)
+    case ACTIONS.DELETE_SKILL: return deleteSkill(state, action.payload)
     default: throw new Error(`Unknown action type: ${action.type}`)
   }
 }
@@ -64,7 +69,13 @@ function deleteItem (state, { item }) {
   const stateCopy = { ...state }
   const level = getQuestLevel(stateCopy.data.levels, item.id)
   if (level === null) return stateCopy
+
   const levelIndex = getLevelIndex(stateCopy.data.levels, level.id)
+
+  // last quest in first level cannot be deleted
+  if (levelIndex === 0 && level.quests.length === 0) {
+    return stateCopy
+  }
 
   // remove item id from parent
   const newParents = getPrevLevel(stateCopy.data.levels, level.id).quests.filter(quest => item.parents.includes(quest.id))
@@ -73,29 +84,40 @@ function deleteItem (state, { item }) {
   // remove quest from level
   level.quests = level.quests.filter(q => q.id !== item.id)
 
-  // if item is only one in level, delete level. first level cannot be deleted
-  if (levelIndex !== 0 && level.quests.length === 0) {
+  // if item is only one in level, delete level.
+  if (level.quests.length === 0) {
     stateCopy.data.levels = stateCopy.data.levels.filter(l => l.id !== level.id)
   }
 
-  // if column is in the middle reconnect parents and children
-  if (levelIndex !== stateCopy.data.levels.length - 1) {
-    stateCopy.data.levels.slice(levelIndex).forEach(l => {
-      l.quests.forEach(q => {
-        q.parents = setDefaultParent(stateCopy.data.levels, getLevelIndex(stateCopy.data.levels, l.id))
-        if (q.parents) getPrevLevel(stateCopy.data.levels, l.id).quests.find(q => q.id === q.parents[0])?.descendants.push(q.id)
-      })
+  // reattach parents and children
+  const descendants = getDescendants(stateCopy.data.levels, item)
+  if (descendants) {
+    descendants.forEach(d => {
+      d.parents = setDefaultParent(stateCopy.data.levels, getQuestLevelIndex(stateCopy.data.levels, d.id))
+      attachChild(stateCopy.data.levels, d)
     })
-  } else {
-    // reassign children
-    level.quests = level.quests.filter(q => item.descendants.includes(q.id)).forEach(q => { q.parents = setDefaultParent(stateCopy.data.levels, getQuestLevelIndex(stateCopy.data.levels, q.id)) })
   }
 
-  // const sortFunc = (questA, questB) => {
-  //   return getPrevLevel(stateCopy.data.levels, getQuestLevel(stateCopy.data.levels, questA.id).id).quests.findIndex(item => item.id === questA.parents[0]) - getPrevLevel(stateCopy.data.levels, getQuestLevel(stateCopy.data.levels, questB.id).id).quests.findIndex(item => item.id === questB.parents[0])
-  // }
-  // level.quests.sort(sortFunc)
+  sortQuests(stateCopy)
 
+  return stateCopy
+}
+
+function addSkill (state, { quest, skill }) {
+  const stateCopy = { ...state }
+  quest.skills.push(skill)
+  const level = getQuestLevel(stateCopy.data.levels, quest.id)
+  level.quests.map(q => q.id === quest.id ? quest : q)
+  stateCopy.data.levels.map(l => l.id === level.id ? level : l)
+  return stateCopy
+}
+
+function deleteSkill (state, { quest, skill }) {
+  const stateCopy = { ...state }
+  quest.skills.filter(s => s !== skill)
+  const level = getQuestLevel(stateCopy.data.levels, quest.id)
+  level.quests.map(q => q.id === quest.id ? quest : q)
+  stateCopy.data.levels.map(l => l.id === level.id ? level : l)
   return stateCopy
 }
 
