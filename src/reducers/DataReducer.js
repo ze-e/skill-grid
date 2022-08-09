@@ -23,7 +23,9 @@ export const initialState = {
 export const ACTIONS = {
   HELLO_WORLD: 'hello-world',
   ADD_ITEM: 'add-item',
+  CHANGE_NAME: 'change-name',
   DELETE_ITEM: 'delete-item',
+  SET_PARENTS: 'set-parents',
   ADD_SKILL: 'add-skill',
   DELETE_SKILL: 'delete-skill'
 }
@@ -35,6 +37,8 @@ function DataReducer (state, action) {
       return state
     case ACTIONS.ADD_ITEM: return addItem(state, action.payload)
     case ACTIONS.DELETE_ITEM: return deleteItem(state, action.payload)
+    case ACTIONS.CHANGE_NAME: return changeName(state, action.payload)
+    case ACTIONS.SET_PARENTS: return setParents(state, action.payload)
     case ACTIONS.ADD_SKILL: return addSkill(state, action.payload)
     case ACTIONS.DELETE_SKILL: return deleteSkill(state, action.payload)
     default: throw new Error(`Unknown action type: ${action.type}`)
@@ -100,14 +104,31 @@ function deleteItem (state, { item }) {
   return stateCopy
 }
 
+function setParents (state, { quest, parents }) {
+  if (parents.length < 1) return state
+  const stateCopy = { ...state }
+  quest.parents = [...parents.map(p => p.id)]
+  updateQuest(stateCopy.data.levels, quest)
+  parents.forEach(p => { attachChild(stateCopy.data.levels, quest) })
+
+  return stateCopy
+}
+
+function changeName (state, { quest, name }) {
+  if (name.length < 1) return state
+  const stateCopy = { ...state }
+  quest.name = name
+  updateQuest(stateCopy.data.levels, quest)
+
+  return stateCopy
+}
+
 function addSkill (state, { quest, skill }) {
   if (quest.skills.length === SETTINGS.MAX_SKILLS) return state
 
   const stateCopy = { ...state }
   quest.skills.push(skill)
-  const level = getQuestLevel(stateCopy.data.levels, quest.id)
-  level.quests.map(q => q.id === quest.id ? quest : q)
-  stateCopy.data.levels.map(l => l.id === level.id ? level : l)
+  updateQuest(stateCopy.data.levels, quest)
 
   return stateCopy
 }
@@ -117,11 +138,13 @@ function deleteSkill (state, { quest, skill }) {
 
   const stateCopy = { ...state }
   quest.skills = quest.skills.filter(s => s !== skill)
-  const level = getQuestLevel(stateCopy.data.levels, quest.id)
-  level.quests.map(q => q.id === quest.id ? quest : q)
-  stateCopy.data.levels.map(l => l.id === level.id ? level : l)
+  updateQuest(stateCopy.data.levels, quest)
 
   return stateCopy
+}
+
+function updateQuest (levels, quest) {
+  return getQuestLevel(levels, quest.id).quests.map(q => q.id === quest.id ? quest : q)
 }
 
 export default DataReducer

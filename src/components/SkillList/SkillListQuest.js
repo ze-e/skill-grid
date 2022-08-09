@@ -8,9 +8,13 @@ import { v4 as uuidv4 } from 'uuid'
 // import { debug } from '../../utils/debug'
 
 export default function SkillListQuest ({ index, quest, levelIndex }) {
+  const { state, dispatch, ACTIONS } = useContext(DataContext)
   const [parents, setParents] = useState(null)
   const [descendants, setDescendants] = useState(null)
-  const { state, dispatch, ACTIONS } = useContext(DataContext)
+
+  // const [inputParents, setInputParents] = useState([]);
+  const [inputName, setInputName] = useState(quest.name)
+  const [edit, setEdit] = useState(false)
 
   useEffect(() => {
     setParents(getParents(state.data?.levels, quest))
@@ -31,25 +35,43 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
     dispatch({ type: ACTIONS.ADD_ITEM, payload: { newItem: newQuest, levelId: getNextLevel(state.data.levels, getQuestLevel(state.data.levels, quest.id).id).id } })
   }
 
+  function handleSubmit (e) {
+    e.preventDefault()
+    dispatch({ type: ACTIONS.CHANGE_NAME, payload: { quest, name: inputName } })
+    setEdit(false)
+  }
+
   return (
     <div className='skillListQuest'>
         {/* <code>{quest.id}</code> */}
           <div className='skillListQuest__head'>
-            <h4 className='skillListQuest__title' style={{ border: `3px solid ${quest.color}` }}>
+            { !edit
+              ? <h4 className='skillListQuest__title' style={{ border: `3px solid ${quest.color}` }}>
               {`Quest ${index + 1} - ${quest.name}`}
             </h4>
-          <button
-            className="m-skillListButton button"
-            type='button'
-            onClick={addChild}>
-            Add Child
-          </button>
-          {levelIndex !== 0 && <button
-            className="m-skillListButton button"
-            type='button'
-            onClick={() => { dispatch({ type: ACTIONS.DELETE_ITEM, payload: { item: quest } }) }}>
-            Delete
-          </button>}
+              : <form onSubmit={(e) => { handleSubmit(e) }}>
+              <input onChange={(e) => { setInputName(e.target.value) }} value={inputName} placeholder="Enter name..." minLength={3} maxLength={15}/>
+              <button type="submit">Submit Name</button>
+            </form>
+            }
+            <button
+              className="m-skillListButton button"
+              type='button'
+              onClick={() => { setEdit(!edit) }}>
+              {!edit ? 'Edit' : 'Done editing'}
+            </button>
+            <button
+              className="m-skillListButton button"
+              type='button'
+              onClick={addChild}>
+              Add Child
+            </button>
+            {levelIndex !== 0 && <button
+              className="m-skillListButton button"
+              type='button'
+              onClick={() => { dispatch({ type: ACTIONS.DELETE_ITEM, payload: { item: quest } }) }}>
+              Delete
+            </button>}
           </div>
           <div className='m-flex'>
           <div className="m-flexColumn skillListQuest__family">
