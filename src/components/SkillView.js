@@ -1,15 +1,17 @@
-import React, { useReducer } from 'react'
-import LevelColumn from './LevelColumn'
-import SkillList from './SkillList'
+// import React, { useReducer } from 'react'
+import React from 'react'
 
-import DataReducer, { initialState } from '../reducers/DataReducer'
+// import LevelColumn from './LevelColumn'
+import SkillList from './SkillList/SkillList'
+
+// import DataReducer, { initialState } from '../reducers/DataReducer'
 
 function SkillView () {
-  const [state] = useReducer(DataReducer, initialState)
+  // const [state] = useReducer(DataReducer, initialState)
 
   return (
         <>
-          <section className='skillView__tree'>
+          {/* <section className='skillView__tree'>
           {state?.data.length > 0 && state.data.map(column => {
             return <LevelColumn
               key={column.key}
@@ -18,7 +20,7 @@ function SkillView () {
               levels={column.contents}
             />
           })}
-          </section>
+          </section> */}
           <SkillList/>
         </>
   )

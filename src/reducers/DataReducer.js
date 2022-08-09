@@ -1,12 +1,15 @@
-import { v4 as uuidv4 } from 'uuid'
-import { itemData, columnData } from '../data/sampleData'
+import { data } from '../data/sampleData'
 import { createColor } from '../utils/color'
+import { getLevel, getLevelIndex, getQuestLevel, getPrevLevel, getQuestLevelIndex } from '../utils/level'
 
+import { v4 as uuidv4 } from 'uuid'
+import { setDefaultParent } from '../utils/quest'
+// import { debug } from '../utils/debug'
 function createData () {
-  columnData.forEach(column => { column.contents = itemData.filter(i => i.column === column.id) })
-  columnData.forEach(column => { column.key = uuidv4() })
-  columnData.forEach(c => { c.contents.forEach(i => { i.color = createColor() }) })
-  return columnData
+  data.levels.forEach(level => {
+    level.quests.forEach(quest => { quest.color = createColor() })
+  })
+  return data
 }
 
 export const initialState = {
@@ -16,10 +19,8 @@ export const initialState = {
 
 export const ACTIONS = {
   HELLO_WORLD: 'hello-world',
-  ADD_CHILD: 'add-child',
-  REMOVE_ITEM: 'remove-item',
-  MOVE_ITEM: 'move-item',
-  SET_ACTIVE: 'setactive'
+  ADD_ITEM: 'add-item',
+  DELETE_ITEM: 'delete-item'
 }
 
 function DataReducer (state, action) {
@@ -27,111 +28,69 @@ function DataReducer (state, action) {
     case ACTIONS.HELLO_WORLD:
       console.log('HELLO', action.payload)
       return state
-    case ACTIONS.ADD_CHILD: return addChild(state, action.payload)
-    case ACTIONS.REMOVE_ITEM: return removeItem(state, action.payload)
-    case ACTIONS.MOVE_ITEM: return moveItem(state, action.payload)
-    case ACTIONS.SET_ACTIVE: return setActive(state, action.payload)
+    case ACTIONS.ADD_ITEM: return addItem(state, action.payload)
+    case ACTIONS.DELETE_ITEM: return deleteItem(state, action.payload)
     default: throw new Error(`Unknown action type: ${action.type}`)
   }
 }
 
-function addChild (state, { newItem }) {
+function addItem (state, { newItem, levelId }) {
   const stateCopy = { ...state }
+  let levels = stateCopy.data.levels
 
   // add newItem id to parent
-  stateCopy.data.forEach(column => {
-    const newParent = column.contents.find(level => level.id === newItem.parents[0])
+  levels.forEach(level => {
+    const newParent = level.quests.find(level => level.id === newItem.parents[0])
     newParent?.descendants.push(newItem.id)
   })
 
-  // add newItem to column if column exists, otherwise create new column
-  let column = stateCopy.data.find(column => column.id === newItem.column)
-  if (column) column.contents = [...column.contents, newItem]
+  // add newItem to level if level exists, otherwise create new level
+  let level = getLevel(levels, levelId)
+  if (level) level.quests = [...level.quests, newItem]
   else {
-    stateCopy.data = [...stateCopy.data, { id: newItem.column, color: createColor(), contents: [newItem] }]
-    column = stateCopy.data.find(column => column.id === newItem.column)
+    levels = [...levels, { id: uuidv4(), color: createColor(), quests: [newItem] }]
+    level = getLevel(levels, levelId)
   }
-  const sortFunc = (a, b) => {
-    return stateCopy.data[a.column - 2].contents.findIndex(item => item.id === a.parents[0]) - stateCopy.data[b.column - 2].contents.findIndex(item => item.id === b.parents[0])
+
+  const sortFunc = (questA, questB) => {
+    return getPrevLevel(levels, getQuestLevel(levels, questA.id).id).quests.findIndex(item => item.id === questA.parents[0]) - getPrevLevel(levels, getQuestLevel(levels, questB.id).id).quests.findIndex(item => item.id === questB.parents[0])
   }
-  column.contents.sort(sortFunc)
+  level.quests.sort(sortFunc)
   return stateCopy
 }
 
-function removeItem (state, { item }) {
+function deleteItem (state, { item }) {
   const stateCopy = { ...state }
+  const level = getQuestLevel(stateCopy.data.levels, item.id)
+  if (level === null) return stateCopy
+  const levelIndex = getLevelIndex(stateCopy.data.levels, level.id)
 
-  function setDefaultParent (id) {
-    // find the first available item from the last column and add it as parent
-    // since columns start at one, you need to subtract 2
-    const parentLevels = stateCopy.data[id - 2].contents
-
-    for (let i = parentLevels.length - 1; i >= 0; i--) {
-      if (parentLevels[i].descendants.length < 3) return [parentLevels[i].id]
-    }
-
-    // if none are available, then you cannot add a new item
-    return null
-  }
-
-  // remove newItem id from parent
-  const newParents = stateCopy.data[item.column - 2].contents.filter(level => item.parents.includes(level.id))
+  // remove item id from parent
+  const newParents = getPrevLevel(stateCopy.data.levels, level.id).quests.filter(quest => item.parents.includes(quest.id))
   if (newParents.length > 0) newParents.forEach(parent => { parent.descendants = parent.descendants.filter(i => i !== item.id) })
 
-  // remove item from column
-  const column = stateCopy.data.find(column => column.id === item.column)
-  column.contents = column.contents.filter(c => c.id !== item.id)
+  // remove quest from level
+  level.quests = level.quests.filter(q => q.id !== item.id)
 
-  // if item is only one in column, delete column
-  if (column.contents.length === 0) {
-    stateCopy.data = stateCopy.data.filter(c => c.id !== column.id)
-    if (column.id !== stateCopy.data.length) {
-      // if column is in the middle reconnect parents and children
-      stateCopy.data = stateCopy.data.filter(c => c.id !== column.id)
-      stateCopy.data.slice(column.id - 1).forEach(c => {
-        c.id--
-        c.contents.forEach(i => {
-          i.column--
-          i.parents = setDefaultParent(i.column)
-          if (i.parents) stateCopy.data[column.id - 2].contents.find(d => d.id === i.parents[0])?.descendants.push(i.id)
-        })
+  // if item is only one in level, delete level. first level cannot be deleted
+  if (levelIndex !== 0 && level.quests.length === 0) {
+    stateCopy.data.levels = stateCopy.data.levels.filter(l => l.id !== level.id)
+  }
+
+  // if column is in the middle reconnect parents and children
+  if (levelIndex !== stateCopy.data.levels.length - 1) {
+    stateCopy.data.levels.slice(levelIndex).forEach(l => {
+      l.quests.forEach(q => {
+        q.parents = setDefaultParent(stateCopy.data.levels, getLevelIndex(stateCopy.data.levels, l.id))
+        if (q.parents) getPrevLevel(stateCopy.data.levels, l.id).quests.find(q => q.id === q.parents[0])?.descendants.push(q.id)
       })
-    }
+    })
   } else {
-    // if it is not, then reassign children
-    stateCopy.data[item.column]?.contents.filter(l => item.descendants.includes(l.id)).forEach(i => { i.parents = setDefaultParent(i.column) })
+    // reassign children
+    level.quests = level.quests.filter(q => item.descendants.includes(q.id)).forEach(q => { q.parents = setDefaultParent(stateCopy.data.levels, getQuestLevelIndex(stateCopy.data.levels, q.id)) })
   }
 
-  // reassign column ids
-  stateCopy.data.map(c => c.id > column.id ? c.id-- : c.id)
-
-  const sortFunc = (a, b) => {
-    return stateCopy.data[a.column - 2].contents.findIndex(item => item.id === a.parents[0]) - stateCopy.data[b.column - 2].contents.findIndex(item => item.id === b.parents[0])
-  }
-  column.contents.sort(sortFunc)
-  console.log('column' + JSON.stringify(stateCopy.data, null, 2))
   return stateCopy
-}
-
-function moveItem (state, { item, changeBy }) {
-  // move item position
-  const stateCopy = { ...state }
-  const column = stateCopy.data.find(column => column.id === item.column)
-  const position = column.contents.findIndex(i => i.id === item.id)
-  if (position + changeBy >= 0 && position + changeBy < column.contents.length) {
-    column.contents.splice(position, 1)
-    column.contents.splice(position + changeBy, 0, item)
-  }
-  const sortFunc = (a, b) => {
-    return stateCopy.data[a.column - 2].contents.findIndex(item => item.id === a.parents[0]) - stateCopy.data[b.column - 2].contents.findIndex(item => item.id === b.parents[0])
-  }
-  column.contents.sort(sortFunc)
-  return stateCopy
-}
-
-function setActive (state, { activeColumn }) {
-  state.activeColumn = activeColumn
-  return state
 }
 
 export default DataReducer

@@ -1,18 +1,14 @@
 import React, { useState, useEffect, useContext } from 'react'
-import LevelNode from './LevelNode'
+import LevelNode from './SkillTreeNode'
 import PropTypes from 'prop-types'
-import { DataContext } from '../contexts/DataContext'
+import { DataContext } from '../../contexts/DataContext'
 import { v4 as uuidv4 } from 'uuid'
-import { createColor } from '../utils/color'
+import { createColor } from '../../utils/color'
 
 export default function LevelColumn ({ id, color, levels }) {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
 
   const [disableButton, setDisableButton] = useState(false)
-
-  useEffect(() => {
-    console.log(JSON.stringify(state, null, 2))
-  }, [])
 
   useEffect(() => {
     // first column can only contain one item
