@@ -89,7 +89,7 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
               )}
             </div>
           </div>
-            : <form onSubmit={(e) => { e.preventDefault(); dispatch({ type: ACTIONS.SET_PARENTS, payload: { quest, parentIds: inputParents } }); setEdit(false) }}>
+            : levelIndex !== 0 && <form onSubmit={(e) => { e.preventDefault(); dispatch({ type: ACTIONS.SET_PARENTS, payload: { quest, parentIds: inputParents } }); setEdit(false) }}>
             <select
               name="parents"
               multiple
@@ -102,8 +102,7 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
               })}
             </select>
             <button type="submit">Submit Parents</button>
-          </form>
-          }
+          </form>}
         {quest.skills.map((skill, index) =>
           <div key={skill} className='skillListQuest__skill'>{`Skill ${index + 1} - ${skill}`}
             <span className='skillListQuest__skillXP'>+10 XP/Gold</span>

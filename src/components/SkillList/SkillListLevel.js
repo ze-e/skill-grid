@@ -15,7 +15,7 @@ export default function SkillListLevel ({ index, level }) {
 
   useEffect(() => {
     setLevels(state.data.levels)
-  }, [state.data])
+  }, [state])
 
   // get total XP for level
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function SkillListLevel ({ index, level }) {
       const xp = 10 * (level.quests.length > 1 ? level.quests.reduce((a, b) => (a.skills.length + b.skills.length)) : level.quests[0]?.skills.length)
       setLevelXP(xp)
     }
-  }, [level])
+  }, [state])
 
   // disable button under certain conditions
   const [disableButton, setDisableButton] = useState(false)
