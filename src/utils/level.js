@@ -25,3 +25,11 @@ export function getPrevLevelIndex (levels, id) {
 export function getPrevLevel (levels, id) {
   return levels[getPrevLevelIndex(levels, id)]
 }
+
+export function getNextLevelIndex (levels, id) {
+  return levels.findIndex(level => level.id === id) + 1
+}
+
+export function getNextLevel (levels, id) {
+  return levels[getNextLevelIndex(levels, id)]
+}

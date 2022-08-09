@@ -1,8 +1,10 @@
 import React, { useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { DataContext } from '../../contexts/DataContext'
-
 import { getParents, getDescendants } from '../../utils/quest'
+import { getNextLevel, getQuestLevel } from '../../utils/level'
+import { v4 as uuidv4 } from 'uuid'
+
 // import { debug } from '../../utils/debug'
 
 export default function SkillListQuest ({ index, quest }) {
@@ -15,6 +17,20 @@ export default function SkillListQuest ({ index, quest }) {
     setDescendants(getDescendants(state.data?.levels, quest))
   }, [state])
 
+  // add child to next level
+  function addChild () {
+    const newQuest = {
+      id: uuidv4(),
+      name: `${quest.name}'s ${descendants ? descendants.length + 1 : 1} child`,
+      skills: ['New skill'],
+      parents: [quest.id],
+      descendants: [],
+      color: quest.color
+    }
+
+    dispatch({ type: ACTIONS.ADD_ITEM, payload: { newItem: newQuest, levelId: getNextLevel(state.data.levels, getQuestLevel(state.data.levels, quest.id).id).id } })
+  }
+
   return (
     <div className='skillListQuest'>
         {/* <code>{quest.id}</code> */}
@@ -22,12 +38,18 @@ export default function SkillListQuest ({ index, quest }) {
             <h4 className='skillListQuest__title' style={{ border: `3px solid ${quest.color}` }}>
               {`Quest ${index + 1} - ${quest.name}`}
             </h4>
-            { <button
+          <button
+            className="m-skillListButton button"
+            type='button'
+            onClick={addChild}>
+            Add Child
+          </button>
+            <button
             className="m-skillListButton button"
             type='button'
             onClick={() => { dispatch({ type: ACTIONS.DELETE_ITEM, payload: { item: quest } }) }}>
             Delete
-          </button>}
+          </button>
           </div>
           <div className='m-flex'>
           <div className="m-flexColumn skillListQuest__family">

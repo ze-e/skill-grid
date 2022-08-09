@@ -2,7 +2,8 @@ import SETTINGS from '../config/constants'
 import { data } from '../data/sampleData'
 import { createColor } from '../utils/color'
 import { getLevel, getLevelIndex, getQuestLevel, getPrevLevel, getQuestLevelIndex } from '../utils/level'
-import { attachChild, getDescendants, setDefaultParent, sortQuests } from '../utils/quest'
+// import { attachChild, getDescendants, setDefaultParent, sortQuests } from '../utils/quest'
+import { attachChild, getDescendants, setDefaultParent } from '../utils/quest'
 
 import { v4 as uuidv4 } from 'uuid'
 
@@ -43,26 +44,23 @@ function DataReducer (state, action) {
 
 function addItem (state, { newItem, levelId }) {
   const stateCopy = { ...state }
-  let levels = stateCopy.data.levels
+  // let levels = stateCopy.data.levels
 
   // add newItem id to parent
-  levels.forEach(level => {
+  stateCopy.data.levels.forEach(level => {
     const newParent = level.quests.find(level => level.id === newItem.parents[0])
     newParent?.descendants.push(newItem.id)
   })
 
   // add newItem to level if level exists, otherwise create new level
-  let level = getLevel(levels, levelId)
+  let level = getLevel(stateCopy.data.levels, levelId)
   if (level) level.quests = [...level.quests, newItem]
   else {
-    levels = [...levels, { id: uuidv4(), color: createColor(), quests: [newItem] }]
-    level = getLevel(levels, levelId)
+    stateCopy.data.levels = [...stateCopy.data.levels, { id: uuidv4(), color: createColor(), quests: [newItem] }]
+    level = getLevel(stateCopy.data.levels, levelId)
   }
 
-  const sortFunc = (questA, questB) => {
-    return getPrevLevel(levels, getQuestLevel(levels, questA.id).id).quests.findIndex(item => item.id === questA.parents[0]) - getPrevLevel(levels, getQuestLevel(levels, questB.id).id).quests.findIndex(item => item.id === questB.parents[0])
-  }
-  level.quests.sort(sortFunc)
+  // sortQuests(stateCopy.data.levels, level)
   return stateCopy
 }
 
@@ -99,7 +97,7 @@ function deleteItem (state, { item }) {
     })
   }
 
-  sortQuests(stateCopy, level)
+  // sortQuests(stateCopy.data.levels, level)
 
   return stateCopy
 }
