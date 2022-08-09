@@ -7,6 +7,7 @@ import { setDefaultParent } from '../utils/quest'
 // import { debug } from '../utils/debug'
 function createData () {
   data.levels.forEach(level => {
+    // level.id = uuidv4()
     level.quests.forEach(quest => { quest.color = createColor() })
   })
   return data
@@ -89,6 +90,11 @@ function deleteItem (state, { item }) {
     // reassign children
     level.quests = level.quests.filter(q => item.descendants.includes(q.id)).forEach(q => { q.parents = setDefaultParent(stateCopy.data.levels, getQuestLevelIndex(stateCopy.data.levels, q.id)) })
   }
+
+  // const sortFunc = (questA, questB) => {
+  //   return getPrevLevel(stateCopy.data.levels, getQuestLevel(stateCopy.data.levels, questA.id).id).quests.findIndex(item => item.id === questA.parents[0]) - getPrevLevel(stateCopy.data.levels, getQuestLevel(stateCopy.data.levels, questB.id).id).quests.findIndex(item => item.id === questB.parents[0])
+  // }
+  // level.quests.sort(sortFunc)
 
   return stateCopy
 }
