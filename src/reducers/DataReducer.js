@@ -7,8 +7,8 @@ import { setDefaultParent } from '../utils/quest'
 // import { debug } from '../utils/debug'
 function createData () {
   data.levels.forEach(level => {
-    // level.id = uuidv4()
-    level.quests.forEach(quest => { quest.color = createColor() })
+    level.id = uuidv4()
+    level.quests.forEach(quest => { quest.color = quest.parents.length > 0 && quest.parents[0]?.color !== undefined ? quest.parents[0]?.color : createColor() })
   })
   return data
 }

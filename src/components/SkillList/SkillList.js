@@ -16,7 +16,7 @@ export default function SkillList () {
           level={level}
         />
       })}
-      <code>{JSON.stringify(levels, null, 2)}</code>
+      {/* <code>{JSON.stringify(levels, null, 2)}</code> */}
     </div>
   )
 }

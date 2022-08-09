@@ -13,7 +13,7 @@ function SkillView () {
           <section className='skillView__tree'>
             {levels.length > 0 && levels.map(level => {
               return <SkillTreeColumn
-                key={level.key}
+                key={level.id}
                 color={level.color}
                 quests={level.quests}
               />

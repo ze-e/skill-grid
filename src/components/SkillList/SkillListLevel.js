@@ -50,7 +50,7 @@ export default function SkillListLevel ({ index, level }) {
 
   return (
     <div className='skillListLevel'>
-      <code>{level.id}</code>
+      {/* <code>{level.id}</code> */}
         <div className='skillListLevel__title'>
           <h3>{`Level ${index + 1}`}</h3>
           <h3>{` ${levelXP} XP/ Gold`}</h3>

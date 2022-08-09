@@ -1,7 +1,6 @@
 export const data = {
   levels: [
     {
-      id: 'b2e99b34-aaf4-46a5-8ebb-7e6cd2771f7c',
       quests: [
         {
           id: 'c950b2e3-8b9d-4e6b-9bea-bd677779d7ae',
@@ -13,7 +12,6 @@ export const data = {
       ]
     },
     {
-      id: '9162d520-f906-4f63-a9cf-88581f65b972',
       quests: [
         {
           id: '0166b45e-9b46-413e-951c-e4a8b0932c59',
@@ -29,7 +27,6 @@ export const data = {
     },
     {
       // id goes here
-      id: '9d87bd25-1523-4f73-ba2e-e4dabe0f214d',
       quests: [
         {
           id: '3acc1285-a613-475c-9626-5880b561efb4',
@@ -61,7 +58,6 @@ export const data = {
       ]
     },
     {
-      id: '47d51239-a0b4-489b-9532-1973daa050b0',
       quests: [
         {
           id: 'e74ded8c-029b-4799-89fe-283e1611e361',
