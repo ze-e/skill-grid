@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 // import { debug } from '../../utils/debug'
 
-export default function SkillListQuest ({ index, quest }) {
+export default function SkillListQuest ({ index, quest, levelIndex }) {
   const [parents, setParents] = useState(null)
   const [descendants, setDescendants] = useState(null)
   const { state, dispatch, ACTIONS } = useContext(DataContext)
@@ -44,12 +44,12 @@ export default function SkillListQuest ({ index, quest }) {
             onClick={addChild}>
             Add Child
           </button>
-            <button
+          {levelIndex !== 0 && <button
             className="m-skillListButton button"
             type='button'
             onClick={() => { dispatch({ type: ACTIONS.DELETE_ITEM, payload: { item: quest } }) }}>
             Delete
-          </button>
+          </button>}
           </div>
           <div className='m-flex'>
           <div className="m-flexColumn skillListQuest__family">
@@ -92,5 +92,6 @@ export default function SkillListQuest ({ index, quest }) {
 
 SkillListQuest.propTypes = {
   index: PropTypes.number,
+  levelIndex: PropTypes.number,
   quest: PropTypes.object
 }

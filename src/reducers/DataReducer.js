@@ -2,8 +2,7 @@ import SETTINGS from '../config/constants'
 import { data } from '../data/sampleData'
 import { createColor } from '../utils/color'
 import { getLevel, getLevelIndex, getQuestLevel, getPrevLevel, getQuestLevelIndex } from '../utils/level'
-// import { attachChild, getDescendants, setDefaultParent, sortQuests } from '../utils/quest'
-import { attachChild, getDescendants, setDefaultParent } from '../utils/quest'
+import { attachChild, getDescendants, setDefaultParent, sortQuests } from '../utils/quest'
 
 import { v4 as uuidv4 } from 'uuid'
 
@@ -44,7 +43,6 @@ function DataReducer (state, action) {
 
 function addItem (state, { newItem, levelId }) {
   const stateCopy = { ...state }
-  // let levels = stateCopy.data.levels
 
   // add newItem id to parent
   stateCopy.data.levels.forEach(level => {
@@ -60,7 +58,7 @@ function addItem (state, { newItem, levelId }) {
     level = getLevel(stateCopy.data.levels, levelId)
   }
 
-  // sortQuests(stateCopy.data.levels, level)
+  sortQuests(stateCopy.data.levels, level)
   return stateCopy
 }
 
@@ -97,7 +95,7 @@ function deleteItem (state, { item }) {
     })
   }
 
-  // sortQuests(stateCopy.data.levels, level)
+  sortQuests(stateCopy.data.levels, level)
 
   return stateCopy
 }

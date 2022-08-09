@@ -56,8 +56,8 @@ export default function SkillListLevel ({ index, level }) {
           <h3>{` ${levelXP} XP/ Gold`}</h3>
         </div>
 
-        {level.quests.length > 0 && level.quests.map((quest, index) =>
-          <SkillListQuest key={quest.id} quest={quest} index={index} />
+        {level.quests.length > 0 && level.quests.map((quest, i) =>
+          <SkillListQuest key={quest.id} quest={quest} index={i} levelIndex={index} />
         )}
 
         {!disableButton &&
