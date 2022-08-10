@@ -5,6 +5,7 @@ import { getParents, getDescendants } from '../../utils/quest'
 import { getNextLevel, getQuestLevel, getPrevLevel } from '../../utils/level'
 import { v4 as uuidv4 } from 'uuid'
 
+import SETTINGS from '../../config/constants'
 // import { debug } from '../../utils/debug'
 
 export default function SkillListQuest ({ index, quest, levelIndex }) {
@@ -34,8 +35,7 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
       descendants: [],
       color: quest.color
     }
-
-    dispatch({ type: ACTIONS.ADD_ITEM, payload: { newItem: newQuest, levelId: getNextLevel(state.data.levels, getQuestLevel(state.data.levels, quest.id).id).id } })
+    if (descendants.length < SETTINGS.MAX_CHILDREN) dispatch({ type: ACTIONS.ADD_ITEM, payload: { newItem: newQuest, levelId: getNextLevel(state.data.levels, getQuestLevel(state.data.levels, quest.id).id).id } })
   }
 
   return (
@@ -57,12 +57,12 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
               onClick={() => { setEdit(!edit) }}>
               {!edit ? 'Edit' : 'Done editing'}
             </button>
-            <button
+            {descendants?.length < SETTINGS.MAX_CHILDREN && <button
               className="m-skillListButton button"
               type='button'
               onClick={addChild}>
               Add Child
-            </button>
+            </button>}
             {levelIndex !== 0 && <button
               className="m-skillListButton button"
               type='button'

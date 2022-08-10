@@ -1,6 +1,7 @@
 
 // import { debug } from './debug'
 import { getPrevLevel, getQuestLevel } from './level'
+import SETTINGS from '../config/constants'
 
 export function setDefaultParent (levels, currentLevelIndex) {
   // find the first available item from the last column and add it as parent
@@ -8,7 +9,7 @@ export function setDefaultParent (levels, currentLevelIndex) {
 
   if (parentQuests) {
     for (let i = parentQuests.length - 1; i >= 0; i--) {
-      if (parentQuests[i].descendants.length < 3) return [parentQuests[i].id]
+      if (parentQuests[i].descendants.length < SETTINGS.MAX_CHILDREN) return [parentQuests[i].id]
     }
   }
 
