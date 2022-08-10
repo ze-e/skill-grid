@@ -20,7 +20,7 @@ export default function SkillTreeNode ({ item }) {
     )
   }
   return (
-      <div className={`skillTreeNodeContainer key-${item.id}`} data-id={item.id}>
+      <div className={`skillTreeNodeContainer key-${item.id}`} data-id={item.id} data-color={item.color}>
         <NodeData item={item}>
           <h4>XP: {xp}</h4>
           <div className="skillTreeNode__siblings">

@@ -32,7 +32,9 @@ function SkillView () {
       const parent = getParentsWithId(state.data.levels, nodes[i].id)
       if (parent?.length > 0) {
         const parentNode = nodes.find(n => n.id === parent[0].id)
-        if (parentNode) drawLine(parentNode.node, node, nodes[i].line)
+        const line = nodes[i].line
+        line.style.backgroundColor = parent[0].color
+        if (parentNode) drawLine(parentNode.node, node, line)
       }
     })
   }, [skillTreeRef])
