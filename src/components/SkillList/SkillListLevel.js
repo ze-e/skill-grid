@@ -8,7 +8,9 @@ import { createColor } from '../../utils/color'
 import SkillListQuest from './SkillListQuest'
 // import { debug } from '../../utils/debug'
 export default function SkillListLevel ({ index, level }) {
-  const [levelXP, setLevelXP] = useState(0)
+  // const [levelXP, setLevelXP] = useState(0)
+  const [levelXP] = useState(0)
+
   const { state, dispatch, ACTIONS } = useContext(DataContext)
 
   const [levels, setLevels] = useState([])
@@ -18,12 +20,12 @@ export default function SkillListLevel ({ index, level }) {
   }, [state])
 
   // get total XP for level
-  useEffect(() => {
-    if (level?.quests) {
-      const xp = 10 * (level.quests.length > 1 ? level.quests.reduce((a, b) => (a.skills.length + b.skills.length)) : level.quests[0]?.skills.length)
-      setLevelXP(xp)
-    }
-  }, [state])
+  // useEffect(() => {
+  //   if (level?.quests) {
+  //     const xp = 10 * (level.quests?.length > 1 ? level.quests?.reduce((a, b) => (a.skills.length + b.skills.length)) : level.quests[0]?.skills.length)
+  //     setLevelXP(xp)
+  //   }
+  // }, [state])
 
   // disable button under certain conditions
   const [disableButton, setDisableButton] = useState(false)

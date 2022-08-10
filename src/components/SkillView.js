@@ -14,9 +14,20 @@ function SkillView () {
 
   const skillTreeRef = useRef(null)
 
+  // creates the gridlines that connect nodes
   useEffect(() => {
     const tree = skillTreeRef.current.querySelectorAll('.skillTreeColumn')
     const nodes = []
+
+    // delete old branches
+    Array.from(tree).forEach((e, i) => {
+      const lines = tree[i].querySelectorAll('.m-line')
+      lines.forEach(line => {
+        line.remove()
+      })
+    })
+
+    // create new branches
     Array.from(tree).forEach((e, i) => {
       const nodeList = tree[i].querySelectorAll('.skillTreeNodeContainer')
       nodeList.forEach(n => {
@@ -37,7 +48,7 @@ function SkillView () {
         if (parentNode) drawLine(parentNode.node, node, line)
       }
     })
-  }, [skillTreeRef])
+  }, [state])
 
   return (
         <>
