@@ -29,7 +29,19 @@ export function getParents (levels, quest) {
   return quest?.parents?.length > 0 ? getAllQuests(levels).filter(q => quest.parents.includes(q.id)) : null
 }
 
+export function getParentsWithId (levels, questId) {
+  const quests = getAllQuests(levels)
+  const quest = quests.find(q => q.id === questId)
+  return quest?.parents?.length > 0 ? getAllQuests(levels).filter(q => quest.parents.includes(q.id)) : null
+}
+
 export function getDescendants (levels, quest) {
+  return quest?.descendants?.length > 0 ? getAllQuests(levels).filter(q => quest.descendants.includes(q.id)) : null
+}
+
+export function getDescendantsWithId (levels, questId) {
+  const quests = getAllQuests(levels)
+  const quest = quests.find(q => q.id === questId)
   return quest?.descendants?.length > 0 ? getAllQuests(levels).filter(q => quest.descendants.includes(q.id)) : null
 }
 

@@ -2,20 +2,22 @@ import React from 'react'
 import LevelNode from './SkillTreeNode'
 import PropTypes from 'prop-types'
 
-export default function LevelColumn ({ color, quests }) {
+export default function SkillTreeColumn ({ color, quests }) {
   return (
-    <div className='levelColumn' style={{ border: `1px solid ${color}` }}>
-      {quests.length > 0 && quests.map(quest => {
-        return <LevelNode
-          key={quest.id}
-          item={quest}
-        />
+    <div className='skillTreeColumn' style={{ border: `1px solid ${color}` }}>
+      {quests.length > 0 && quests.map((quest, index) => {
+        return <div key={quest.id}>
+          <LevelNode
+            item={quest}
+            index={index}
+          />
+        </div>
       })}
     </div>
   )
 }
 
-LevelColumn.propTypes = {
+SkillTreeColumn.propTypes = {
   color: PropTypes.string,
   quests: PropTypes.array
 }
