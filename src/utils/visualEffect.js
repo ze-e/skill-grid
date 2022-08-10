@@ -37,5 +37,3 @@ export function drawLine (from, to, line) {
   line.style.left = left + 'px'
   line.style.height = H + 'px'
 }
-
-/* https://jsfiddle.net/rdamasceno/o3Lroapa/5/ */

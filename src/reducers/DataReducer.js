@@ -150,9 +150,8 @@ function deleteSkill (state, { quest, skill }) {
 }
 
 function renameSkill (state, { quest, skill, name }) {
-
   const stateCopy = { ...state }
-  quest.skills.splice(quest.skills.indexOf(skill),1,name)
+  quest.skills.splice(quest.skills.indexOf(skill), 1, name)
   updateQuest(stateCopy.data.levels, quest)
   return stateCopy
 }

@@ -4,9 +4,9 @@ import { DataContext } from '../../contexts/DataContext'
 import { getParents, getDescendants } from '../../utils/quest'
 import { getNextLevel, getQuestLevel, getPrevLevel } from '../../utils/level'
 import { v4 as uuidv4 } from 'uuid'
-
 import SETTINGS from '../../config/constants'
-// import { debug } from '../../utils/debug'
+
+import SkillListSkill from './SkillListSkill'
 
 export default function SkillListQuest ({ index, quest, levelIndex }) {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
@@ -17,6 +17,8 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
   const parentInputRef = useRef(null)
   const [inputParents, setInputParents] = useState(parents)
   const [inputName, setInputName] = useState(quest.name)
+  const [inputSkillName, setInputSkillName] = useState('')
+
   const [edit, setEdit] = useState(false)
 
   useEffect(() => {
@@ -103,20 +105,14 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
             <button type="submit">Submit Parents</button>
           </form>}
         {quest.skills.map((skill, index) =>
-          <div key={skill} className='skillListQuest__skill'>{`Skill ${index + 1} - ${skill}`}
-            <span className='skillListQuest__skillXP'>+10 XP/Gold</span>
-            {quest.skills.length > 1 && <button
-              className="m-skillListButton button"
-              type='button'
-              onClick={() => { dispatch({ type: ACTIONS.DELETE_SKILL, payload: { quest, skill } }) }}>
-              Delete Skill
-            </button>}
-          </div>
+          <SkillListSkill key={skill + ' ' + index} quest={quest} skill={skill} index={index} />
         )}
+        <input onChange={(e) => { setInputSkillName(e.target.value) }} value={inputSkillName} placeholder="Enter name..." minLength={3} maxLength={15}/>
         <button
           className="m-skillListButton button"
           type='button'
-          onClick={() => { dispatch({ type: ACTIONS.ADD_SKILL, payload: { quest, skill: `My New Skill ${Math.floor(Math.random() * 1000)}` } }) }}>
+          disabled={inputSkillName === '' || quest.skills.includes(inputSkillName) || quest.skills.length > SETTINGS.MAX_SKILLS}
+          onClick={() => { dispatch({ type: ACTIONS.ADD_SKILL, payload: { quest, skill: inputSkillName } }); setInputSkillName('') }}>
           Add Skill
         </button>
     </div>
