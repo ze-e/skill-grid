@@ -27,7 +27,9 @@ export const ACTIONS = {
   DELETE_ITEM: 'delete-item',
   SET_PARENTS: 'set-parents',
   ADD_SKILL: 'add-skill',
-  DELETE_SKILL: 'delete-skill'
+  DELETE_SKILL: 'delete-skill',
+  RENAME_SKILL: 'rename-skill'
+
 }
 
 function DataReducer (state, action) {
@@ -41,6 +43,7 @@ function DataReducer (state, action) {
     case ACTIONS.SET_PARENTS: return setParents(state, action.payload)
     case ACTIONS.ADD_SKILL: return addSkill(state, action.payload)
     case ACTIONS.DELETE_SKILL: return deleteSkill(state, action.payload)
+    case ACTIONS.RENAME_SKILL: return renameSkill(state, action.payload)
     default: throw new Error(`Unknown action type: ${action.type}`)
   }
 }
@@ -143,6 +146,14 @@ function deleteSkill (state, { quest, skill }) {
   quest.skills = quest.skills.filter(s => s !== skill)
   updateQuest(stateCopy.data.levels, quest)
 
+  return stateCopy
+}
+
+function renameSkill (state, { quest, skill, name }) {
+
+  const stateCopy = { ...state }
+  quest.skills.splice(quest.skills.indexOf(skill),1,name)
+  updateQuest(stateCopy.data.levels, quest)
   return stateCopy
 }
 

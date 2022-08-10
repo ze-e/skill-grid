@@ -40,7 +40,6 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
 
   return (
     <div className='skillListQuest'>
-        {/* <code>{quest.id}</code> */}
           <div className='skillListQuest__head'>
             { !edit
               ? <h4 className='skillListQuest__title' style={{ border: `3px solid ${quest.color}` }}>
