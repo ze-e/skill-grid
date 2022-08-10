@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { DataContext } from '../../contexts/DataContext'
 import { setDefaultParent } from '../../utils/quest'
 import { createColor } from '../../utils/color'
+import SETTINGS from '../../config/constants'
 import SkillListQuest from './SkillListQuest'
 // import { debug } from '../../utils/debug'
 export default function SkillListLevel ({ index, level }) {
@@ -12,12 +13,6 @@ export default function SkillListLevel ({ index, level }) {
   const [levelXP] = useState(0)
 
   const { state, dispatch, ACTIONS } = useContext(DataContext)
-
-  const [levels, setLevels] = useState([])
-
-  useEffect(() => {
-    setLevels(state.data.levels)
-  }, [state])
 
   // get total XP for level
   // useEffect(() => {
@@ -32,9 +27,9 @@ export default function SkillListLevel ({ index, level }) {
 
   useEffect(() => {
     // first column can only contain one item
-    if (index === 0 || levels[index]?.length > 2) setDisableButton(true)
+    if (index === 0 || state.data.levels[index].quests.length >= SETTINGS.MAX_CHILDREN) setDisableButton(true)
     else setDisableButton(false)
-  }, [index, levels])
+  }, [index, state])
 
   // add new quest to level
   function addItem () {
@@ -42,7 +37,7 @@ export default function SkillListLevel ({ index, level }) {
       id: uuidv4(),
       name: 'New Quest!',
       skills: ['New skill'],
-      parents: setDefaultParent(levels, index),
+      parents: setDefaultParent(state.data.levels, index),
       descendants: [],
       color: createColor()
     }
@@ -52,7 +47,6 @@ export default function SkillListLevel ({ index, level }) {
 
   return (
     <div className='skillListLevel'>
-      {/* <code>{level.id}</code> */}
         <div className='skillListLevel__title'>
           <h3>{`Level ${index + 1}`}</h3>
           <h3>{` ${levelXP} XP/ Gold`}</h3>
