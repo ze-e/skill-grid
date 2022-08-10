@@ -17,7 +17,8 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
   const parentInputRef = useRef(null)
   const [inputParents, setInputParents] = useState(parents)
   const [inputName, setInputName] = useState(quest.name)
-  const [inputSkillName, setInputSkillName] = useState('')
+  const [inputChildName, setInputChildName] = useState(`${quest.name}'s ${descendants ? descendants.length + 1 : 1} child`)
+  const [inputSkillName, setInputSkillName] = useState(quest.name)
 
   const [edit, setEdit] = useState(false)
 
@@ -31,7 +32,7 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
   function addChild () {
     const newQuest = {
       id: uuidv4(),
-      name: `${quest.name}'s ${descendants ? descendants.length + 1 : 1} child`,
+      name: inputChildName,
       skills: ['New skill'],
       parents: [quest.id],
       descendants: [],
@@ -53,24 +54,40 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
               <button type="submit">Submit Name</button>
             </form>
             }
-            <button
+            {!edit && <button
               className="m-skillListButton button"
               type='button'
               onClick={() => { setEdit(!edit) }}>
-              {!edit ? 'Edit' : 'Done editing'}
-            </button>
-            {(!descendants || descendants?.length < SETTINGS.MAX_CHILDREN) && <button
-              className="m-skillListButton button"
-              type='button'
-              onClick={addChild}>
-              Add Child
+              Edit
             </button>}
-            {levelIndex !== 0 && <button
-              className="m-skillListButton button"
-              type='button'
-              onClick={() => { dispatch({ type: ACTIONS.DELETE_ITEM, payload: { item: quest } }) }}>
-              Delete
-            </button>}
+
+            { !edit && 
+              <>
+                <button
+                  className="m-skillListButton button"
+                  type='button'
+                  disabled={levelIndex === 0}
+                  onClick={() => { dispatch({ type: ACTIONS.DELETE_ITEM, payload: { item: quest } }) }}>
+                  Delete
+                </button>
+              </>
+            }
+
+            {edit &&
+              <>
+              <br/>
+              <br/>
+              <input onChange={(e) => { setInputChildName(e.target.value) }} value={inputChildName} placeholder="Enter child name..." minLength={3} maxLength={15}/>
+              <button
+                className="m-skillListButton button"
+                type='button'
+                disabled={inputChildName === '' || descendants?.length >= SETTINGS.MAX_CHILDREN}
+                onClick={addChild}>
+                Add Child
+              </button>
+              </>
+            }
+
           </div>
           {!edit
             ? <div className='m-flex'>
