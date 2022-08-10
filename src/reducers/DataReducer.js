@@ -58,14 +58,12 @@ function addItem (state, { newItem, levelId }) {
   })
 
   // add newItem to level if level exists, otherwise create new level
-  let level = getLevel(stateCopy.data.levels, levelId)
-  if (level) level.quests = [...level.quests, newItem]
-  else {
-    stateCopy.data.levels = [...stateCopy.data.levels, { id: uuidv4(), color: createColor(), quests: [newItem] }]
-    level = getLevel(stateCopy.data.levels, levelId)
-  }
+  const level = getLevel(stateCopy.data.levels, levelId)
+  if (level) {
+    level.quests = [...level.quests, newItem]
+    sortQuests(stateCopy.data.levels, level)
+  } else stateCopy.data.levels = [...stateCopy.data.levels, { id: uuidv4(), color: createColor(), quests: [newItem] }]
 
-  sortQuests(stateCopy.data.levels, level)
   return stateCopy
 }
 

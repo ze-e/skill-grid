@@ -15,7 +15,7 @@ export default function SkillListLevel ({ index, level }) {
   // get total XP for level
   useEffect(() => {
     if (level?.quests) {
-      const xp = 10 * (level.quests?.length > 1 ? level.quests?.reduce((a, b) => (a.skills.length + b.skills.length)) : level.quests[0]?.skills.length)
+      const xp = 10 * (level.quests?.length > 1 ? level.quests?.reduce((a, b) => (a.skills?.length + b.skills?.length)) : level.quests[0]?.skills?.length)
       setLevelXP(xp)
     }
   }, [state])

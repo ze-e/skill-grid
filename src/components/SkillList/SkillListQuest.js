@@ -37,7 +37,8 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
       descendants: [],
       color: quest.color
     }
-    if (descendants.length < SETTINGS.MAX_CHILDREN) dispatch({ type: ACTIONS.ADD_ITEM, payload: { newItem: newQuest, levelId: getNextLevel(state.data.levels, getQuestLevel(state.data.levels, quest.id).id).id } })
+    const nextLevel = getNextLevel(state.data.levels, getQuestLevel(state.data.levels, quest.id).id)
+    if (!descendants || descendants.length < SETTINGS.MAX_CHILDREN) dispatch({ type: ACTIONS.ADD_ITEM, payload: { newItem: newQuest, levelId: nextLevel ? nextLevel.id : null } })
   }
 
   return (
@@ -58,7 +59,7 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
               onClick={() => { setEdit(!edit) }}>
               {!edit ? 'Edit' : 'Done editing'}
             </button>
-            {descendants?.length < SETTINGS.MAX_CHILDREN && <button
+            {(!descendants || descendants?.length < SETTINGS.MAX_CHILDREN) && <button
               className="m-skillListButton button"
               type='button'
               onClick={addChild}>
