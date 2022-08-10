@@ -11,6 +11,7 @@ export default function SkillListLevel ({ index, level }) {
   const [levelXP, setLevelXP] = useState(0)
 
   const { state, dispatch, ACTIONS } = useContext(DataContext)
+  const [inputNewQuestName, setInputNewQuestlName] = useState('New Quest')
 
   // get total XP for level
   useEffect(() => {
@@ -33,7 +34,7 @@ export default function SkillListLevel ({ index, level }) {
   function addItem () {
     const newQuest = {
       id: uuidv4(),
-      name: 'New Quest!',
+      name: inputNewQuestName,
       skills: ['New skill'],
       parents: setDefaultParent(state.data.levels, index),
       descendants: [],
@@ -55,12 +56,17 @@ export default function SkillListLevel ({ index, level }) {
         )}
 
         {!disableButton &&
-          <button
-            className="m-skillListButton button"
-            type='button'
-            onClick={() => { addItem() }}>
-            Add New Quest
-          </button>}
+          <>
+            <input onChange={(e) => { setInputNewQuestlName(e.target.value) }} value={inputNewQuestName} placeholder="Enter quest name..." minLength={3} maxLength={15}/>
+            <button
+              className="m-skillListButton button"
+              type='button'
+              disabled={inputNewQuestName === ''}
+              onClick={() => { addItem() }}>
+              Add New Quest
+            </button>
+          </>
+        }
       </div>
   )
 }

@@ -11,7 +11,10 @@ export default function SkillListSkill ({ quest, skill, index }) {
   return (
     <div key={skill} className='skillListSkill__skill'>
       { !edit
-        ? <span className='skillListSkill__name'>{`Skill ${index + 1} - ${skill}`}</span>
+        ? <>
+          <span className='skillListSkill__name'>{`Skill ${index + 1} - ${skill}`}</span>
+          <span className='skillListSkill__skillXP'>+10 XP/Gold</span>
+        </>
         : (
           <form onSubmit={(e) => { e.preventDefault(); dispatch({ type: ACTIONS.RENAME_SKILL, payload: { quest, skill, name: inputName } }); setEdit(false) }}>
             <input onChange={(e) => { setInputName(e.target.value) }} value={inputName} placeholder="Enter name..." minLength={3} maxLength={15}/>
@@ -19,7 +22,6 @@ export default function SkillListSkill ({ quest, skill, index }) {
           </form>
           )
       }
-      <span className='skillListSkill__skillXP'>+10 XP/Gold</span>
       {!edit && <button
         className="m-skillListButton button"
         type='button'
@@ -27,9 +29,10 @@ export default function SkillListSkill ({ quest, skill, index }) {
         Rename
       </button>
       }
-      {quest.skills.length > 1 && <button
+      {!edit && <button
         className="m-skillListButton button"
         type='button'
+        disabled={quest.skills.length === 1}
         onClick={() => { dispatch({ type: ACTIONS.DELETE_SKILL, payload: { quest, skill } }) }}>
         Delete Skill
       </button>}
