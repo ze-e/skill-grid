@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 
 export default function SkillTreeColumn ({ color, quests }) {
   return (
-    <div className='skillTreeColumn' style={{ border: `1px solid ${color}` }}>
+    <div className='skillTreeColumn'>
       {quests.length > 0 && quests.map((quest, index) => {
         return <div key={quest.id}>
           <LevelNode
