@@ -8,7 +8,6 @@ export default function SkillList () {
 
   return (
     <div className='skillList'>
-      <h2 className='skillList__title'>Skill List</h2>
       {levels.length > 0 && levels.map((level, index) => {
         return <SkillListLevel
           key={level.id}
@@ -16,7 +15,6 @@ export default function SkillList () {
           level={level}
         />
       })}
-      {/* <code>{JSON.stringify(levels, null, 2)}</code> */}
     </div>
   )
 }

@@ -52,6 +52,7 @@ function SkillView () {
 
   return (
         <>
+          <h2 className='skillView__title'>Skill Tree</h2>
           <section className='skillView__tree' ref={skillTreeRef}>
             {levels.length > 0 && levels.map(level => {
               return <SkillTreeColumn
@@ -61,6 +62,7 @@ function SkillView () {
               />
             })}
           </section>
+          <h2 className='skillView__title'>Skill List</h2>
           <SkillList/>
         </>
   )
