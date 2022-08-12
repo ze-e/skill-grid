@@ -18,7 +18,7 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
   const [inputParents, setInputParents] = useState(parents)
   const [inputName, setInputName] = useState(quest.name)
   const [inputChildName, setInputChildName] = useState(`${quest.name}'s ${descendants ? descendants.length + 1 : 1} child`)
-  const [inputSkillName, setInputSkillName] = useState(quest.name)
+  const [inputSkillName, setInputSkillName] = useState('New Skill')
 
   const [edit, setEdit] = useState(false)
 
