@@ -1,15 +1,16 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
+import { ModalContext } from '../../contexts/ModalContext'
 
 export default function ModalContainer () {
-  const [open, setOpen] = useState(false)
+  const { modalContent, modalOpen, setModalOpen } = useContext(ModalContext)
 
   return (
-    <div className={`modalContainer ${open ? 'visible' : 'hidden'}`}>
+    <div className={`modalContainer ${modalOpen ? 'visible' : 'hidden'}`}>
       <div className='modalContainer__inner'>
           <div className="modalContainer__content">
-            Hello world
+            {modalContent}
           </div>
-        <button className='modalContainer__close' type="button" onClick={() => { setOpen(false) }}>X</button>
+        <button className='modalContainer__close' type="button" onClick={() => { setModalOpen(false) }}>X</button>
       </div>
     </div>
   )

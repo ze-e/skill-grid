@@ -4,7 +4,6 @@ import { DataContext } from '../contexts/DataContext'
 import SkillTreeColumn from './SkillTree/SkillTreeColumn'
 import SkillList from './SkillList/SkillList'
 
-// import { debug } from '../utils/debug'
 import { getParentsWithId } from '../utils/quest'
 import { drawLine } from '../utils/visualEffect'
 
