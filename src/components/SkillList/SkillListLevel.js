@@ -3,22 +3,20 @@ import PropTypes from 'prop-types'
 import { v4 as uuidv4 } from 'uuid'
 
 import { DataContext } from '../../contexts/DataContext'
-// import { ModalContext } from '../../contexts/ModalContext'
+import { ModalContext } from '../../contexts/ModalContext'
 
 import { setDefaultParent } from '../../utils/quest'
 import { createColor } from '../../utils/color'
 import SETTINGS from '../../config/constants'
 import SkillListQuest from './SkillListQuest'
 
-// import { ModalQuestAdd } from '../Modal/ModalTypes'
+import { ModalQuestAdd } from '../Modal/ModalTypes'
 
 export default function SkillListLevel ({ index, level }) {
   const [levelXP, setLevelXP] = useState(0)
 
   const { state, dispatch, ACTIONS } = useContext(DataContext)
-  // const { setModalOpen, setModalContent } = useContext(ModalContext)
-
-  const [inputNewQuestName, setInputNewQuestlName] = useState('New Quest')
+  const { setModalOpen, setModalContent } = useContext(ModalContext)
 
   // get total XP for level
   useEffect(() => {
@@ -37,16 +35,21 @@ export default function SkillListLevel ({ index, level }) {
     else setDisableButton(false)
   }, [index, state])
 
-  // add new quest to level
-  function addItem () {
+  function addItem (e) {
+    const input = e.target[0]
     const newQuest = {
       id: uuidv4(),
-      name: inputNewQuestName,
+      name: input.value,
       skills: ['New skill'],
       parents: setDefaultParent(state.data.levels, index),
       descendants: [],
       color: createColor()
     }
+
+    // reset input
+    input.value = input.defaultValue
+
+    // create new if possible
     if (newQuest.parents) dispatch({ type: ACTIONS.ADD_ITEM, payload: { newItem: newQuest, levelId: level.id } })
     else setDisableButton(true)
   }
@@ -61,18 +64,15 @@ export default function SkillListLevel ({ index, level }) {
         {level.quests.length > 0 && level.quests.map((quest, i) =>
           <SkillListQuest key={quest.id} quest={quest} index={i} levelIndex={index} />
         )}
-
         {!disableButton &&
-          <>
-            <input onChange={(e) => { setInputNewQuestlName(e.target.value) }} value={inputNewQuestName} placeholder="Enter quest name..." minLength={3} maxLength={15}/>
             <button
-              className="m-skillListButton button"
-              type='button'
-              disabled={inputNewQuestName === ''}
-              onClick={() => { addItem() }}>
-              Add New Quest
-            </button>
-          </>
+            className="m-skillListButton button"
+            type='button'
+            onClick={() => {
+              setModalOpen(true)
+              setModalContent(<ModalQuestAdd handleSubmit= {(e) => { e.preventDefault(); addItem(e); setModalOpen(false) }} />)
+            }}
+            >Add New Quest</button>
         }
       </div>
   )

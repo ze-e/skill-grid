@@ -25,5 +25,5 @@ export default function SkillTreeNode ({ item }) {
 
 SkillTreeNode.propTypes = {
   item: PropTypes.object,
-  children: PropTypes.node.isRequired
+  children: PropTypes.node
 }

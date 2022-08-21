@@ -21,7 +21,7 @@ function DataLayer ({ children }) {
 }
 
 DataLayer.propTypes = {
-  children: PropTypes.node.isRequired
+  children: PropTypes.node
 }
 
 export default DataLayer
