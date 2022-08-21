@@ -1,5 +1,8 @@
-import ModalQuestName from './types/ModalQuestName'
-import ModalSkillName from './types/ModalSkillName'
+import ModalLevelAdd from './types/ModalLevelAdd'
+import ModalLevelEdit from './types/ModalLevelEdit'
+import ModalQuestAdd from './types/ModalQuestAdd'
+import ModalQuestEdit from './types/ModalQuestEdit'
+import ModalSkillAdd from './types/ModalSkillAdd'
+import ModalSkillEdit from './types/ModalSkillEdit'
 
-export const QuestName = ModalQuestName
-export const SkillName = ModalSkillName
+export { ModalLevelAdd, ModalLevelEdit, ModalQuestAdd, ModalQuestEdit, ModalSkillAdd, ModalSkillEdit }

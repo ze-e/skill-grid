@@ -3,14 +3,14 @@ import PropTypes from 'prop-types'
 import { v4 as uuidv4 } from 'uuid'
 
 import { DataContext } from '../../contexts/DataContext'
-import { ModalContext } from '../../contexts/ModalContext'
+// import { ModalContext } from '../../contexts/ModalContext'
 
 import { setDefaultParent } from '../../utils/quest'
 import { createColor } from '../../utils/color'
 import SETTINGS from '../../config/constants'
 import SkillListQuest from './SkillListQuest'
 
-// import { QuestName, SkillName } from '../Modal/ModalTypes'
+// import { ModalQuestAdd } from '../Modal/ModalTypes'
 
 export default function SkillListLevel ({ index, level }) {
   const [levelXP, setLevelXP] = useState(0)
