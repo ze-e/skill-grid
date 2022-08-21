@@ -1,6 +1,8 @@
-import React, { useContext, useState, useEffect, useRef } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { DataContext } from '../../contexts/DataContext'
+import { ModalContext } from '../../contexts/ModalContext'
+import { ModalQuestEdit } from '../Modal/ModalTypes'
 import { getParents, getDescendants } from '../../utils/quest'
 import { getNextLevel, getQuestLevel, getPrevLevel } from '../../utils/level'
 import { v4 as uuidv4 } from 'uuid'
@@ -10,13 +12,12 @@ import SkillListSkill from './SkillListSkill'
 
 export default function SkillListQuest ({ index, quest, levelIndex }) {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
+  const { setModalOpen, setModalContent } = useContext(ModalContext)
+
   const [parents, setParents] = useState(null)
   const [descendants, setDescendants] = useState(null)
   const [prevLevel, setPrevLevel] = useState(getPrevLevel(state.data.levels, getQuestLevel(state.data.levels, quest.id).id))
 
-  const parentInputRef = useRef(null)
-  const [inputParents, setInputParents] = useState(parents)
-  const [inputName, setInputName] = useState(quest.name)
   const [inputChildName, setInputChildName] = useState(`${quest.name}'s ${descendants ? descendants.length + 1 : 1} child`)
   const [inputSkillName, setInputSkillName] = useState('New Skill')
 
@@ -46,33 +47,40 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
   return (
     <div className='skillListQuest'>
           <div className='skillListQuest__head'>
-            { !edit
-              ? <h4 className='skillListQuest__title' style={{ border: `3px solid ${quest.color}` }}>
+            <h4 className='skillListQuest__title' style={{ border: `3px solid ${quest.color}` }}>
               {`Quest ${index + 1} - ${quest.name}`}
             </h4>
-              : <form onSubmit={(e) => { e.preventDefault(); dispatch({ type: ACTIONS.CHANGE_NAME, payload: { quest, name: inputName } }); setEdit(false) }}>
-              <input onChange={(e) => { setInputName(e.target.value) }} value={inputName} placeholder="Enter name..." minLength={3} maxLength={15}/>
-              <button type="submit">Submit Name</button>
-            </form>
-            }
-            {!edit && <button
-              className="m-skillListButton button"
-              type='button'
-              onClick={() => { setEdit(!edit) }}>
-              Edit
-            </button>}
 
-            { !edit &&
-              <>
-                <button
-                  className="m-skillListButton button"
-                  type='button'
-                  disabled={levelIndex === 0}
-                  onClick={() => { dispatch({ type: ACTIONS.DELETE_ITEM, payload: { item: quest } }) }}>
-                  Delete
-                </button>
-              </>
-            }
+            <button
+            className="m-skillListButton button"
+            type='button'
+            onClick={() => {
+              setModalOpen(true)
+              setModalContent(
+              <ModalQuestEdit
+                prevLevel={prevLevel}
+                defaultName={quest.name}
+                defaultParents={levelIndex !== 0 && parents}
+                handleSubmit= {(e) => {
+                  e.preventDefault()
+
+                  // get input vals
+                  const nameInput = e.target[0]
+                  const nameVal = nameInput.value
+                  const parentInput = e.target[1]
+                  const parentVal = [...parentInput.selectedOptions].map(option => option.value)
+
+                  // dispatch
+                  if (nameVal !== quest.name) dispatch({ type: ACTIONS.CHANGE_NAME, payload: { quest, name: nameVal } })
+                  if (parentVal !== quest.parents) dispatch({ type: ACTIONS.SET_PARENTS, payload: { quest, parentIds: parentVal } })
+
+                  // close modal and reset forms
+                  e.target[0].value = e.target[0].defaultValue
+                  setModalOpen(false)
+                }}
+              />)
+            }}
+            >Edit</button>
 
             {edit &&
               <>
@@ -88,8 +96,7 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
             }
 
           </div>
-          {!edit
-            ? <div className='m-flex'>
+           <div className='m-flex'>
             <div className="m-flexColumn skillListQuest__family">
               {parents != null && <h5>Prerequisites:</h5>}
               {parents != null && parents.map(p =>
@@ -107,20 +114,7 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
               )}
             </div>
           </div>
-            : levelIndex !== 0 && <form onSubmit={(e) => { e.preventDefault(); dispatch({ type: ACTIONS.SET_PARENTS, payload: { quest, parentIds: inputParents } }); setEdit(false) }}>
-            <select
-              name="parents"
-              multiple
-              value={inputParents}
-              onChange={(e) => { setInputParents([...parentInputRef.current.selectedOptions].map(option => option.value)) }}
-              ref={parentInputRef}
-            >
-              {prevLevel && prevLevel.quests.map(q => {
-                return <option key={q.id} value={q.id}>{q.name}</option>
-              })}
-            </select>
-            <button type="submit">Submit Parents</button>
-          </form>}
+           
         {quest.skills.map((skill, index) =>
           <SkillListSkill key={skill + ' ' + index} quest={quest} skill={skill} index={index} />
         )}
