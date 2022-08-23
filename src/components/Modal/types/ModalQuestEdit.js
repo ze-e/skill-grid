@@ -37,7 +37,7 @@ export default function ModalQuestEdit ({ prevLevel, defaultName, defaultParents
 ModalQuestEdit.propTypes = {
   prevLevel: PropTypes.object,
   defaultName: PropTypes.string,
-  defaultParents: PropTypes.arrayOf(PropTypes.string),
+  defaultParents: PropTypes.arrayOf(PropTypes.object),
   descendants: PropTypes.arrayOf(PropTypes.string),
   handleSubmit: PropTypes.func,
   addChild: PropTypes.func

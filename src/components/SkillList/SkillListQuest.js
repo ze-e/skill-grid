@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { DataContext } from '../../contexts/DataContext'
 import { ModalContext } from '../../contexts/ModalContext'
-import { ModalQuestEdit } from '../Modal/ModalTypes'
+import { ModalQuestEdit, ModalSkillAdd } from '../Modal/ModalTypes'
 import { getParents, getDescendants } from '../../utils/quest'
 import { resetForm } from '../../utils/form'
 
@@ -19,8 +19,6 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
   const [parents, setParents] = useState(null)
   const [descendants, setDescendants] = useState(null)
   const [prevLevel, setPrevLevel] = useState(getPrevLevel(state.data.levels, getQuestLevel(state.data.levels, quest.id).id))
-
-  const [inputSkillName, setInputSkillName] = useState('New Skill')
 
   useEffect(() => {
     setParents(getParents(state.data?.levels, quest))
@@ -110,14 +108,25 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
         {quest.skills.map((skill, index) =>
           <SkillListSkill key={skill + ' ' + index} quest={quest} skill={skill} index={index} />
         )}
-        <input onChange={(e) => { setInputSkillName(e.target.value) }} value={inputSkillName} placeholder="Enter name..." minLength={3} maxLength={15}/>
+      {quest.skills.length < SETTINGS.MAX_SKILLS &&
         <button
           className="m-skillListButton button"
           type='button'
-          disabled={inputSkillName === '' || quest.skills.includes(inputSkillName) || quest.skills.length > SETTINGS.MAX_SKILLS}
-          onClick={() => { dispatch({ type: ACTIONS.ADD_SKILL, payload: { quest, skill: inputSkillName } }); setInputSkillName('') }}>
-          Add Skill
-        </button>
+          onClick={() => {
+            setModalOpen(true)
+            setModalContent(
+              <ModalSkillAdd skillList={quest.skills} handleSubmit={
+                (e) => {
+                  e.preventDefault()
+                  const nameInput = e.target[0]
+                  const nameVal = nameInput.value
+                  dispatch({ type: ACTIONS.ADD_SKILL, payload: { quest, skill: nameVal } })
+                  resetForm(e.target[0], setModalOpen)
+                }
+              }/>
+            )
+          }}
+        >Add New Skill</button>}
     </div>
   )
 }
