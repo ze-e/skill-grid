@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
+import SETTINGS from '../../../config/constants'
 
-export default function ModalQuestEdit ({ handleSubmit, prevLevel, defaultName, defaultParents }) {
-  const [isValid, setIsValid] = useState(false)
+export default function ModalQuestEdit ({ prevLevel, defaultName, defaultParents, descendants, handleSubmit, addChild }) {
+  const [isValidEdit, setIsValidEdit] = useState(false)
+  const [isValidAddChild, setIsValidAddChild] = useState(false)
 
   return (
-    <form onSubmit={handleSubmit} onChange={e => { setIsValid(e.target.checkValidity()) } } >
+    <>
+    <form onSubmit={handleSubmit} onChange={e => { setIsValidEdit(e.target.checkValidity()) } } >
       <input defaultValue={defaultName} placeholder="Enter name..." minLength={3} maxLength={15}/>
       {defaultParents && <select
         name="parents"
@@ -15,14 +18,27 @@ export default function ModalQuestEdit ({ handleSubmit, prevLevel, defaultName, 
           return <option key={q.id} value={q.id}>{q.name}</option>
         })}
       </select>}
-      <button className="m-skillListButton button" disabled={!isValid} type='submit'>Submit changes</button>
+      <button className="m-skillListButton button" disabled={!isValidEdit} type='submit'>Submit changes</button>
     </form>
+
+  {descendants?.length < SETTINGS.MAX_CHILDREN &&
+    <form onSubmit={addChild} onChange={e => { setIsValidAddChild(e.target.value) }} >
+      <input placeholder="Enter child name..." minLength={3} maxLength={15}/>
+      <button className="m-skillListButton button" type='submit' disabled={!isValidAddChild || descendants?.length >= SETTINGS.MAX_CHILDREN}>
+        Add Child
+      </button>
+    </form>
+    }
+
+    </>
   )
 }
 
 ModalQuestEdit.propTypes = {
-  handleSubmit: PropTypes.any,
   prevLevel: PropTypes.any,
   defaultName: PropTypes.any,
-  defaultParents: PropTypes.any
+  defaultParents: PropTypes.any,
+  descendants: PropTypes.any,
+  handleSubmit: PropTypes.any,
+  addChild: PropTypes.any
 }

@@ -4,6 +4,8 @@ import { DataContext } from '../../contexts/DataContext'
 import { ModalContext } from '../../contexts/ModalContext'
 import { ModalQuestEdit } from '../Modal/ModalTypes'
 import { getParents, getDescendants } from '../../utils/quest'
+import { resetForm } from '../../utils/form'
+
 import { getNextLevel, getQuestLevel, getPrevLevel } from '../../utils/level'
 import { v4 as uuidv4 } from 'uuid'
 import SETTINGS from '../../config/constants'
@@ -18,10 +20,7 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
   const [descendants, setDescendants] = useState(null)
   const [prevLevel, setPrevLevel] = useState(getPrevLevel(state.data.levels, getQuestLevel(state.data.levels, quest.id).id))
 
-  const [inputChildName, setInputChildName] = useState(`${quest.name}'s ${descendants ? descendants.length + 1 : 1} child`)
   const [inputSkillName, setInputSkillName] = useState('New Skill')
-
-  const [edit, setEdit] = useState(false)
 
   useEffect(() => {
     setParents(getParents(state.data?.levels, quest))
@@ -30,10 +29,14 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
   }, [state])
 
   // add child to next level
-  function addChild () {
+  function addChild (e) {
+    e.preventDefault()
+    const input = e.target[0]
+    const inputVal = input.value
+
     const newQuest = {
       id: uuidv4(),
-      name: inputChildName,
+      name: inputVal,
       skills: ['New skill'],
       parents: [quest.id],
       descendants: [],
@@ -41,7 +44,9 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
     }
     const nextLevel = getNextLevel(state.data.levels, getQuestLevel(state.data.levels, quest.id).id)
     if (!descendants || descendants.length < SETTINGS.MAX_CHILDREN) dispatch({ type: ACTIONS.ADD_ITEM, payload: { newItem: newQuest, levelId: nextLevel ? nextLevel.id : null } })
-    setEdit(false)
+
+    // close modal and reset forms
+    resetForm(e.target[0], setModalOpen)
   }
 
   return (
@@ -61,6 +66,8 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
                 prevLevel={prevLevel}
                 defaultName={quest.name}
                 defaultParents={levelIndex !== 0 && parents}
+                descendants={descendants}
+                addChild={addChild}
                 handleSubmit= {(e) => {
                   e.preventDefault()
 
@@ -75,26 +82,11 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
                   if (parentVal !== quest.parents) dispatch({ type: ACTIONS.SET_PARENTS, payload: { quest, parentIds: parentVal } })
 
                   // close modal and reset forms
-                  e.target[0].value = e.target[0].defaultValue
-                  setModalOpen(false)
+                  resetForm(e.target[0], setModalOpen)
                 }}
               />)
             }}
             >Edit</button>
-
-            {edit &&
-              <>
-              <input onChange={(e) => { setInputChildName(e.target.value) }} value={inputChildName} placeholder="Enter child name..." minLength={3} maxLength={15}/>
-              <button
-                className="m-skillListButton button"
-                type='button'
-                disabled={inputChildName === '' || descendants?.length >= SETTINGS.MAX_CHILDREN}
-                onClick={addChild}>
-                Add Child
-              </button>
-              </>
-            }
-
           </div>
            <div className='m-flex'>
             <div className="m-flexColumn skillListQuest__family">
@@ -114,7 +106,7 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
               )}
             </div>
           </div>
-           
+
         {quest.skills.map((skill, index) =>
           <SkillListSkill key={skill + ' ' + index} quest={quest} skill={skill} index={index} />
         )}
