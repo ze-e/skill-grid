@@ -38,7 +38,7 @@ ModalQuestEdit.propTypes = {
   prevLevel: PropTypes.object,
   defaultName: PropTypes.string,
   defaultParents: PropTypes.arrayOf(PropTypes.object),
-  descendants: PropTypes.arrayOf(PropTypes.string),
+  descendants: PropTypes.arrayOf(PropTypes.object),
   handleSubmit: PropTypes.func,
   addChild: PropTypes.func
 }

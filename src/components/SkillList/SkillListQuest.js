@@ -4,7 +4,6 @@ import { DataContext } from '../../contexts/DataContext'
 import { ModalContext } from '../../contexts/ModalContext'
 import { ModalQuestEdit, ModalSkillAdd } from '../Modal/ModalTypes'
 import { getParents, getDescendants } from '../../utils/quest'
-import { resetForm } from '../../utils/form'
 
 import { getNextLevel, getQuestLevel, getPrevLevel } from '../../utils/level'
 import { v4 as uuidv4 } from 'uuid'
@@ -43,8 +42,8 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
     const nextLevel = getNextLevel(state.data.levels, getQuestLevel(state.data.levels, quest.id).id)
     if (!descendants || descendants.length < SETTINGS.MAX_CHILDREN) dispatch({ type: ACTIONS.ADD_ITEM, payload: { newItem: newQuest, levelId: nextLevel ? nextLevel.id : null } })
 
-    // close modal and reset forms
-    resetForm(e.target[0], setModalOpen)
+    // close modal
+    setModalOpen(false)
   }
 
   return (
@@ -79,8 +78,8 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
                   if (nameVal !== quest.name) dispatch({ type: ACTIONS.CHANGE_NAME, payload: { quest, name: nameVal } })
                   if (parentVal !== quest.parents) dispatch({ type: ACTIONS.SET_PARENTS, payload: { quest, parentIds: parentVal } })
 
-                  // close modal and reset forms
-                  resetForm(e.target[0], setModalOpen)
+                  // close modal
+                  setModalOpen(false)
                 }}
               />)
             }}
@@ -121,7 +120,7 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
                   const nameInput = e.target[0]
                   const nameVal = nameInput.value
                   dispatch({ type: ACTIONS.ADD_SKILL, payload: { quest, skill: nameVal } })
-                  resetForm(e.target[0], setModalOpen)
+                  setModalOpen(false)
                 }
               }/>
             )
