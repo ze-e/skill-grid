@@ -46,9 +46,6 @@ export default function SkillListLevel ({ index, level }) {
       color: createColor()
     }
 
-    // reset input
-    input.value = input.defaultValue
-
     // create new if possible
     if (newQuest.parents) dispatch({ type: ACTIONS.ADD_ITEM, payload: { newItem: newQuest, levelId: level.id } })
     else setDisableButton(true)
