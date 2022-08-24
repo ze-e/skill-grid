@@ -84,6 +84,14 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
               />)
             }}
             >Edit</button>
+
+      {levelIndex !== 0 && <button
+        className="m-skillListButton button"
+        type='button'
+        onClick={() => { dispatch({ type: ACTIONS.DELETE_ITEM, payload: { item: quest } }) }}>
+        Delete
+      </button>}
+
           </div>
            <div className='m-flex'>
             <div className="m-flexColumn skillListQuest__family">
