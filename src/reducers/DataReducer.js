@@ -6,11 +6,10 @@ import { attachChild, getDescendants, setDefaultParent, sortQuests } from '../ut
 
 import { v4 as uuidv4 } from 'uuid'
 
-// import { debug } from '../utils/debug'
 function createData () {
   data.levels.forEach(level => {
-    level.id = uuidv4()
-    level.quests.forEach(quest => { quest.color = quest.parents.length > 0 && quest.parents[0]?.color !== undefined ? quest.parents[0]?.color : createColor() })
+    if (!level.id) level.id = uuidv4()
+    level.quests.forEach(quest => { if (!quest.id) quest.id = uuidv4(); quest.color = quest.parents.length > 0 && quest.parents[0]?.color !== undefined ? quest.parents[0]?.color : createColor() })
   })
   return data
 }

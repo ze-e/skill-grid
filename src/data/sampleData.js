@@ -1,6 +1,7 @@
 export const data = {
   levels: [
     {
+      id: '599eea97-457d-4de8-bced-226ad64066c0',
       quests: [
         {
           id: 'c950b2e3-8b9d-4e6b-9bea-bd677779d7ae',
@@ -12,6 +13,7 @@ export const data = {
       ]
     },
     {
+      id: '6f8dbae7-d180-460a-8856-c677a39c744f',
       quests: [
         {
           id: '0166b45e-9b46-413e-951c-e4a8b0932c59',
@@ -26,7 +28,7 @@ export const data = {
       ]
     },
     {
-      // id goes here
+      id: '51f164b5-f68b-4c06-aa24-8cbd30e1cb77',
       quests: [
         {
           id: '3acc1285-a613-475c-9626-5880b561efb4',
@@ -60,7 +62,6 @@ export const data = {
     {
       quests: [
         {
-          id: 'e74ded8c-029b-4799-89fe-283e1611e361',
           name: 'Defender',
           skills: [
             'Using step movement',
@@ -71,7 +72,6 @@ export const data = {
           descendants: []
         },
         {
-          id: 'bdb072ee-c06d-4810-8038-7b57217530dc',
           name: 'Text Adventure',
           skills: [
             'Using ask/answer',
