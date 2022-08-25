@@ -1,0 +1,22 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border: 5px solid darkblue;
+  width: 100%;
+  padding: 5px;
+
+  &__nav-links {
+    display: flex;
+    list-style-type: none;
+  }
+
+  &__nav-link {
+    margin-right: 5px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+
+  }
+}

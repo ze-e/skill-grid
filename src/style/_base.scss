@@ -35,3 +35,20 @@ h4 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+a {
+  text-decoration: none;
+  &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+}
+
+button {
+  appearance: none;
+}
+
+ul {
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+}

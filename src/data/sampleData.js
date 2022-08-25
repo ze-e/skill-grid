@@ -1,4 +1,4 @@
-export const data = {
+export const levelData = {
   levels: [
     {
       id: '599eea97-457d-4de8-bced-226ad64066c0',
@@ -88,3 +88,94 @@ export const data = {
     }
   ]
 }
+
+export const userData = [
+  {
+    data: {
+      name: 'Rex',
+      level: 10,
+      xp: 80,
+      gold: 800,
+      epiphet: 'the l33t',
+      type: 'elf',
+      job: 'hacker',
+      hometown: 'fullerton',
+      birthday: '1989-08-16T06:00:00.000Z',
+      color: 'red',
+      food: 'sushi',
+      description: 'An elite elf hacker, Rex surfs the cyberworld looking for new vulnerabilities to exploit'
+    },
+    admin: {
+      userName: 'rex',
+      password: 'password123',
+      email: 'zrexrodriguez@gmail.com',
+      userType: 'teacher',
+      completedQuests: ['c950b2e3-8b9d-4e6b-9bea-bd677779d7ae', '6f8dbae7-d180-460a-8856-c677a39c744f', '3acc1285-a613-475c-9626-5880b561efb4', '80c8be0e-e682-49f7-ab9a-5b939923c0b2']
+    },
+    gear: {
+      head: '60b1788e-1b34-419d-a970-89312ac10e0c',
+      LHand: '60b1788e-1b34-419d-a970-89312ac10e0d',
+      RHand: '',
+      LShldr: '60b1788e-1b34-419d-a970-89312ac10e0e',
+      RShldr: '',
+      accessory: '',
+      body: '',
+      pants: '',
+      legs: ''
+    },
+    inventory: ['60b1788e-1b34-419d-a970-89312ac10e0c', '60b1788e-1b34-419d-a970-89312ac10e0d', '60b1788e-1b34-419d-a970-89312ac10e0e']
+  },
+  {
+    data: {
+      name: 'Hunter',
+      level: 10,
+      xp: 30,
+      gold: 100,
+      epiphet: 'the fearless',
+      type: 'elf',
+      job: 'wizard',
+      hometown: 'brookyln',
+      birthday: '1992-08-10T06:00:00.000Z',
+      color: 'blue',
+      food: 'fois gras',
+      description: 'An elf wizard who excels at cooking'
+    },
+    admin: {
+      userName: 'hunter',
+      password: 'password123',
+      email: 'jhunterrodriguez@gmail.com',
+      userType: 'student',
+      completedQuests: ['c950b2e3-8b9d-4e6b-9bea-bd677779d7ae', '6f8dbae7-d180-460a-8856-c677a39c744f', '3acc1285-a613-475c-9626-5880b561efb4']
+    },
+    gear: {
+      head: '60b1788e-1b34-419d-a970-89312ac10e0c',
+      LHand: '',
+      RHand: '',
+      LShldr: '',
+      RShldr: '60b1788e-1b34-419d-a970-89312ac10e0e',
+      accessory: '',
+      body: '',
+      pants: '',
+      legs: ''
+    },
+    inventory: ['60b1788e-1b34-419d-a970-89312ac10e0c', '60b1788e-1b34-419d-a970-89312ac10e0e']
+  }
+]
+
+export const itemData = [
+  {
+    id: '60b1788e-1b34-419d-a970-89312ac10e0c',
+    name: 'iron helm',
+    location: 'head'
+  },
+  {
+    id: '60b1788e-1b34-419d-a970-89312ac10e0d',
+    name: 'cyber glove',
+    location: 'LHand'
+  },
+  {
+    id: '60b1788e-1b34-419d-a970-89312ac10e0e',
+    name: 'shldr spikes',
+    location: 'LShldr'
+  }
+]

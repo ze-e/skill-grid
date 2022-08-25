@@ -1,7 +1,6 @@
-import ModalLevelAdd from './types/ModalLevelAdd'
-import ModalLevelEdit from './types/ModalLevelEdit'
 import ModalQuestAdd from './types/ModalQuestAdd'
 import ModalQuestEdit from './types/ModalQuestEdit'
 import ModalSkillAdd from './types/ModalSkillAdd'
+import ModalLogin from './types/ModalLogin'
 
-export { ModalLevelAdd, ModalLevelEdit, ModalQuestAdd, ModalQuestEdit, ModalSkillAdd }
+export { ModalQuestAdd, ModalQuestEdit, ModalSkillAdd, ModalLogin }
