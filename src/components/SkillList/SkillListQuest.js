@@ -2,6 +2,8 @@ import React, { useContext, useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { DataContext } from '../../contexts/DataContext'
 import { ModalContext } from '../../contexts/ModalContext'
+import { UserContext } from '../../contexts/UserContext'
+
 import { ModalQuestEdit, ModalSkillAdd } from '../Modal/ModalTypes'
 import { getParents, getDescendants } from '../../utils/quest'
 
@@ -14,10 +16,13 @@ import SkillListSkill from './SkillListSkill'
 export default function SkillListQuest ({ index, quest, levelIndex, teacherView }) {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
   const { setModalOpen, setModalContent } = useContext(ModalContext)
+  const { user } = useContext(UserContext)
 
   const [parents, setParents] = useState(null)
   const [descendants, setDescendants] = useState(null)
   const [prevLevel, setPrevLevel] = useState(getPrevLevel(state.data.levels, getQuestLevel(state.data.levels, quest.id).id))
+
+  const completed = user.admin?.userType === 'student' && user.admin?.completedQuests.includes(quest.id)
 
   useEffect(() => {
     setParents(getParents(state.data?.levels, quest))
@@ -47,7 +52,8 @@ export default function SkillListQuest ({ index, quest, levelIndex, teacherView 
   }
 
   return (
-    <div className='skillListQuest'>
+    (completed || user.admin?.userType === 'teacher')
+      ? (<div className='skillListQuest'>
           <div className='skillListQuest__head'>
             <h4 className='skillListQuest__title' style={{ border: `3px solid ${quest.color}` }}>
               {`Quest ${index + 1} - ${quest.name}`}
@@ -134,7 +140,8 @@ export default function SkillListQuest ({ index, quest, levelIndex, teacherView 
             )
           }}
         >Add New Skill</button>}
-    </div>
+    </div>)
+      : <div className='skillListQuest'><em className='skillListQuest__title'>Quest not unlocked!</em><br/><br/></div>
   )
 }
 

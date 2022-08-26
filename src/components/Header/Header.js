@@ -34,7 +34,12 @@ export default function Header () {
                 setModalContent(<ModalLogin handleSubmit= {(e) => { e.preventDefault(); login(e); setModalOpen(false) }} />)
               }}
             >Login</button>
-              : <p>{user.data.name}</p>
+              : <><p>{user.data.name}</p><button
+                className='m-button'
+              onClick={() => {
+                setUser({})
+              }}
+            >Logout</button></>
           }
           </li>
         </ul>
