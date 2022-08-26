@@ -11,7 +11,7 @@ import SETTINGS from '../../config/constants'
 
 import SkillListSkill from './SkillListSkill'
 
-export default function SkillListQuest ({ index, quest, levelIndex }) {
+export default function SkillListQuest ({ index, quest, levelIndex, teacherView }) {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
   const { setModalOpen, setModalContent } = useContext(ModalContext)
 
@@ -53,7 +53,7 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
               {`Quest ${index + 1} - ${quest.name}`}
             </h4>
 
-            <button
+          {teacherView && <button
             className="m-skillListButton button"
             type='button'
             onClick={() => {
@@ -83,9 +83,9 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
                 }}
               />)
             }}
-            >Edit</button>
+            >Edit</button>}
 
-      {levelIndex !== 0 && <button
+      {(levelIndex !== 0 && teacherView) && <button
         className="m-skillListButton button"
         type='button'
         onClick={() => { dispatch({ type: ACTIONS.DELETE_ITEM, payload: { item: quest } }) }}>
@@ -113,9 +113,9 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
           </div>
 
         {quest.skills.map((skill, index) =>
-          <SkillListSkill key={skill + ' ' + index} quest={quest} skill={skill} index={index} />
+          <SkillListSkill key={skill + ' ' + index} quest={quest} skill={skill} index={index} teacherView={teacherView} />
         )}
-      {quest.skills.length < SETTINGS.MAX_SKILLS &&
+      {(quest.skills.length < SETTINGS.MAX_SKILLS && teacherView) &&
         <button
           className="m-skillListButton button"
           type='button'
@@ -141,5 +141,6 @@ export default function SkillListQuest ({ index, quest, levelIndex }) {
 SkillListQuest.propTypes = {
   index: PropTypes.number,
   levelIndex: PropTypes.number,
-  quest: PropTypes.object
+  quest: PropTypes.object,
+  teacherView: PropTypes.bool
 }

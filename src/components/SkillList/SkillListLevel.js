@@ -12,7 +12,7 @@ import SkillListQuest from './SkillListQuest'
 
 import { ModalQuestAdd } from '../Modal/ModalTypes'
 
-export default function SkillListLevel ({ index, level }) {
+export default function SkillListLevel ({ index, level, teacherView }) {
   const [levelXP, setLevelXP] = useState(0)
 
   const { state, dispatch, ACTIONS } = useContext(DataContext)
@@ -59,9 +59,9 @@ export default function SkillListLevel ({ index, level }) {
         </div>
 
         {level.quests.length > 0 && level.quests.map((quest, i) =>
-          <SkillListQuest key={quest.id} quest={quest} index={i} levelIndex={index} />
+          <SkillListQuest key={quest.id} quest={quest} index={i} levelIndex={index} teacherView={teacherView} />
         )}
-        {!disableButton &&
+        {(!disableButton && teacherView) &&
             <button
             className="m-skillListButton button"
             type='button'
@@ -77,5 +77,6 @@ export default function SkillListLevel ({ index, level }) {
 
 SkillListLevel.propTypes = {
   index: PropTypes.number,
-  level: PropTypes.object
+  level: PropTypes.object,
+  teacherView: PropTypes.bool
 }

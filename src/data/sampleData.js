@@ -145,7 +145,7 @@ export const userData = [
       password: 'password123',
       email: 'jhunterrodriguez@gmail.com',
       userType: 'student',
-      completedQuests: ['c950b2e3-8b9d-4e6b-9bea-bd677779d7ae', '6f8dbae7-d180-460a-8856-c677a39c744f', '3acc1285-a613-475c-9626-5880b561efb4']
+      completedQuests: ['c950b2e3-8b9d-4e6b-9bea-bd677779d7ae', '0166b45e-9b46-413e-951c-e4a8b0932c59', '3acc1285-a613-475c-9626-5880b561efb4']
     },
     gear: {
       head: '60b1788e-1b34-419d-a970-89312ac10e0c',

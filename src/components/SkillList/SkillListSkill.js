@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { DataContext } from '../../contexts/DataContext'
 
-export default function SkillListSkill ({ quest, skill, index }) {
+export default function SkillListSkill ({ quest, skill, index, teacherView }) {
   const { dispatch, ACTIONS } = useContext(DataContext)
 
   const [edit, setEdit] = useState(false)
@@ -20,14 +20,14 @@ export default function SkillListSkill ({ quest, skill, index }) {
         <button type="submit">Change Name</button>
       </form>
       }
-      {!edit && <button
+      {(!edit && teacherView) && <button
         className="m-skillListButton button"
         type='button'
         onClick={() => { setEdit(true) }}>
         Rename
       </button>
       }
-      {!edit && <button
+      {(!edit && teacherView) && <button
         className="m-skillListButton button"
         type='button'
         disabled={quest.skills.length === 1}
@@ -41,5 +41,6 @@ export default function SkillListSkill ({ quest, skill, index }) {
 SkillListSkill.propTypes = {
   index: PropTypes.number,
   skill: PropTypes.string,
-  quest: PropTypes.object
+  quest: PropTypes.object,
+  teacherView: PropTypes.bool
 }

@@ -1,5 +1,6 @@
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { DataContext } from '../contexts/DataContext'
+import { UserContext } from '../contexts/UserContext'
 
 import SkillTreeColumn from './SkillTree/SkillTreeColumn'
 import SkillList from './SkillList/SkillList'
@@ -9,9 +10,13 @@ import { drawLine } from '../utils/visualEffect'
 
 function SkillView () {
   const { state } = useContext(DataContext)
+  const { user } = useContext(UserContext)
+
   const levels = state.data.levels
 
   const skillTreeRef = useRef(null)
+
+  const [teacherView, setTeacherView] = useState(false)
 
   // creates the gridlines that connect nodes
   useEffect(() => {
@@ -47,7 +52,7 @@ function SkillView () {
         if (parentNode) drawLine(parentNode.node, node, line)
       }
     })
-  }, [state])
+  }, [state, user])
 
   return (
         <>
@@ -61,8 +66,15 @@ function SkillView () {
               />
             })}
           </section>
-          <h2 className='skillView__title'>Skill List</h2>
-          <SkillList/>
+      <h2 className='skillView__title'>Skill List</h2>
+      {user.admin?.userType === 'teacher' && <button
+        className="m-skillListButton button"
+        type='button'
+        onClick={() => { setTeacherView(!teacherView) }}
+      >
+        {teacherView ? 'Close Teacher View' : 'Teacher View'}
+      </button>}
+      <SkillList teacherView={teacherView} />
         </>
   )
 }
