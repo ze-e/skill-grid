@@ -1,5 +1,9 @@
 .skillListQuest {
   margin-left: 10px;
+
+  &--isCurrent {
+    color: grey;
+  }
   
   &__head {
     display: flex;

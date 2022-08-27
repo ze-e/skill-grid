@@ -24,6 +24,13 @@ export default function SkillListQuest ({ index, quest, levelIndex, teacherView 
 
   const completed = user.admin?.userType === 'student' && user.admin?.completedQuests.includes(quest.id)
 
+  const [isCurrent, setIsCurrent] = useState(false)
+
+  useEffect(() => {
+    if (quest.parents.every(p => user.admin.completedQuests.includes(p)) && (quest.descendants.length > 0 && !quest.descendants.some(p => user.admin.completedQuests.includes(p)))) setIsCurrent(true)
+    else setIsCurrent(false)
+  }, [user.admin.completedQuests])
+
   useEffect(() => {
     setParents(getParents(state.data?.levels, quest))
     setDescendants(getDescendants(state.data?.levels, quest))
@@ -52,13 +59,13 @@ export default function SkillListQuest ({ index, quest, levelIndex, teacherView 
   }
 
   return (
-    (completed || user.admin?.userType === 'teacher')
-      ? (<div className='skillListQuest'>
+    (completed || user.admin?.userType === 'teacher' || isCurrent)
+      ? (<div className={`skillListQuest ${(user.admin?.userType !== 'teacher' && isCurrent) && 'skillListQuest--isCurrent'}`}>
           <div className='skillListQuest__head'>
           <h4 className='skillListQuest__title' style={{ border: `3px solid ${quest.color}` }}>
               {`Quest ${index + 1} - ${quest.name}`}
             </h4>
-
+          {(user.admin?.userType !== 'teacher' && !isCurrent) && <h5 className='skillListQuest__completed'> -- COMPLETED!</h5>}
           {teacherView && <button
             className="m-skillListButton button"
             type='button'
