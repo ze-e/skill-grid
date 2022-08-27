@@ -55,7 +55,7 @@ export default function SkillListQuest ({ index, quest, levelIndex, teacherView 
     (completed || user.admin?.userType === 'teacher')
       ? (<div className='skillListQuest'>
           <div className='skillListQuest__head'>
-            <h4 className='skillListQuest__title' style={{ border: `3px solid ${quest.color}` }}>
+          <h4 className='skillListQuest__title' style={{ border: `3px solid ${quest.color}` }}>
               {`Quest ${index + 1} - ${quest.name}`}
             </h4>
 
