@@ -1,5 +1,6 @@
 .profileView {
   display: flex;
+  margin: auto;
   width: 100%;
   height: 400px;
   padding: 10px;
@@ -11,6 +12,6 @@
 
   &__info {
     flex: 2 2 auto;
-    margin-left: 10px;
+    margin-left: 24px;
   }
 }

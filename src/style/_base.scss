@@ -58,3 +58,13 @@ ul {
   list-style: none;    
   padding-inline-start: 0;
 }
+
+p {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+em {
+  font-style: normal;
+  font-weight: bold;
+}

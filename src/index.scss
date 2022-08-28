@@ -4,15 +4,12 @@
 @import url('./style/_state.scss');
 
 @import url('./style/components/App.scss');
-@import url('./style/components/SkillView.scss');
-@import url('./style/components/ProfileView.scss');
-@import url('./style/components/ProfileImg/ProfileImg.scss');
-
 
 @import url('./style/components/Header/Header.scss');
 
 @import url('./style/components/MainNav/MainNav.scss');
 
+@import url('./style/components/SkillView.scss');
 @import url('./style/components/SkillTree/SkillTreeNode.scss');
 @import url('./style/components/SkillTree/SkillTreeColumn.scss');
 
@@ -20,5 +17,9 @@
 @import url('./style/components/SkillList/SkillListLevel.scss');
 @import url('./style/components/SkillList/SkillListQuest.scss');
 @import url('./style/components/SkillList/SkillListSkill.scss');
+
+@import url('./style/components/ProfileView.scss');
+@import url('./style/components/Profile/ProfileImg.scss');
+@import url('./style/components/Profile/ProfileInfo.scss');
 
 @import url('./style/components/Modal/ModalContainer.scss');
