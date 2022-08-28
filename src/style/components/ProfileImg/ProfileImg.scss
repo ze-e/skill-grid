@@ -1,0 +1,21 @@
+.profileImg {
+  position: relative;
+    width: 100%;
+    height: 100%;
+    border: 2px solid black;
+
+  &__img {
+    position: absolute;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__edit {
+    position: absolute;
+    top: 5px;
+    left: 5px;
+  }
+}

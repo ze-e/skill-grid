@@ -1,3 +1,5 @@
+import defaultAvatar from '../assets/elf-avi.jpg'
+
 export const levelData = {
   levels: [
     {
@@ -93,6 +95,10 @@ export const userData = [
   {
     data: {
       name: 'Rex',
+      img: {
+        src: defaultAvatar,
+        name: 'elf hacker'
+      },
       level: 10,
       xp: 80,
       gold: 800,
@@ -128,6 +134,10 @@ export const userData = [
   {
     data: {
       name: 'Hunter',
+      img: {
+        src: defaultAvatar,
+        name: 'elf wizard'
+      },
       level: 10,
       xp: 30,
       gold: 100,

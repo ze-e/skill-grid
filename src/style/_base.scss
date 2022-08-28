@@ -46,6 +46,10 @@ a {
 
 button {
   appearance: none;
+    &:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
 }
 
 ul {
