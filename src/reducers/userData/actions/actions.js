@@ -1,5 +1,7 @@
 const USERACTIONS = {
-  HELLO_WORLD2: 'hello-world2'
+  EDIT_DATA: 'edit-data',
+  EDIT_ADMIN: 'edit-admin',
+  COMPLETE_QUEST: 'complete-quest'
 }
 
 export default USERACTIONS

@@ -22,9 +22,6 @@ export default function ProfileInfo ({ data }) {
           <h2 className='profileInfo__title'>{`${data.name} ${data.epiphet}`}</h2>
           <h3 className='profileInfo__subtitle'>{`(Lv. ${data.level} ${data.type} ${data.job})`}</h3>
         </div>
-        <div>
-          <button className='profileInfo__button m-button ' type="button">Edit Profile</button>
-        </div>
       </div>
       <div className="profileInfo__data m-flex">
         <ul className='profileInfo__list'>

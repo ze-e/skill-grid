@@ -8,6 +8,7 @@ import USERACTIONS from './userData/actions/actions'
 
 // functions
 import levelFunctions from './levelData/functions/functions'
+import userFunctions from './levelData/functions/functions'
 
 function createData () {
   data.levels.forEach(level => {
@@ -33,6 +34,7 @@ function DataReducer (state, action) {
     case ACTIONS.HELLO_WORLD:
       console.log('HELLO', action.payload)
       return state
+    // data
     case ACTIONS.ADD_ITEM: return levelFunctions.addItem(state, action.payload)
     case ACTIONS.DELETE_ITEM: return levelFunctions.deleteItem(state, action.payload)
     case ACTIONS.CHANGE_NAME: return levelFunctions.changeName(state, action.payload)
@@ -40,6 +42,11 @@ function DataReducer (state, action) {
     case ACTIONS.ADD_SKILL: return levelFunctions.addSkill(state, action.payload)
     case ACTIONS.DELETE_SKILL: return levelFunctions.deleteSkill(state, action.payload)
     case ACTIONS.RENAME_SKILL: return levelFunctions.renameSkill(state, action.payload)
+    //user
+    case ACTIONS.EDIT_DATA: return userFunctions.editData(state, action.payload)
+    case ACTIONS.EDIT_ADMIN: return userFunctions.editAdmin(state, action.payload)
+    case ACTIONS.COMPLETE_QUEST: return userFunctions.editAdmin(state, action.payload)
+
     default: throw new Error(`Unknown action type: ${action.type}`)
   }
 }

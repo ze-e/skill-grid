@@ -1,12 +1,11 @@
 .profileInfo {
-  &__intro {
-    justify-content: space-between;
-  }
+
   &__button {
     margin-top: 24px;
     margin-bottom: 24px;
   }
-  &__data {
-    justify-content: space-between;
+
+  &__description {
+    margin-left: 20px;
   }
 }
