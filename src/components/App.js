@@ -17,7 +17,7 @@ export default function App () {
     <BrowserRouter>
       <Layout>
           <Routes>
-          <Route path="/" element={<Navigate to="/login" />} />
+          <Route index path="/" element={<Navigate to="/login" />} />
           <Route exact path="login" element={<LoginView />} />
           <Route exact path="profile" element={<ProtectedRoute Component={<ProfileView/>} />} />
           <Route exact path="skills" element={<ProtectedRoute Component={<SkillView/>} />} />
