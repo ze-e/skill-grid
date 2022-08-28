@@ -65,7 +65,7 @@ export default function SkillListQuest ({ index, quest, levelIndex, teacherView 
           <h4 className='skillListQuest__title' style={{ border: `3px solid ${quest.color}` }}>
               {`Quest ${index + 1} - ${quest.name}`}
             </h4>
-          {(user.admin?.userType !== 'teacher' && !isCurrent) && <h5 className='skillListQuest__completed'> -- COMPLETED!</h5>}
+          {(user.admin?.userType !== 'teacher' && !isCurrent) && <h5 className='skillListQuest__completed'>{' '}--{' '}COMPLETED!</h5>}
           {teacherView && <button
             className="m-skillListButton button"
             type='button'

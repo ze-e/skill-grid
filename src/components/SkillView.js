@@ -57,18 +57,17 @@ function SkillView () {
   }, [state, user])
 
   return (
-    user.admin
-      ? <>
-          <h2 className='skillView__title'>Skill Tree</h2>
-          <section className='skillView__tree' ref={skillTreeRef}>
-              {levels.length > 0 && levels.map(level => {
-                return <SkillTreeColumn
-                  key={level.id}
-                  color={level.color}
-                  quests={level.quests}
-                />
-              })}
-          </section>
+    <>
+      <h2 className='skillView__title'>Skill Tree</h2>
+        <section className='skillView__tree' ref={skillTreeRef}>
+            {levels.length > 0 && levels.map(level => {
+              return <SkillTreeColumn
+                key={level.id}
+                color={level.color}
+                quests={level.quests}
+              />
+            })}
+        </section>
       <h2 className='skillView__title'>Skill List</h2>
       {user.admin?.userType === 'teacher' && <button
         className="m-skillListButton button"
@@ -79,7 +78,6 @@ function SkillView () {
       </button>}
       <SkillList teacherView={teacherView} />
     </>
-      : <p>Please sign in</p>
   )
 }
 

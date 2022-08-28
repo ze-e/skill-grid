@@ -1,11 +1,11 @@
 import React, { useReducer, useState } from 'react'
+import PropTypes from 'prop-types'
 
 import { DataContext } from '../../contexts/DataContext'
 import { ModalContext } from '../../contexts/ModalContext'
 import { UserContext } from '../../contexts/UserContext'
 
 import DataReducer, { initialState, ACTIONS } from '../../reducers/DataReducer'
-import PropTypes from 'prop-types'
 
 function DataLayer ({ children }) {
   const [state, dispatch] = useReducer(DataReducer, initialState)

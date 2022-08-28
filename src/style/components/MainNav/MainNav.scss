@@ -1,0 +1,19 @@
+.mainNav {
+  &__items {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__item {
+    &::after {
+      content: ' | ';
+      margin-left: 4px;
+      margin-right: 4px;
+    }
+    &:last-of-type::after {
+      content: '';
+      margin: 0;
+    }
+  }
+}

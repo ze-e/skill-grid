@@ -4,6 +4,8 @@ import { ModalContext } from '../../contexts/ModalContext'
 import { UserContext } from '../../contexts/UserContext'
 import { DataContext } from '../../contexts/DataContext'
 
+import MainNav from '../../components/MainNav/MainNav'
+
 export default function Header () {
   const { setModalOpen, setModalContent } = useContext(ModalContext)
   const { user, setUser } = useContext(UserContext)
@@ -20,30 +22,33 @@ export default function Header () {
 
   return (
     <div className='header'>
-      <a className='m-link' href='#'>
-        <div className='m-logo'>Logo</div>
-      </a>
-      <nav className='header__nav'>
-        <ul className='header__nav-links'>
-          <li className='header__nav-link'>
-            {!user.data
-              ? <button
-                className='m-button'
-              onClick={() => {
-                setModalOpen(true)
-                setModalContent(<ModalLogin handleSubmit= {(e) => { e.preventDefault(); login(e); setModalOpen(false) }} />)
-              }}
-            >Login</button>
-              : <><p>{user.data.name}</p><button
-                className='m-button'
-              onClick={() => {
-                setUser({})
-              }}
-            >Logout</button></>
-          }
-          </li>
-        </ul>
-      </nav>
+      <div className='header__signIn'>
+        <a className='m-link' href='#'>
+          <div className='m-logo'>Logo</div>
+        </a>
+        <nav className='header__nav'>
+          <ul className='header__nav-links'>
+            <li className='header__nav-link'>
+              {!user.data
+                ? <button
+                  className='m-button'
+                onClick={() => {
+                  setModalOpen(true)
+                  setModalContent(<ModalLogin handleSubmit= {(e) => { e.preventDefault(); login(e); setModalOpen(false) }} />)
+                }}
+              >Login</button>
+                : <><p>{user.data.name}</p><button
+                  className='m-button'
+                onClick={() => {
+                  setUser({})
+                }}
+              >Logout</button></>
+            }
+            </li>
+          </ul>
+          </nav>
+        </div>
+      <MainNav/>
     </div>
   )
 }
