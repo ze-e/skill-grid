@@ -31,10 +31,10 @@ export default function SkillTreeNode ({ item }) {
   function NodeData ({ item, children }) {
     return (
       <>
-        <div className='skillTreeNode' style={{ border: `3px solid ${item.color}`, color: isAvailable ? 'white' : 'black', backgroundColor: isAvailable ? isCurrent ? 'green' : 'grey' : 'white' }} >
+        <div className='skillTreeNode' style={{ border: `3px solid ${item.color}`, color: user.admin?.userType !== 'teacher' && isAvailable ? 'white' : 'black', backgroundColor: user.admin?.userType !== 'teacher' && isAvailable ? isCurrent ? 'green' : 'grey' : 'white' }} >
           <h3>{item.name}</h3>
           <h4>XP: {xp}</h4>
-          {(isAvailable && !isCurrent) && <button type="button" onClick={() => { setCurrentQuest() }}>Start Quest</button>}
+          {(user.admin?.userType !== 'teacher' && isAvailable && !isCurrent) && <button type="button" onClick={() => { setCurrentQuest() }}>Start Quest</button>}
         {children}
       </div>
       </>

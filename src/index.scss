@@ -5,6 +5,8 @@
 
 @import url('./style/components/App.scss');
 
+@import url('./style/components/Modal/ModalContainer.scss');
+
 @import url('./style/components/Header/Header.scss');
 
 @import url('./style/components/MainNav/MainNav.scss');
@@ -22,4 +24,5 @@
 @import url('./style/components/Profile/ProfileImg.scss');
 @import url('./style/components/Profile/ProfileInfo.scss');
 
-@import url('./style/components/Modal/ModalContainer.scss');
+@import url('./style/components/UserListView.scss');
+

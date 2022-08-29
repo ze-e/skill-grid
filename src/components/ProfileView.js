@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react'
-// import PropTypes from 'prop-types'
 import ProfileImg from './Profile/ProfileImg/ProfileImg'
 import ProfileInfo from './Profile/ProfileInfo/ProfileInfo'
 
@@ -12,7 +11,7 @@ export default function ProfileView () {
 
   /* DEBUG */
   useEffect(() => {
-    const userData = state.userData.find(i => i.admin.userName === 'hunter')
+    const userData = state.userData.find(i => i.admin.userName === 'rex')
     setUser(userData)
   }, [])
 
@@ -25,6 +24,3 @@ export default function ProfileView () {
     </div>
   )
 }
-
-// ProfileView.propTypes = {
-// }
