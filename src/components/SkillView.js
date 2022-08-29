@@ -5,7 +5,7 @@ import { UserContext } from '../contexts/UserContext'
 import SkillTreeColumn from './SkillTree/SkillTreeColumn'
 import SkillList from './SkillList/SkillList'
 
-import { getParentsWithId } from '../utils/quest'
+import { getAllQuests, getParentsWithId } from '../utils/quest'
 import { drawLine } from '../utils/visualEffect'
 
 function SkillView () {
@@ -58,7 +58,8 @@ function SkillView () {
 
   return (
     <>
-      <h2 className='skillView__title'>Skill Tree</h2>
+      {user.admin.currentQuest && <h2 className='skillView__current'>Current Quest: {' '} { getAllQuests(state.data.levels).find(q => q.id === user.admin.currentQuest).name }</h2>}
+      <h3 className='skillView__title'>Skill Tree</h3>
         <section className='skillView__tree' ref={skillTreeRef}>
             {levels.length > 0 && levels.map(level => {
               return <SkillTreeColumn
@@ -68,7 +69,7 @@ function SkillView () {
               />
             })}
         </section>
-      <h2 className='skillView__title'>Skill List</h2>
+      <h3 className='skillView__title'>Skill List</h3>
       {user.admin?.userType === 'teacher' && <button
         className="m-skillListButton button"
         type='button'

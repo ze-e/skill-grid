@@ -1,8 +1,12 @@
 .skillListQuest {
   margin-left: 10px;
 
-  &--isCurrent {
+  &--isAvailable {
     color: grey;
+  }
+
+  &--isCurrent {
+    border: 3px solid green;
   }
   
   &__head {

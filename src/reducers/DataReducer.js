@@ -8,7 +8,7 @@ import USERACTIONS from './userData/actions/actions'
 
 // functions
 import levelFunctions from './levelData/functions/functions'
-import userFunctions from './levelData/functions/functions'
+import userFunctions from './userData/functions/functions'
 
 function createData () {
   data.levels.forEach(level => {
@@ -42,7 +42,7 @@ function DataReducer (state, action) {
     case ACTIONS.ADD_SKILL: return levelFunctions.addSkill(state, action.payload)
     case ACTIONS.DELETE_SKILL: return levelFunctions.deleteSkill(state, action.payload)
     case ACTIONS.RENAME_SKILL: return levelFunctions.renameSkill(state, action.payload)
-    //user
+    // user
     case ACTIONS.EDIT_DATA: return userFunctions.editData(state, action.payload)
     case ACTIONS.EDIT_ADMIN: return userFunctions.editAdmin(state, action.payload)
     case ACTIONS.COMPLETE_QUEST: return userFunctions.editAdmin(state, action.payload)

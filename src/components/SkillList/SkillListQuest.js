@@ -25,11 +25,16 @@ export default function SkillListQuest ({ index, quest, levelIndex, teacherView 
   const completed = user.admin?.userType === 'student' && user.admin?.completedQuests.includes(quest.id)
 
   const [isAvailable, setIsAvailable] = useState(false)
+  const [isCurrent, setIsCurrent] = useState(false)
 
   useEffect(() => {
     if (quest.parents.every(p => user.admin.completedQuests.includes(p)) && (quest.descendants.length > 0 && !quest.descendants.some(p => user.admin.completedQuests.includes(p)))) setIsAvailable(true)
     else setIsAvailable(false)
   }, [user.admin.completedQuests])
+
+  useEffect(() => {
+    setIsCurrent(quest.id === user.admin.currentQuest)
+  }, [user.admin.currentQuest])
 
   useEffect(() => {
     setParents(getParents(state.data?.levels, quest))
@@ -60,12 +65,13 @@ export default function SkillListQuest ({ index, quest, levelIndex, teacherView 
 
   return (
     (completed || user.admin?.userType === 'teacher' || isAvailable)
-      ? (<div className={`skillListQuest ${(user.admin?.userType !== 'teacher' && isAvailable) && 'skillListQuest--isAvailable'}`}>
+      ? (<div className={`skillListQuest ${(user.admin?.userType !== 'teacher' && isAvailable && !isCurrent) && 'skillListQuest--isAvailable'}  ${(user.admin?.userType !== 'teacher' && isCurrent) && 'skillListQuest--isCurrent'}`}>
           <div className='skillListQuest__head'>
           <h4 className='skillListQuest__title' style={{ border: `3px solid ${quest.color}` }}>
               {`Quest ${index + 1} - ${quest.name}`}
             </h4>
-          {(user.admin?.userType !== 'teacher' && !isAvailable) && <h5 className='skillListQuest__completed'>{' '}--{' '}COMPLETED!</h5>}
+          {(user.admin?.userType !== 'teacher' && !isAvailable && !isCurrent) && <h5 className='skillListQuest__completed'>{' --> '}COMPLETED!</h5>}
+          {(user.admin?.userType !== 'teacher' && isCurrent) && <h5 className='skillListQuest__completed'>{' --> '}  In Progress...</h5>}
           {teacherView && <button
             className="m-skillListButton button"
             type='button'
