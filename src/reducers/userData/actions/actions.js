@@ -1,7 +1,8 @@
 const USERACTIONS = {
   EDIT_DATA: 'edit-data',
   EDIT_ADMIN: 'edit-admin',
-  COMPLETE_QUEST: 'complete-quest'
+  SUBMIT_QUEST: 'submit-quest',
+  APPROVE_QUEST: 'approve-quest'
 }
 
 export default USERACTIONS

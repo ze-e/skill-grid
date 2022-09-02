@@ -16,11 +16,21 @@ function editAdmin (state, { userName, field, newVal }) {
   return stateCopy
 }
 
-function completeQuest (state, { userName, questId }) {
+function submitQuest (state, { userName, questId }) {
+  const stateCopy = { ...state }
+  const user = stateCopy.userData.find(i => i.admin.userName.toLowerCase() === userName.toLowerCase())
+  user.admin.submittedQuest = questId
+  user.admin.currentQuest = ''
+  stateCopy.userData.map(i => i.admin.userName.toLowerCase() === userName.toLowerCase() ? user : i)
+
+  return stateCopy
+}
+
+function approveQuest (state, { userName, questId }) {
   const stateCopy = { ...state }
   const user = stateCopy.userData.find(i => i.admin.userName.toLowerCase() === userName.toLowerCase())
   user.admin.completedQuest.push(questId)
-  user.admin.currentQuest = ''
+  user.admin.submittedQuest = ''
   stateCopy.userData.map(i => i.admin.userName.toLowerCase() === userName.toLowerCase() ? user : i)
 
   return stateCopy
@@ -29,5 +39,6 @@ function completeQuest (state, { userName, questId }) {
 export default {
   editData,
   editAdmin,
-  completeQuest
+  submitQuest,
+  approveQuest
 }

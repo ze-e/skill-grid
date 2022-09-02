@@ -5,11 +5,11 @@ import { UserContext } from '../contexts/UserContext'
 import SkillTreeColumn from './SkillTree/SkillTreeColumn'
 import SkillList from './SkillList/SkillList'
 
-import { getAllQuests, getParentsWithId } from '../utils/quest'
+import { getAllQuests, getQuestById, getParentsWithId } from '../utils/quest'
 import { drawLine } from '../utils/visualEffect'
 
 function SkillView () {
-  const { state } = useContext(DataContext)
+  const { state, dispatch, ACTIONS } = useContext(DataContext)
   const { user } = useContext(UserContext)
 
   const levels = state.data.levels
@@ -58,7 +58,10 @@ function SkillView () {
 
   return (
     <>
-      {user.admin.currentQuest && <h2 className='skillView__current'>Current Quest: {' '} { getAllQuests(state.data.levels).find(q => q.id === user.admin.currentQuest).name }</h2>}
+      {user.admin.currentQuest && <h2 className='skillView__current'>Current Quest: {' '} {getAllQuests(state.data.levels).find(q => q.id === user.admin.currentQuest).name}
+      <button type='button' onClick={() => { dispatch({ type: ACTIONS.SUBMIT_QUEST, payload: { userName: user.admin.userName, questId: getQuestById(user.admin.currentQuest) } }) }}>Submit Quest</button>
+      </h2>}
+      {user.admin.submittedQuest && <h2 className='skillView__current'>Submitted Quest: {' '} { getAllQuests(state.data.levels).find(q => q.id === user.admin.currentQuest).name }✔️</h2>}
       <h3 className='skillView__title'>Skill Tree</h3>
         <section className='skillView__tree' ref={skillTreeRef}>
             {levels.length > 0 && levels.map(level => {
