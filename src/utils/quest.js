@@ -1,5 +1,4 @@
 
-// import { debug } from './debug'
 import { getPrevLevel, getQuestLevel } from './level'
 import SETTINGS from '../config/constants'
 
@@ -20,6 +19,10 @@ export function setDefaultParent (levels, currentLevelIndex) {
 export function attachChild (levels, child) {
   const parents = getParents(levels, child)
   if (parents) parents.forEach(p => p.descendants.push(child.id))
+}
+
+export function getQuestById (levels, id) {
+  return getAllQuests(levels).find(q => q.id === id)
 }
 
 export function getAllQuests (levels) {
