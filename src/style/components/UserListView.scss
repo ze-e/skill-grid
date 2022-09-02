@@ -1,19 +1,13 @@
 .userListView {
+    text-align: center;
+    overflow-x: scroll;
+
+  &__labelList, &__valueList {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(1px, 1fr));
+  }
+  
   &__label, &__value {
-
-    &::after {
-      content: '|';
-      margin-left: 8px;
-      margin-right: 8px;
-    }
-
-    &:last-of-type {
-
-      &::after {
-        content: '';
-        margin-left: 0;
-        margin-right: 0;
-      }
-    }
+    border: 1px solid black;
   }
 }

@@ -1,12 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { formattedDate } from '../../../utils/date'
 
 export default function ProfileInfo ({ data }) {
-  function formattedDate (rawDate) {
-    const date = new Date(rawDate)
-    return `${date.getMonth()}/${date.getDay()}/${date.getFullYear()}`
-  }
-
   function profiledata () {
     const exclude = ['img', 'level', 'xp', 'gold', 'description']
     return Object.entries(data)
