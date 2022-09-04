@@ -9,18 +9,19 @@ export default function SkillTreeNode ({ item }) {
   const { user, setUser } = useContext(UserContext)
   const xp = item.skills.length * 10
   const completed = user.admin?.userType === 'student' && user.admin?.completedQuests.includes(item.id)
+  const hasCurrent = user.admin?.userType === 'student' && user.admin?.currentQuest
 
   const [isAvailable, setIsAvailable] = useState(false)
   const [isCurrent, setIsCurrent] = useState(false)
 
   useEffect(() => {
-    if (item.parents.every(p => user.admin.completedQuests.includes(p)) && (item.descendants.length > 0 && !item.descendants.some(p => user.admin.completedQuests.includes(p)))) setIsAvailable(true)
+    if (!completed && (!item.parents.length > 0 || item.parents.every(p => user.admin.completedQuests.includes(p)))) setIsAvailable(true)
     else setIsAvailable(false)
-  }, [user.admin.completedQuests])
+  }, [user.admin])
 
   useEffect(() => {
-    setIsCurrent(item.id === user.admin.currentQuest)
-  }, [user.admin.currentQuest])
+    setIsCurrent(!completed && item.id === user.admin.currentQuest)
+  }, [user.admin])
 
   async function setCurrentQuest () {
     await dispatch({ type: ACTIONS.EDIT_ADMIN, payload: { userName: user.admin.userName, field: 'currentQuest', newVal: item.id } })
@@ -34,7 +35,7 @@ export default function SkillTreeNode ({ item }) {
         <div className='skillTreeNode' style={{ border: `3px solid ${item.color}`, color: user.admin?.userType !== 'teacher' && isAvailable ? 'white' : 'black', backgroundColor: user.admin?.userType !== 'teacher' && isAvailable ? isCurrent ? 'green' : 'grey' : 'white' }} >
           <h3>{item.name}</h3>
           <h4>XP: {xp}</h4>
-          {(user.admin?.userType !== 'teacher' && isAvailable && !isCurrent) && <button type="button" onClick={() => { setCurrentQuest() }}>Start Quest</button>}
+          {(user.admin?.userType !== 'teacher' && isAvailable && !hasCurrent) && <button type="button" onClick={() => { setCurrentQuest() }}>Start Quest</button>}
         {children}
       </div>
       </>

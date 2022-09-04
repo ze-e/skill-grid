@@ -28,12 +28,12 @@ export default function SkillListQuest ({ index, quest, levelIndex, teacherView 
   const [isCurrent, setIsCurrent] = useState(false)
 
   useEffect(() => {
-    if (quest.parents.every(p => user.admin.completedQuests.includes(p)) && (quest.descendants.length > 0 && !quest.descendants.some(p => user.admin.completedQuests.includes(p)))) setIsAvailable(true)
+    if (!completed && quest.parents.every(p => user.admin.completedQuests.includes(p)) && (quest.descendants.length > 0 && !quest.descendants.some(p => user.admin.completedQuests.includes(p)))) setIsAvailable(true)
     else setIsAvailable(false)
   }, [user.admin.completedQuests])
 
   useEffect(() => {
-    setIsCurrent(quest.id === user.admin.currentQuest)
+    setIsCurrent(!completed && quest.id === user.admin.currentQuest)
   }, [user.admin.currentQuest])
 
   useEffect(() => {
