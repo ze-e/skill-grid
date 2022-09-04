@@ -1,19 +1,11 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext } from 'react'
 import ProfileImg from './Profile/ProfileImg/ProfileImg'
 import ProfileInfo from './Profile/ProfileInfo/ProfileInfo'
 
 import { UserContext } from '../contexts/UserContext'
-import { DataContext } from '../contexts/DataContext'
 
 export default function ProfileView () {
-  const { user, setUser } = useContext(UserContext)
-  const { state } = useContext(DataContext)
-
-  /* DEBUG */
-  useEffect(() => {
-    const userData = state.userData.find(i => i.admin.userName === 'rex')
-    setUser(userData)
-  }, [])
+  const { user } = useContext(UserContext)
 
   return (
     <div className='profileView'>

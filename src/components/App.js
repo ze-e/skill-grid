@@ -21,8 +21,7 @@ export default function App () {
           <Routes>
           <Route index path="/" element={<Navigate to="/login" />} />
           <Route exact path="login" element={<LoginView />} />
-          <Route exact path="profile" element={<ProfileView/>} />
-          {/* <Route exact path="profile" element={<ProtectedRoute Component={<ProfileView/>} />} /> */}
+          <Route exact path="profile" element={<ProtectedRoute Component={<ProfileView/>} />} />
           <Route exact path="skills" element={<ProtectedRoute Component={<SkillView />} />} />
           <Route exact path="users" element={<TeacherRoute Component={<UserListView/>} />} />
         </Routes>

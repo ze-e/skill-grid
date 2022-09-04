@@ -118,7 +118,7 @@ export const userData = [
       userType: 'teacher',
       completedQuests: ['c950b2e3-8b9d-4e6b-9bea-bd677779d7ae', '6f8dbae7-d180-460a-8856-c677a39c744f', '3acc1285-a613-475c-9626-5880b561efb4', '80c8be0e-e682-49f7-ab9a-5b939923c0b2'],
       currentQuest: '',
-      submittedQuest: '80c8be0e-e682-49f7-ab9a-5b939923c0b2'
+      submittedQuest: ''
     },
     gear: {
       head: '60b1788e-1b34-419d-a970-89312ac10e0c',
