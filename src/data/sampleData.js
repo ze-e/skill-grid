@@ -93,15 +93,15 @@ export const levelData = {
 
 export const userData = [
   {
-    data: {
+    data: { // public data
       name: 'Rex',
       img: {
         src: defaultAvatar,
         name: 'elf hacker'
       },
-      level: 10,
-      xp: 80,
-      gold: 800,
+      level: 0,
+      xp: 0,
+      gold: 0,
       epiphet: 'the l33t',
       type: 'elf',
       job: 'hacker',
@@ -111,7 +111,7 @@ export const userData = [
       food: 'sushi',
       description: 'An elite elf hacker, Rex surfs the cyberworld looking for new vulnerabilities to exploit'
     },
-    admin: {
+    admin: { // private data
       userName: 'rex',
       password: 'password123',
       email: 'zrexrodriguez@gmail.com',
@@ -140,9 +140,9 @@ export const userData = [
         src: defaultAvatar,
         name: 'elf wizard'
       },
-      level: 10,
-      xp: 30,
-      gold: 100,
+      level: 2,
+      xp: 80,
+      gold: 80,
       epiphet: 'the fearless',
       type: 'elf',
       job: 'wizard',

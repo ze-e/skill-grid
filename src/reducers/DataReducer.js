@@ -1,5 +1,7 @@
 import { levelData as data, userData, itemData } from '../data/sampleData'
 import { createColor } from '../utils/color'
+// import { debug } from '../utils/debug'
+
 import { v4 as uuidv4 } from 'uuid'
 
 // actions
@@ -18,8 +20,20 @@ function createData () {
   return data
 }
 
+function createGameData () {
+  const gameData = {}
+  gameData.userLevels = []
+  data.levels.forEach((level, index) => {
+    let total = 0
+    data.levels.slice(0, index + 1).forEach((level) => { level.quests.forEach(quest => { total = total + quest.skills.length }) })
+    gameData.userLevels.push({ name: index + 1, xp: total * 10 })
+  })
+  return gameData
+}
+
 export const initialState = {
   data: createData(),
+  gameData: createGameData(),
   userData,
   itemData
 }

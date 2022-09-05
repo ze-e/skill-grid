@@ -12,8 +12,6 @@ function SkillView () {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
   const { user } = useContext(UserContext)
 
-  const levels = state.data.levels
-
   const skillTreeRef = useRef(null)
 
   const [teacherView, setTeacherView] = useState(false)
@@ -58,12 +56,12 @@ function SkillView () {
 
   return (
     <>
-      {user.admin.currentQuest && <h2 className='skillView__current'>Current Quest: {' '} {getAllQuests(state.data.levels).find(q => q.id === user.admin.currentQuest).name}
+      {user.admin.currentQuest && <h2 className='skillView__current'>Current Quest: {' '} {getAllQuests(state.data?.levels).find(q => q.id === user.admin.currentQuest).name}
       </h2>}
       {user.admin.submittedQuest ? <h2 className='skillView__current'>Submitted✔️</h2> : user.admin.currentQuest && <button type='button' onClick={() => { dispatch({ type: ACTIONS.SUBMIT_QUEST, payload: { userName: user.admin.userName, questId: user.admin.currentQuest } }) }}>Submit Quest</button>}
       <h3 className='skillView__title'>Skill Tree</h3>
         <section className='skillView__tree' ref={skillTreeRef}>
-            {levels.length > 0 && levels.map(level => {
+            {state.data.levels.length > 0 && state.data.levels.map(level => {
               return <SkillTreeColumn
                 key={level.id}
                 color={level.color}
@@ -80,7 +78,7 @@ function SkillView () {
         {teacherView ? 'Close Teacher View' : 'Teacher View'}
       </button>}
       <SkillList teacherView={teacherView} />
-    </>
+      </>
   )
 }
 

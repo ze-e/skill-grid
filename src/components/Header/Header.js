@@ -21,7 +21,6 @@ export default function Header () {
     const userData = state.userData.find(i => i.admin.userName.toLowerCase() === userVal.toLowerCase())
     if (userData && userData.admin.password === passwordVal) {
       setUser(userData)
-      console.log('userData', JSON.stringify(userData, null, 2))
       navigate('/profile')
     }
   }
