@@ -1,4 +1,4 @@
-import { levelData as data, userData, itemData } from '../data/sampleData'
+import { levelData as data, userData, itemData, avatarData } from '../data/sampleData'
 import { createColor } from '../utils/color'
 // import { debug } from '../utils/debug'
 
@@ -35,6 +35,7 @@ export const initialState = {
   data: createData(),
   gameData: createGameData(),
   userData,
+  avatarData,
   itemData
 }
 
