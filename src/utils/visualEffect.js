@@ -38,63 +38,62 @@ export function drawLine (from, to, line) {
   line.style.height = H + 'px'
 }
 
-export function drawAvatar({ canvasRef, body, head, hand, foot }) {
-
+export function drawAvatar ({ canvasRef, body, head, hand, foot }) {
   // load
-  const bodyImg = new Image();
-  bodyImg.src = body.src;
+  const bodyImg = new Image()
+  bodyImg.src = body.src
 
-  const headImg = new Image();
-  headImg.src = head.src;
+  const headImg = new Image()
+  headImg.src = head.src
 
-  const lHandImg = new Image();
-  lHandImg.src = hand.l_src;
+  const lHandImg = new Image()
+  lHandImg.src = hand.l_src
 
-  const rHandImg = new Image();
-  rHandImg.src = hand.r_src;
+  const rHandImg = new Image()
+  rHandImg.src = hand.r_src
 
-  const lFootImg = new Image();
-  lFootImg.src = foot.l_src;
+  const lFootImg = new Image()
+  lFootImg.src = foot.l_src
 
-  const rFootImg = new Image();
-  rFootImg.src = foot.r_src;
-  
-  // build 
-  bodyImg.onload =() => {
-    buildImage();
+  const rFootImg = new Image()
+  rFootImg.src = foot.r_src
+
+  // build
+  bodyImg.onload = () => {
+    buildImage()
   }
 
-  headImg.onload =() => {
-    buildImage();
+  headImg.onload = () => {
+    buildImage()
   }
 
-  lHandImg.onload =() => {
-    buildImage();
+  lHandImg.onload = () => {
+    buildImage()
   }
 
-  rHandImg.onload =() => {
-    buildImage();
+  rHandImg.onload = () => {
+    buildImage()
   }
 
-  lFootImg.onload =() => {
-    buildImage();
+  lFootImg.onload = () => {
+    buildImage()
   }
 
   rFootImg.onload = () => {
-    buildImage();
+    buildImage()
   }
 
-  function buildImage() {
-    const canvas = canvasRef.getElementById('canvas');
-    const ctx = canvas.getContext('2d');
-    canvas.width = 400;
-    canvas.height = 400;
+  function buildImage () {
+    const canvas = canvasRef.getElementById('canvas')
+    const ctx = canvas.getContext('2d')
+    canvas.width = 400
+    canvas.height = 400
 
-    ctx.drawImage(bodyImg, ((canvas.width - bodyImg.width / 2), 50));
-    ctx.drawImage(headImg, ((canvas.width - bodyImg.width / 2), 50));
-    ctx.drawImage(lHandImg, ((canvas.width - bodyImg.width / 2), 50));
-    ctx.drawImage(rHandImg, ((canvas.width - bodyImg.width / 2), 50));
-    ctx.drawImage(lFootImg, ((canvas.width - bodyImg.width / 2), 50));
-    ctx.drawImage(rFootImg, ((canvas.width - bodyImg.width / 2), 50));
+    ctx.drawImage(bodyImg, ((canvas.width - bodyImg.width / 2), 50))
+    ctx.drawImage(headImg, ((canvas.width - bodyImg.width / 2), 50))
+    ctx.drawImage(lHandImg, ((canvas.width - bodyImg.width / 2), 50))
+    ctx.drawImage(rHandImg, ((canvas.width - bodyImg.width / 2), 50))
+    ctx.drawImage(lFootImg, ((canvas.width - bodyImg.width / 2), 50))
+    ctx.drawImage(rFootImg, ((canvas.width - bodyImg.width / 2), 50))
   }
 }

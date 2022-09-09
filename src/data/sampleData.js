@@ -1,5 +1,5 @@
 import defaultAvatar from '../assets/elf-avi.jpg'
-import { avatarData as avatar } from './avatarData'
+import avatar from './avatarData'
 export const levelData = {
   levels: [
     {
@@ -121,7 +121,7 @@ export const userData = [
       submittedQuest: ''
     },
     avatar: {
-      head:1,
+      head: 1,
       body: 1,
       hand: 1,
       foot: 1
@@ -168,10 +168,10 @@ export const userData = [
       submittedQuest: ''
     },
     avatar: {
-      head:2,
+      head: 2,
       body: 1,
       hand: 2,
-      foot:1
+      foot: 1
     },
     gear: {
       head: '60b1788e-1b34-419d-a970-89312ac10e0c',
@@ -188,68 +188,68 @@ export const userData = [
   }
 ]
 
-export const avatarData = [{
+export const avatarData = {
   head: [
     {
       id: 1,
-      name:'normal',
-      src:avatar.head1
+      name: 'normal',
+      src: avatar.head1
     },
     {
       id: 2,
-      name:'elf',
-          
-      src:avatar.head2
+      name: 'elf',
+
+      src: avatar.head2
     },
     {
       id: 3,
-      name:'cyborg',
-      src:avatar.head3
+      name: 'cyborg',
+      src: avatar.head3
     }
   ],
   body: [
     {
       id: 1,
-      name:'normal',
-      src:avatar.body1
+      name: 'normal',
+      src: avatar.body1
     },
     {
       id: 2,
-      name:'color',
-      src:avatar.body2
+      name: 'color',
+      src: avatar.body2
     }
   ],
-  hand: [  
+  hand: [
     {
       id: 1,
-      name:'normal',
+      name: 'normal',
       l_src: avatar.lHand1,
-      r_src:avatar.rHand1
-      
+      r_src: avatar.rHand1
+
     },
     {
       id: 2,
-      name:'color',
+      name: 'color',
       l_src: avatar.lHand2,
-      r_src:avatar.rHand2
-    },
+      r_src: avatar.rHand2
+    }
   ],
   foot: [
     {
       id: 1,
-      name:'normal',
+      name: 'normal',
       l_src: avatar.lFoot1,
-      r_src:avatar.rFoot1
-      
+      r_src: avatar.rFoot1
+
     },
     {
       id: 2,
-      name:'color',
+      name: 'color',
       l_src: avatar.lFoot2,
-      r_src:avatar.rFoot2
-    },
-  ],
-}]
+      r_src: avatar.rFoot2
+    }
+  ]
+}
 
 export const itemData = [
   {
@@ -268,4 +268,3 @@ export const itemData = [
     location: 'LShldr'
   }
 ]
-
