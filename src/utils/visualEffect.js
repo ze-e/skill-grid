@@ -1,3 +1,4 @@
+
 export function drawLine (from, to, line) {
   if (!from || !to || !line) return
   const fT = from.offsetTop + from.offsetHeight / 2
@@ -38,7 +39,7 @@ export function drawLine (from, to, line) {
   line.style.height = H + 'px'
 }
 
-export function drawAvatar ({ canvasRef, body, head, hand, foot }) {
+export function drawAvatar ({ body, head, hand, foot }) {
   // load
   const bodyImg = new Image()
   bodyImg.src = body.src
@@ -84,16 +85,16 @@ export function drawAvatar ({ canvasRef, body, head, hand, foot }) {
   }
 
   function buildImage () {
-    const canvas = canvasRef.getElementById('canvas')
+    const canvas = document.getElementById('canvas')
     const ctx = canvas.getContext('2d')
     canvas.width = 400
     canvas.height = 400
 
-    ctx.drawImage(bodyImg, ((canvas.width - bodyImg.width / 2), 50))
-    ctx.drawImage(headImg, ((canvas.width - bodyImg.width / 2), 50))
-    ctx.drawImage(lHandImg, ((canvas.width - bodyImg.width / 2), 50))
-    ctx.drawImage(rHandImg, ((canvas.width - bodyImg.width / 2), 50))
-    ctx.drawImage(lFootImg, ((canvas.width - bodyImg.width / 2), 50))
-    ctx.drawImage(rFootImg, ((canvas.width - bodyImg.width / 2), 50))
+    ctx.drawImage(bodyImg, 0, 0)
+    ctx.drawImage(headImg, 0, 0)
+    ctx.drawImage(lHandImg, 0, 0)
+    ctx.drawImage(rHandImg, 0, 0)
+    ctx.drawImage(lFootImg, 0, 0)
+    ctx.drawImage(rFootImg, 0, 0)
   }
 }
