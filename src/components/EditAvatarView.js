@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { UserContext } from '../contexts/UserContext'
 import { DataContext } from '../contexts/DataContext'
 import { drawAvatar } from '../utils/visualEffect'
-import { getAvatar } from '../utils/avatar'
+import { getAvatarData } from '../utils/avatar'
 
 export default function EditAvatarView () {
   // const { state, dispatch, ACTIONS } = useContext(DataContext)
@@ -10,7 +10,7 @@ export default function EditAvatarView () {
   const { user } = useContext(UserContext)
 
   useEffect(() => {
-    drawAvatar({ body: getAvatar(state.avatarData, 'body', user.avatar.body), head: getAvatar(state.avatarData, 'head', user.avatar.head), hand: getAvatar(state.avatarData, 'hand', user.avatar.hand), foot: getAvatar(state.avatarData, 'foot', user.avatar.foot) })
+    drawAvatar({ body: getAvatarData(state.avatarData, 'body', user.avatar.body), head: getAvatarData(state.avatarData, 'head', user.avatar.head), hand: getAvatarData(state.avatarData, 'hand', user.avatar.hand), foot: getAvatarData(state.avatarData, 'foot', user.avatar.foot) })
   }, [user.avatar])
 
   return (

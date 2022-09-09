@@ -18,6 +18,19 @@ function editAdmin (state, { userName, field, newVal }) {
   return stateCopy
 }
 
+function changeAvatar(state, { userName, bodyPart, changeBy }) {
+  const stateCopy = { ...state }
+  const user = stateCopy.userData.find(i => i.admin.userName.toLowerCase() === userName.toLowerCase())
+  const partList = state['avatarData'][bodyPart]
+  const currentPart = user['avatar'][bodypart]
+  if (currentPart + changeBy === partList.length) currentPart = 1
+  else if(currentPart + changeBy > 1) currentPart = partList.length
+  else currentPart = + changeBy
+  user['avatar'][bodypart] = currentPart
+  stateCopy.userData = updateUser(stateCopy, userName, user)
+  return stateCopy
+}
+
 function submitQuest (state, { userName, questId }) {
   const stateCopy = { ...state }
   const user = stateCopy.userData.find(i => i.admin.userName.toLowerCase() === userName.toLowerCase())
@@ -57,5 +70,6 @@ export default {
   editData,
   editAdmin,
   submitQuest,
-  approveQuest
+  approveQuest,
+  changeAvatar
 }
