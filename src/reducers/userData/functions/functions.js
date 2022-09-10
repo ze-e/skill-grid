@@ -18,15 +18,10 @@ function editAdmin (state, { userName, field, newVal }) {
   return stateCopy
 }
 
-function changeAvatar(state, { userName, bodyPart, changeBy }) {
+function changeAvatar (state, { userName, newVals }) {
   const stateCopy = { ...state }
   const user = stateCopy.userData.find(i => i.admin.userName.toLowerCase() === userName.toLowerCase())
-  const partList = state['avatarData'][bodyPart]
-  const currentPart = user['avatar'][bodypart]
-  if (currentPart + changeBy === partList.length) currentPart = 1
-  else if(currentPart + changeBy > 1) currentPart = partList.length
-  else currentPart = + changeBy
-  user['avatar'][bodypart] = currentPart
+  Object.keys(stateCopy.user.avatar).forEach(key => { if (stateCopy.userData.avatar[key] !== newVals[key]) stateCopy.userData.avatar[key] = newVals[key] })
   stateCopy.userData = updateUser(stateCopy, userName, user)
   return stateCopy
 }

@@ -198,7 +198,6 @@ export const avatarData = {
     {
       id: 2,
       name: 'elf',
-
       src: avatar.head2
     },
     {
