@@ -1,4 +1,6 @@
-// import { debug } from '../../../utils/debug'
+/* eslint-disable */
+
+import { debug } from '../../../utils/debug'
 import { getQuestById } from '../../../utils/quest'
 import { getNextLevel } from '../../../utils/gameData'
 
@@ -21,7 +23,7 @@ function editAdmin (state, { userName, field, newVal }) {
 function changeAvatar (state, { userName, newVals }) {
   const stateCopy = { ...state }
   const user = stateCopy.userData.find(i => i.admin.userName.toLowerCase() === userName.toLowerCase())
-  Object.keys(stateCopy.user.avatar).forEach(key => { if (stateCopy.userData.avatar[key] !== newVals[key]) stateCopy.userData.avatar[key] = newVals[key] })
+  Object.keys(user.avatar).forEach(key => { if (user.avatar[key] !== newVals[key]) user.avatar[key] = newVals[key] })
   stateCopy.userData = updateUser(stateCopy, userName, user)
   return stateCopy
 }

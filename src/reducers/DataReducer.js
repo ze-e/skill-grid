@@ -60,6 +60,7 @@ function DataReducer (state, action) {
     // user
     case ACTIONS.EDIT_DATA: return userFunctions.editData(state, action.payload)
     case ACTIONS.EDIT_ADMIN: return userFunctions.editAdmin(state, action.payload)
+    case ACTIONS.CHANGE_AVATAR: return userFunctions.changeAvatar(state, action.payload)
     case ACTIONS.SUBMIT_QUEST: return userFunctions.submitQuest(state, action.payload)
     case ACTIONS.APPROVE_QUEST: return userFunctions.approveQuest(state, action.payload)
 

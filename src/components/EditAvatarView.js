@@ -4,7 +4,7 @@ import { DataContext } from '../contexts/DataContext'
 import { drawAvatar } from '../utils/visualEffect'
 import { getAvatarData } from '../utils/avatar'
 
-import { debug } from '../utils/debug'
+// import { debug } from '../utils/debug'
 export default function EditAvatarView () {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
   const { user } = useContext(UserContext)
@@ -27,11 +27,9 @@ export default function EditAvatarView () {
     })
   }, [avatar])
 
-  function handleSubmit (e) {
+  async function handleSubmit (e) {
     e.preventDefault()
-    debug({ avatar }, 'before')
-    dispatch({ type: ACTIONS.CHANGE_AVATAR, payload: { userName: user.admin.userName, newVals: avatar } })
-    debug({ avatar }, 'after')
+    await dispatch({ type: ACTIONS.CHANGE_AVATAR, payload: { userName: user.admin.userName, newVals: avatar } })
   }
 
   function changeAvatarPart (bodypart, changeBy) {
