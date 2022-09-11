@@ -1,5 +1,6 @@
 import defaultAvatar from '../assets/elf-avi.jpg'
 import avatar from './avatarData'
+import gear from './gearData'
 export const levelData = {
   levels: [
     {
@@ -174,17 +175,17 @@ export const userData = [
       foot: 1
     },
     gear: {
-      head: '60b1788e-1b34-419d-a970-89312ac10e0c',
-      LHand: '',
-      RHand: '',
+      head: '',
+      LHand: '60b1788e-1b34-419d-a970-89312ac10e0f',
+      RHand: '60b1788e-1b34-419d-a970-89312ac10e0h',
       LShldr: '',
-      RShldr: '60b1788e-1b34-419d-a970-89312ac10e0e',
+      RShldr: '',
       accessory: '',
       body: '',
       pants: '',
       legs: ''
     },
-    inventory: ['60b1788e-1b34-419d-a970-89312ac10e0c', '60b1788e-1b34-419d-a970-89312ac10e0e']
+    inventory: ['60b1788e-1b34-419d-a970-89312ac10e0f', '60b1788e-1b34-419d-a970-89312ac10e0g', '60b1788e-1b34-419d-a970-89312ac10e0h']
   }
 ]
 
@@ -265,5 +266,24 @@ export const itemData = [
     id: '60b1788e-1b34-419d-a970-89312ac10e0e',
     name: 'shldr spikes',
     location: 'LShldr'
+  },
+  {
+    id: '60b1788e-1b34-419d-a970-89312ac10e0f',
+    name: 'staff',
+    location: 'LHand',
+    src: gear.staff1
+  },
+  {
+    id: '60b1788e-1b34-419d-a970-89312ac10e0g',
+    name: 'sword',
+    location: 'LHand',
+    src: gear.sword1
+
+  },
+  {
+    id: '60b1788e-1b34-419d-a970-89312ac10e0h',
+    name: 'shield',
+    location: 'RHand',
+    src: gear.shield1
   }
 ]

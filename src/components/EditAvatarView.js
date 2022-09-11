@@ -38,7 +38,7 @@ export default function EditAvatarView () {
     <div className='editAvatarView'>
       {user.avatar &&
         <>
-        <Avatar avatar={avatar} />
+        <Avatar avatar={avatar}/>
         <form className='editAvatarView__buttons' onSubmit={(e) => { handleSubmit(e) }}>
           <h3>Head</h3>
           <div className='editAvatarView__button-container'>

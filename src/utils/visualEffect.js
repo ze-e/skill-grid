@@ -39,7 +39,9 @@ export function drawLine (from, to, line) {
   line.style.height = H + 'px'
 }
 
-export function drawAvatar ({ body, head, hand, foot }) {
+export function drawAvatar ({ body, head, hand, foot, gear }) {
+  if (gear !== null) Object.keys(gear).forEach((k) => gear[k] == null && delete gear[k])
+
   // load
   const bodyImg = new Image()
   bodyImg.src = body.src
@@ -84,6 +86,19 @@ export function drawAvatar ({ body, head, hand, foot }) {
     buildImage()
   }
 
+  const gearImg = []
+
+  if (gear !== null) {
+    gear.forEach(item => {
+      const itemImg = new Image()
+      itemImg.src = item.src
+      gearImg.push(itemImg)
+      itemImg.onload = () => {
+        buildImage()
+      }
+    })
+  }
+
   function buildImage () {
     const canvas = document.getElementById('canvas')
     const ctx = canvas.getContext('2d')
@@ -96,5 +111,10 @@ export function drawAvatar ({ body, head, hand, foot }) {
     ctx.drawImage(rHandImg, 0, 0)
     ctx.drawImage(lFootImg, 0, 0)
     ctx.drawImage(rFootImg, 0, 0)
+    if (gear !== null) {
+      gearImg.forEach(img => {
+        ctx.drawImage(img, 0, 0)
+      })
+    }
   }
 }
