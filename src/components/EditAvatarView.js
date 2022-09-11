@@ -1,8 +1,9 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { UserContext } from '../contexts/UserContext'
 import { DataContext } from '../contexts/DataContext'
-import { drawAvatar } from '../utils/visualEffect'
 import { getAvatarData } from '../utils/avatar'
+
+import Avatar from './Avatar/Avatar'
 
 export default function EditAvatarView () {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
@@ -16,15 +17,6 @@ export default function EditAvatarView () {
   }
 
   const [avatar, setAvatar] = useState(defaultAvatar)
-
-  useEffect(() => {
-    drawAvatar({
-      body: getAvatarData(state.avatarData, 'body', avatar.body),
-      head: getAvatarData(state.avatarData, 'head', avatar.head),
-      hand: getAvatarData(state.avatarData, 'hand', avatar.hand),
-      foot: getAvatarData(state.avatarData, 'foot', avatar.foot)
-    })
-  }, [avatar])
 
   async function handleSubmit (e) {
     e.preventDefault()
@@ -46,22 +38,39 @@ export default function EditAvatarView () {
     <div className='editAvatarView'>
       {user.avatar &&
         <>
-        <canvas id="canvas" style={{ border: '2px solid black' }}></canvas>
+        <Avatar avatar={avatar} />
         <form className='editAvatarView__buttons' onSubmit={(e) => { handleSubmit(e) }}>
           <h3>Head</h3>
-          <button className='editAvatarView__button editAvatarView__button--L m-button' type='button' onClick={() => changeAvatarPart('head', -1) }> {'<'} </button>
-          <button className='editAvatarView__button editAvatarView__button--R m-button' type='button' onClick={() => changeAvatarPart('head', 1) }> {'>'} </button>
+          <div className='editAvatarView__button-container'>
+            <button className='editAvatarView__button editAvatarView__button--L m-button' type='button' onClick={() => changeAvatarPart('head', -1) }> {'<'} </button>
+            <h4>{getAvatarData(state.avatarData, 'head', avatar.head)?.name}</h4>
+            <button className='editAvatarView__button editAvatarView__button--R m-button' type='button' onClick={() => changeAvatarPart('head', 1)}> {'>'} </button>
+          </div>
+
           <h3>Body</h3>
-          <button className='editAvatarView__button editAvatarView__button--L m-button' type='button' onClick={() => changeAvatarPart('body', -1) }> {'<'} </button>
-          <button className='editAvatarView__button editAvatarView__button--R m-button' type='button' onClick={() => changeAvatarPart('body', 1) }> {'>'} </button>
+          <div className='editAvatarView__button-container'>
+            <button className='editAvatarView__button editAvatarView__button--L m-button' type='button' onClick={() => changeAvatarPart('body', -1) }> {'<'} </button>
+            <h4>{getAvatarData(state.avatarData, 'body', avatar.body)?.name}</h4>
+            <button className='editAvatarView__button editAvatarView__button--R m-button' type='button' onClick={() => changeAvatarPart('body', 1)}> {'>'} </button>
+          </div>
+
           <h3>Hands</h3>
-          <button className='editAvatarView__button editAvatarView__button--L m-button' type='button' onClick={() => changeAvatarPart('hand', -1) }> {'<'} </button>
-          <button className='editAvatarView__button editAvatarView__button--R m-button' type='button' onClick={() => changeAvatarPart('hand', 1) }> {'>'} </button>
+          <div className='editAvatarView__button-container'>
+            <button className='editAvatarView__button editAvatarView__button--L m-button' type='button' onClick={() => changeAvatarPart('hand', -1) }> {'<'} </button>
+            <h4>{getAvatarData(state.avatarData, 'hand', avatar.hand)?.name}</h4>
+            <button className='editAvatarView__button editAvatarView__button--R m-button' type='button' onClick={() => changeAvatarPart('hand', 1)}> {'>'} </button>
+          </div>
+
           <h3>Feet</h3>
-          <button className='editAvatarView__button editAvatarView__button--L m-button' type='button' onClick={() => changeAvatarPart('foot', -1) }> {'<'} </button>
-          <button className='editAvatarView__button editAvatarView__button--R m-button' type='button' onClick={() => changeAvatarPart('foot', 1) }> {'>'} </button>
+          <div className='editAvatarView__button-container'>
+            <button className='editAvatarView__button editAvatarView__button--L m-button' type='button' onClick={() => changeAvatarPart('foot', -1) }> {'<'} </button>
+            <h4>{getAvatarData(state.avatarData, 'foot', avatar.foot)?.name}</h4>
+            <button className='editAvatarView__button editAvatarView__button--R m-button' type='button' onClick={() => changeAvatarPart('foot', 1)}> {'>'} </button>
+          </div>
+
           <h3>Submit changes</h3>
-          <button className='editAvatarView__button editAvatarView__button--R m-button' type='submit'>SUBMIT </button>
+          <button className='editAvatarView__button editAvatarView__button--submit m-button' type='submit'>SUBMIT </button>
+
         </form>
         </>}
     </div>
