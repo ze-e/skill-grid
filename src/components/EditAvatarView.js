@@ -4,7 +4,6 @@ import { DataContext } from '../contexts/DataContext'
 import { drawAvatar } from '../utils/visualEffect'
 import { getAvatarData } from '../utils/avatar'
 
-// import { debug } from '../utils/debug'
 export default function EditAvatarView () {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
   const { user } = useContext(UserContext)
@@ -29,7 +28,7 @@ export default function EditAvatarView () {
 
   async function handleSubmit (e) {
     e.preventDefault()
-    await dispatch({ type: ACTIONS.CHANGE_AVATAR, payload: { userName: user.admin.userName, newVals: avatar } })
+    dispatch({ type: ACTIONS.CHANGE_AVATAR, payload: { userName: user.admin.userName, newVals: avatar } })
   }
 
   function changeAvatarPart (bodypart, changeBy) {
@@ -49,9 +48,20 @@ export default function EditAvatarView () {
         <>
         <canvas id="canvas" style={{ border: '2px solid black' }}></canvas>
         <form className='editAvatarView__buttons' onSubmit={(e) => { handleSubmit(e) }}>
+          <h3>Head</h3>
           <button className='editAvatarView__button editAvatarView__button--L m-button' type='button' onClick={() => changeAvatarPart('head', -1) }> {'<'} </button>
+          <button className='editAvatarView__button editAvatarView__button--R m-button' type='button' onClick={() => changeAvatarPart('head', 1) }> {'>'} </button>
+          <h3>Body</h3>
+          <button className='editAvatarView__button editAvatarView__button--L m-button' type='button' onClick={() => changeAvatarPart('body', -1) }> {'<'} </button>
+          <button className='editAvatarView__button editAvatarView__button--R m-button' type='button' onClick={() => changeAvatarPart('body', 1) }> {'>'} </button>
+          <h3>Hands</h3>
+          <button className='editAvatarView__button editAvatarView__button--L m-button' type='button' onClick={() => changeAvatarPart('hand', -1) }> {'<'} </button>
+          <button className='editAvatarView__button editAvatarView__button--R m-button' type='button' onClick={() => changeAvatarPart('hand', 1) }> {'>'} </button>
+          <h3>Feet</h3>
+          <button className='editAvatarView__button editAvatarView__button--L m-button' type='button' onClick={() => changeAvatarPart('foot', -1) }> {'<'} </button>
+          <button className='editAvatarView__button editAvatarView__button--R m-button' type='button' onClick={() => changeAvatarPart('foot', 1) }> {'>'} </button>
+          <h3>Submit changes</h3>
           <button className='editAvatarView__button editAvatarView__button--R m-button' type='submit'>SUBMIT </button>
-            <button className='editAvatarView__button editAvatarView__button--R m-button' type='button' onClick={() => changeAvatarPart('head', 1) }> {'>'} </button>
         </form>
         </>}
     </div>
