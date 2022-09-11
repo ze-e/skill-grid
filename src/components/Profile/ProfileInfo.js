@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { formattedDate } from '../../../utils/date'
+import { formattedDate } from '../../utils/date'
 
 export default function ProfileInfo ({ data }) {
   function profiledata () {

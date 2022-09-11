@@ -3,5 +3,5 @@ export function getAvatarData (avatarData, key, id) {
 }
 
 export function getGearData (gearData, gear) {
-  return gear.map(id => gearData.find(i => i.id === id))
+  return Array.isArray(gear) ? gear.map(id => gearData.find(i => i.id === id)) : gearData.find(i => i.id === gear)
 }

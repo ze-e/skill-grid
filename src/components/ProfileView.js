@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
-import ProfileImg from './Profile/ProfileImg/ProfileImg'
-import ProfileInfo from './Profile/ProfileInfo/ProfileInfo'
+import Avatar from './Avatar/Avatar'
+
+import ProfileInfo from './Profile/ProfileInfo'
 
 import { UserContext } from '../contexts/UserContext'
 
@@ -9,9 +10,9 @@ export default function ProfileView () {
 
   return (
     <div className='profileView'>
-      {user.data && <div className='profileView__img'><ProfileImg img={ user.data.img } /></div>}
+      {user.data && <div className='profileView__img'><Avatar avatar={user.avatar} gear={user.gear} edit={true} /></div>}
       <div className='profileView__info'>
-      {user.data && <div className='profileView__img'><ProfileInfo data={ user.data } /></div>}
+      {user.data && <div className='profileView__info'><ProfileInfo data={ user.data } /></div>}
       </div>
     </div>
   )

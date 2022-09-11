@@ -3,9 +3,11 @@ import PropTypes from 'prop-types'
 import { drawAvatar } from '../../utils/visualEffect'
 import { getAvatarData, getGearData } from '../../utils/avatar'
 import { DataContext } from '../../contexts/DataContext'
+import { useNavigate } from 'react-router-dom'
 
-export default function Avatar ({ avatar, gear }) {
+export default function Avatar ({ avatar, gear, edit }) {
   const { state } = useContext(DataContext)
+  const navigate = useNavigate()
 
   useEffect(() => {
     drawAvatar({
@@ -18,11 +20,15 @@ export default function Avatar ({ avatar, gear }) {
   }, [avatar])
 
   return (
-      <canvas id="canvas" style={{ border: '2px solid black' }}></canvas>
+    <div className='avatar'>
+      <canvas id='canvas' style={{ border: '2px solid black' }}></canvas>
+      {edit && <button className='avatar__edit m-button' type='button' onClick={() => { navigate('/editAvatar') }} >Edit Avatar</button>}
+    </div>
   )
 }
 
 Avatar.propTypes = {
   avatar: PropTypes.object,
-  gear: PropTypes.object
+  gear: PropTypes.object,
+  edit: PropTypes.bool
 }
