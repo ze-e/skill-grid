@@ -9,7 +9,7 @@ export default function MainNav () {
     <nav className='mainNav'>
       <ul className='mainNav__items'>
         <li className='mainNav__item'><Link className='mainNav__link' to="./profile">Profile</Link></li>
-        <li className='mainNav__item'><Link className='mainNav__link' to="./gear">Gear</Link></li>
+        <li className='mainNav__item'><Link className='mainNav__link' to="./gear/inventory">Gear</Link></li>
         <li className='mainNav__item'><Link className='mainNav__link' to="./skills">Skills</Link></li>
         {user?.admin?.userType === 'teacher' && <li className='mainNav__item'><Link className='mainNav__link' to="./users">Users</Link></li>}
       </ul>
