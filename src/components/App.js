@@ -16,6 +16,7 @@ import TeacherRoute from '../components/TeacherRoute/TeacherRoute'
 import EditAvatarView from './EditAvatarView'
 import GearView from './GearView'
 import GearInventory from '../components/Gear/GearInventory'
+import GearStore from '../components/Gear/GearStore'
 
 export default function App () {
   return (
@@ -28,7 +29,9 @@ export default function App () {
             <Route exact path="editAvatar" element={<ProtectedRoute Component={<EditAvatarView/>} />} />
             <Route exact path="skills" element={<ProtectedRoute Component={<SkillView />} />} />
             <Route path="gear" element={<ProtectedRoute Component={<GearView />} />} >
-              <Route path="inventory" element={<GearInventory />} />
+            <Route path="inventory" element={<GearInventory />} />
+              <Route path="store" element={<GearStore />} />
+
             </Route>
             <Route exact path="users" element={<TeacherRoute Component={<UserListView/>} />} />
         </Routes>
