@@ -7,10 +7,12 @@ import { v4 as uuidv4 } from 'uuid'
 // actions
 import LEVELACTIONS from './levelData/actions/actions'
 import USERACTIONS from './userData/actions/actions'
+import ITEMACTIONS from './itemData/actions/actions'
 
 // functions
 import levelFunctions from './levelData/functions/functions'
 import userFunctions from './userData/functions/functions'
+import itemFunctions from './itemData/functions/functions'
 
 function createData () {
   data.levels.forEach(level => {
@@ -41,7 +43,8 @@ export const initialState = {
 
 export const ACTIONS = {
   ...LEVELACTIONS,
-  ...USERACTIONS
+  ...USERACTIONS,
+  ...ITEMACTIONS
 }
 
 function DataReducer (state, action) {
@@ -63,7 +66,8 @@ function DataReducer (state, action) {
     case ACTIONS.CHANGE_AVATAR: return userFunctions.changeAvatar(state, action.payload)
     case ACTIONS.SUBMIT_QUEST: return userFunctions.submitQuest(state, action.payload)
     case ACTIONS.APPROVE_QUEST: return userFunctions.approveQuest(state, action.payload)
-
+    // item
+    case ACTIONS.BUY_ITEM: return itemFunctions.buyItem(state, action.payload)
     default: throw new Error(`Unknown action type: ${action.type}`)
   }
 }
