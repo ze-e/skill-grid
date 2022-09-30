@@ -68,6 +68,9 @@ function DataReducer (state, action) {
     case ACTIONS.APPROVE_QUEST: return userFunctions.approveQuest(state, action.payload)
     // item
     case ACTIONS.BUY_ITEM: return itemFunctions.buyItem(state, action.payload)
+    case ACTIONS.EQUIP_ITEM: return itemFunctions.equipItem(state, action.payload)
+    case ACTIONS.UNEQUIP_ITEM: return itemFunctions.unequipItem(state, action.payload)
+
     default: throw new Error(`Unknown action type: ${action.type}`)
   }
 }

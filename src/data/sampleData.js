@@ -225,7 +225,6 @@ export const avatarData = {
       name: 'normal',
       l_src: avatar.lHand1,
       r_src: avatar.rHand1
-
     },
     {
       id: 2,

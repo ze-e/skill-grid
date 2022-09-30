@@ -7,7 +7,7 @@ export default function GearStore () {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
   const { user } = useContext(UserContext)
 
-  async function buyItem (item) {
+  async function buy (item) {
     if (canBuyItem(item, user.data.gold)) await dispatch({ type: ACTIONS.BUY_ITEM, payload: { userName: user.admin.userName, item } })
     else alert('Not enough gold to buy!')
   }
@@ -15,7 +15,7 @@ export default function GearStore () {
     <>
     <h3>Gold: ${user.data.gold}</h3>
     <ul>
-      {state.itemData.map(item => <li key={item.id}><em>${item.cost}</em>{' '}{item.name} {user.inventory.includes(item.id) && <em>{' '} -- {' '}owned</em> }{' '}<button type="button" onClick={() => buyItem(item)}>Buy</button></li>)}
+      {state.itemData.map(item => <li key={item.id}><em>${item.cost}</em>{' '}{item.name} {user.inventory.includes(item.id) && <em>{' '} -- {' '}owned</em> }{' '}<button type="button" onClick={() => buy(item)}>Buy</button></li>)}
     </ul>
   </>
   )
