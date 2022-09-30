@@ -255,35 +255,40 @@ export const itemData = [
   {
     id: '60b1788e-1b34-419d-a970-89312ac10e0c',
     name: 'iron helm',
-    location: 'head'
+    location: 'head',
+    cost: 10
   },
   {
     id: '60b1788e-1b34-419d-a970-89312ac10e0d',
     name: 'cyber glove',
-    location: 'LHand'
+    location: 'LHand',
+    cost: 5
   },
   {
     id: '60b1788e-1b34-419d-a970-89312ac10e0e',
     name: 'shldr spikes',
-    location: 'LShldr'
+    location: 'LShldr',
+    cost: 5
   },
   {
     id: '60b1788e-1b34-419d-a970-89312ac10e0f',
     name: 'staff',
     location: 'LHand',
-    src: gear.staff1
+    src: gear.staff1,
+    cost: 10
   },
   {
     id: '60b1788e-1b34-419d-a970-89312ac10e0g',
     name: 'sword',
     location: 'LHand',
-    src: gear.sword1
-
+    src: gear.sword1,
+    cost: 10
   },
   {
     id: '60b1788e-1b34-419d-a970-89312ac10e0h',
     name: 'shield',
     location: 'RHand',
-    src: gear.shield1
+    src: gear.shield1,
+    cost: 15
   }
 ]

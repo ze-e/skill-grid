@@ -3,6 +3,7 @@
 import { debug } from '../../../utils/debug'
 import { getQuestById } from '../../../utils/quest'
 import { getNextLevel } from '../../../utils/gameData'
+import { updateUser } from '../../../utils/user'
 
 function editData (state, { userName, field, newVal }) {
   const stateCopy = { ...state }
@@ -57,10 +58,6 @@ function gainLevel (state, user) {
   const nextLevel = getNextLevel(state.gameData.userLevels, user.data.xp)
   console.log(nextLevel)
   return user.data.level < nextLevel.name ? user.data.level + 1 : user.data.level
-}
-
-function updateUser (stateCopy, userName, newUserData) {
-  return stateCopy.userData.map(i => i.admin.userName.toLowerCase() === userName.toLowerCase() ? newUserData : i)
 }
 
 export default {
