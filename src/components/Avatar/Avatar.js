@@ -3,10 +3,12 @@ import PropTypes from 'prop-types'
 import { drawAvatar } from '../../utils/visualEffect'
 import { getAvatarData, getGearData } from '../../utils/avatar'
 import { DataContext } from '../../contexts/DataContext'
+
 import { useNavigate } from 'react-router-dom'
 
 export default function Avatar ({ avatar, gear, edit }) {
   const { state } = useContext(DataContext)
+
   const navigate = useNavigate()
 
   useEffect(() => {
@@ -17,7 +19,7 @@ export default function Avatar ({ avatar, gear, edit }) {
       foot: getAvatarData(state.avatarData, 'foot', avatar.foot),
       gear: gear ? getGearData(state.itemData, Object.values(gear)) : null
     })
-  }, [avatar])
+  }, [avatar, state.userData])
 
   return (
     <div className='avatar'>
