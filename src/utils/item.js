@@ -7,3 +7,9 @@ export function getItemData (itemData, id) {
 export function canBuyItem (item, gold) {
   return gold - item.cost >= 0
 }
+
+export function count (inventory, itemId) {
+  let count = 0
+  inventory.forEach(i => { if (i.id === itemId) count++ })
+  return count
+}

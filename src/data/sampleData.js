@@ -103,7 +103,7 @@ export const userData = [
       level: 0,
       xp: 0,
       gold: 0,
-      epiphet: 'the l33t',
+      epiphet: 'l33t',
       type: 'elf',
       job: 'hacker',
       hometown: 'fullerton',
@@ -131,12 +131,9 @@ export const userData = [
       head: '60b1788e-1b34-419d-a970-89312ac10e0c',
       LHand: '60b1788e-1b34-419d-a970-89312ac10e0d',
       RHand: '',
-      LShldr: '60b1788e-1b34-419d-a970-89312ac10e0e',
-      RShldr: '',
-      accessory: '',
       body: '',
-      pants: '',
-      legs: ''
+      legs: '',
+      feet: ''
     },
     inventory: ['60b1788e-1b34-419d-a970-89312ac10e0c', '60b1788e-1b34-419d-a970-89312ac10e0d', '60b1788e-1b34-419d-a970-89312ac10e0e']
   },
@@ -150,7 +147,7 @@ export const userData = [
       level: 2,
       xp: 80,
       gold: 80,
-      epiphet: 'the fearless',
+      epiphet: 'fearless',
       type: 'elf',
       job: 'wizard',
       hometown: 'brookyln',
@@ -178,12 +175,9 @@ export const userData = [
       head: '',
       LHand: '60b1788e-1b34-419d-a970-89312ac10e0f',
       RHand: '60b1788e-1b34-419d-a970-89312ac10e0h',
-      LShldr: '',
-      RShldr: '',
-      accessory: '',
       body: '',
-      pants: '',
-      legs: ''
+      legs: '',
+      feet: ''
     },
     inventory: ['60b1788e-1b34-419d-a970-89312ac10e0f', '60b1788e-1b34-419d-a970-89312ac10e0g', '60b1788e-1b34-419d-a970-89312ac10e0h']
   }
@@ -261,12 +255,6 @@ export const itemData = [
     id: '60b1788e-1b34-419d-a970-89312ac10e0d',
     name: 'cyber glove',
     location: 'LHand',
-    cost: 5
-  },
-  {
-    id: '60b1788e-1b34-419d-a970-89312ac10e0e',
-    name: 'shldr spikes',
-    location: 'LShldr',
     cost: 5
   },
   {
