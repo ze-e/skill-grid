@@ -118,21 +118,30 @@ export function drawAvatar ({ body, head, hand, foot, gear }) {
   }
 }
 
-export function drawHex ({ id, color, borderColor, borderWidth, bgImage }) {
-  // targeting the svg itself
+export function drawHex ({ id, color, borderColor, borderWidth, bgImage, dropShadow, innerShadow, glow }) {
   const svg = document.querySelector('[data-id=' + "'" + id + '-svg' + "'" + ']')
   if (svg) {
     svg.innerHTML += `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="-50 -50 900 900" width="150%" height="150%" style="transform: translate(-12%, -20%);">
-  <defs>
+  ${!!bgImage && `<defs>
       <pattern id="patternId" patternUnits="userSpaceOnUse" width="75%" height="75%">
         <image href="${bgImage}" x="0" y="0" width="75%" height="75%" />
       </pattern>
-  </defs>
-
+  </defs>`}
+  <filter id="dropShadow">
+    <feDropShadow dx="10" dy="10" stdDeviation="16" flood-color="#808080" flood-opacity="0.8" />
+  </filter>
+  <filter id="innerShadow">
+  </filter>
+  <filter id="glow">
+    <feDropShadow dx="10" dy="10" stdDeviation="32" flood-color="#fff" />
+  </filter>
+  ${!!dropShadow && '<g filter="url(#dropShadow)">'}
+  ${!!glow && '<g filter="url(#glow)">'}
     <polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="none" stroke="${borderColor}" stroke-width="${borderWidth}" />           
-<polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="${color}" stroke="none"/>           
-    <polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="url(#patternId)" opacity="0.75"/>           
-
+    <polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="${color}" stroke="none"/>           
+  ${!!bgImage && '<polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="url(#patternId)" opacity="0.75"/>'}          
+  ${!!glow && '</g>'}
+  ${!!dropShadow && '</g>'}
 </svg>`
   }
 }

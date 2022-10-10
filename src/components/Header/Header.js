@@ -14,7 +14,7 @@ export default function Header () {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const savedUser = localStorage.getItem('user')
+    const savedUser = JSON.parse(localStorage.getItem('user'))
     if (savedUser) {
       setUser(savedUser)
       navigate('/profile')
@@ -28,8 +28,8 @@ export default function Header () {
     const passwordVal = passwordInput.value
     const userData = state.userData.find(i => i.admin.userName.toLowerCase() === userVal.toLowerCase())
     if (userData && userData.admin.password === passwordVal) {
+      localStorage.setItem('user', JSON.stringify(userData))
       setUser(userData)
-      localStorage.setItem('user', userData)
       navigate('/profile')
     }
   }

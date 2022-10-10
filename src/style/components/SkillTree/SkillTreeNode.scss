@@ -8,14 +8,18 @@
   align-items: center;
   text-align: center;
   margin-bottom: 150px;
-  background-color: white;
   z-index: 2;
 
   &:last-of-type {
     margin-bottom: 0;
   }
 
-  &__blank {
-    height: 200px;
+  &__text {
+    font-weight: bold;
+    text-shadow:
+      -1px -1px 0 #fff,  
+      1px -1px 0 #fff,
+      -1px 1px 0 #fff,
+      1px 1px 0 #fff;
   }
 }
