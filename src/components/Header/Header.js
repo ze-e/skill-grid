@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { ModalLogin } from '../Modal/ModalTypes'
 import { ModalContext } from '../../contexts/ModalContext'
 import { UserContext } from '../../contexts/UserContext'
@@ -13,6 +13,14 @@ export default function Header () {
   const { state } = useContext(DataContext)
   const navigate = useNavigate()
 
+  useEffect(() => {
+    const savedUser = localStorage.getItem('user')
+    if (savedUser) {
+      setUser(savedUser)
+      navigate('/profile')
+    }
+  }, [])
+
   function login (e) {
     const userInput = e.target[0]
     const passwordInput = e.target[1]
@@ -21,6 +29,7 @@ export default function Header () {
     const userData = state.userData.find(i => i.admin.userName.toLowerCase() === userVal.toLowerCase())
     if (userData && userData.admin.password === passwordVal) {
       setUser(userData)
+      localStorage.setItem('user', userData)
       navigate('/profile')
     }
   }

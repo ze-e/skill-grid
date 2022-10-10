@@ -1,6 +1,8 @@
 import defaultAvatar from '../assets/elf-avi.jpg'
 import avatar from './avatarData'
 import gear from './gearData'
+import questImage from './questImageData'
+
 export const levelData = {
   levels: [
     {
@@ -9,6 +11,7 @@ export const levelData = {
         {
           id: 'c950b2e3-8b9d-4e6b-9bea-bd677779d7ae',
           name: 'A hero is born!',
+          img: questImage.sword,
           skills: ['Created a Scratch account'],
           parents: [],
           descendants: ['0166b45e-9b46-413e-951c-e4a8b0932c59']
@@ -36,6 +39,7 @@ export const levelData = {
         {
           id: '3acc1285-a613-475c-9626-5880b561efb4',
           name: 'Movie Night!',
+          img: questImage.movie,
           skills: ['Using costume',
             'Using graphic effects',
             'Using "slide to point"',

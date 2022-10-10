@@ -56,7 +56,6 @@ function approveQuest (state, { userName, questId }) {
 
 function gainLevel (state, user) {
   const nextLevel = getNextLevel(state.gameData.userLevels, user.data.xp)
-  console.log(nextLevel)
   return user.data.level < nextLevel.name ? user.data.level + 1 : user.data.level
 }
 
