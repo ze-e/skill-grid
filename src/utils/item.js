@@ -10,6 +10,6 @@ export function canBuyItem (item, gold) {
 
 export function count (inventory, itemId) {
   let count = 0
-  inventory.forEach(i => { if (i.id === itemId) count++ })
+  inventory.forEach(i => { if (i === itemId) count++ })
   return count
 }

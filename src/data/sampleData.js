@@ -216,42 +216,42 @@ export const avatarData = {
 
 export const itemData = [
   {
-    id: '60b1788e-1b34-419d-a970-89312ac10e1d',
-    name: 'blue pants',
+    id: '60b1788e-1b77-419d-a970-89312ac10e1d',
+    name: 'brown pants',
     location: 'legs',
     src: gear.pants1,
     cost: 10
   },
   {
-    id: '71b1788e-1b34-419d-a970-89312ac10e1d',
-    name: 'white pants',
+    id: '71b1788e-1b88-419d-a970-89312ac10e1d',
+    name: 'blue pants',
     location: 'legs',
     src: gear.pants2,
     cost: 10
   },
   {
-    id: '60b2888e-1b34-419d-a970-89312ac10e1d',
-    name: 'brown pants',
+    id: '60b2888e-1b99-419d-a970-89312ac10e1d',
+    name: 'white pants',
     location: 'legs',
     src: gear.pants3,
     cost: 10
   },
   {
-    id: '60b2888e-1b34-419d-a970-89312ac10e7h',
+    id: '60b2888e-1b11-419d-a970-89312ac10e7h',
     name: 'shirt 1',
     location: 'body',
     src: gear.shirt1,
     cost: 10
   }, {
-    id: '60b2888e-1b34-419d-a970-89312dc10e1d',
+    id: '60b2888e-1b22-419d-a970-89312dc10e1d',
     name: 'shirt 2',
-    location: 'legs',
+    location: 'body',
     src: gear.shirt2,
     cost: 10
   }, {
-    id: '60b2888e-1b48-419d-a970-89312ac10e1d',
+    id: '60b2888e-1b33-419d-a970-89312ac10e1d',
     name: 'shirt 3',
-    location: 'legs',
+    location: 'body',
     src: gear.shirt3,
     cost: 10
   },
