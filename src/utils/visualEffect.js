@@ -49,17 +49,11 @@ export function drawAvatar ({ body, head, hand, foot, gear }) {
   const headImg = new Image()
   headImg.src = head.src
 
-  const lHandImg = new Image()
-  lHandImg.src = hand.l_src
+  const handImg = new Image()
+  handImg.src = hand.src
 
-  const rHandImg = new Image()
-  rHandImg.src = hand.r_src
-
-  const lFootImg = new Image()
-  lFootImg.src = foot.l_src
-
-  const rFootImg = new Image()
-  rFootImg.src = foot.r_src
+  const footImg = new Image()
+  footImg.src = foot.src
 
   // build
   bodyImg.onload = () => {
@@ -70,19 +64,11 @@ export function drawAvatar ({ body, head, hand, foot, gear }) {
     buildImage()
   }
 
-  lHandImg.onload = () => {
+  handImg.onload = () => {
     buildImage()
   }
 
-  rHandImg.onload = () => {
-    buildImage()
-  }
-
-  lFootImg.onload = () => {
-    buildImage()
-  }
-
-  rFootImg.onload = () => {
+  footImg.onload = () => {
     buildImage()
   }
 
@@ -105,15 +91,13 @@ export function drawAvatar ({ body, head, hand, foot, gear }) {
     canvas.width = 400
     canvas.height = 400
 
-    ctx.drawImage(bodyImg, 0, 0)
-    ctx.drawImage(headImg, 0, 0)
-    ctx.drawImage(lHandImg, 0, 0)
-    ctx.drawImage(rHandImg, 0, 0)
-    ctx.drawImage(lFootImg, 0, 0)
-    ctx.drawImage(rFootImg, 0, 0)
+    ctx.drawImage(bodyImg, 0, 0, 400, 400)
+    ctx.drawImage(headImg, 0, 0, 400, 400)
+    ctx.drawImage(handImg, 0, 0, 400, 400)
+    ctx.drawImage(footImg, 0, 0, 400, 400)
     if (gear !== null) {
       gearImg.forEach(img => {
-        ctx.drawImage(img, 0, 0)
+        ctx.drawImage(img, 0, 0, 400, 400)
       })
     }
   }

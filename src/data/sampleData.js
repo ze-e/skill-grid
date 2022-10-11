@@ -128,8 +128,8 @@ export const userData = [
       foot: 1
     },
     gear: {
-      head: '60b1788e-1b34-419d-a970-89312ac10e0c',
-      LHand: '60b1788e-1b34-419d-a970-89312ac10e0d',
+      head: '',
+      LHand: '',
       RHand: '',
       body: '',
       legs: '',
@@ -166,15 +166,15 @@ export const userData = [
       submittedQuest: ''
     },
     avatar: {
-      head: 2,
+      head: 1,
       body: 1,
-      hand: 2,
+      hand: 1,
       foot: 1
     },
     gear: {
       head: '',
-      LHand: '60b1788e-1b34-419d-a970-89312ac10e0f',
-      RHand: '60b1788e-1b34-419d-a970-89312ac10e0h',
+      LHand: '',
+      RHand: '',
       body: '',
       legs: '',
       feet: ''
@@ -189,16 +189,6 @@ export const avatarData = {
       id: 1,
       name: 'normal',
       src: avatar.head1
-    },
-    {
-      id: 2,
-      name: 'elf',
-      src: avatar.head2
-    },
-    {
-      id: 3,
-      name: 'cyborg',
-      src: avatar.head3
     }
   ],
   body: [
@@ -206,45 +196,65 @@ export const avatarData = {
       id: 1,
       name: 'normal',
       src: avatar.body1
-    },
-    {
-      id: 2,
-      name: 'color',
-      src: avatar.body2
     }
   ],
   hand: [
     {
       id: 1,
       name: 'normal',
-      l_src: avatar.lHand1,
-      r_src: avatar.rHand1
-    },
-    {
-      id: 2,
-      name: 'color',
-      l_src: avatar.lHand2,
-      r_src: avatar.rHand2
+      src: avatar.hand
     }
   ],
   foot: [
     {
       id: 1,
       name: 'normal',
-      l_src: avatar.lFoot1,
-      r_src: avatar.rFoot1
-
-    },
-    {
-      id: 2,
-      name: 'color',
-      l_src: avatar.lFoot2,
-      r_src: avatar.rFoot2
+      src: avatar.foot
     }
   ]
 }
 
 export const itemData = [
+  {
+    id: '60b1788e-1b34-419d-a970-89312ac10e1d',
+    name: 'blue pants',
+    location: 'legs',
+    src: gear.pants1,
+    cost: 10
+  },
+  {
+    id: '71b1788e-1b34-419d-a970-89312ac10e1d',
+    name: 'white pants',
+    location: 'legs',
+    src: gear.pants2,
+    cost: 10
+  },
+  {
+    id: '60b2888e-1b34-419d-a970-89312ac10e1d',
+    name: 'brown pants',
+    location: 'legs',
+    src: gear.pants3,
+    cost: 10
+  },
+  {
+    id: '60b2888e-1b34-419d-a970-89312ac10e7h',
+    name: 'shirt 1',
+    location: 'body',
+    src: gear.shirt1,
+    cost: 10
+  }, {
+    id: '60b2888e-1b34-419d-a970-89312dc10e1d',
+    name: 'shirt 2',
+    location: 'legs',
+    src: gear.shirt2,
+    cost: 10
+  }, {
+    id: '60b2888e-1b48-419d-a970-89312ac10e1d',
+    name: 'shirt 3',
+    location: 'legs',
+    src: gear.shirt3,
+    cost: 10
+  },
   {
     id: '60b1788e-1b34-419d-a970-89312ac10e0c',
     name: 'iron helm',
