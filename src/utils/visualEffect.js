@@ -137,7 +137,7 @@ export function drawHex ({ id, color, borderColor, borderWidth, bgImage, dropSha
   </filter>
   ${!!dropShadow && '<g filter="url(#dropShadow)">'}
   ${!!glow && '<g filter="url(#glow)">'}
-    <polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="none" stroke="${borderColor}" stroke-width="${borderWidth}" />           
+    <polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="none" stroke="${borderColor}" stroke-width="${borderWidth}" />
     <polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="${color}" stroke="none"/>           
   ${!!bgImage && '<polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="url(#patternId)" opacity="0.75"/>'}          
   ${!!glow && '</g>'}
@@ -145,3 +145,5 @@ export function drawHex ({ id, color, borderColor, borderWidth, bgImage, dropSha
 </svg>`
   }
 }
+
+// eslint-disable-next-line

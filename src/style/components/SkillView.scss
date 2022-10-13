@@ -2,6 +2,9 @@
   &__tree {
     display: flex;
     align-items: center;
+    overflow-y: hidden;
+    overflow-x: scroll;
+    margin: 10px;
   }
 
   &__title {
