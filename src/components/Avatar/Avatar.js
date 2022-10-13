@@ -1,36 +1,41 @@
 import React, { useContext, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { drawAvatar } from '../../utils/visualEffect'
+import { drawAvatarFull } from '../../utils/visualEffect'
 import { getAvatarData, getGearData } from '../../utils/avatar'
 import { DataContext } from '../../contexts/DataContext'
-
-import { useNavigate } from 'react-router-dom'
+import { UserContext } from '../../contexts/UserContext'
 
 export default function Avatar ({ avatar, gear, edit }) {
-  const { state } = useContext(DataContext)
-
-  const navigate = useNavigate()
+  const { state, dispatch, ACTIONS } = useContext(DataContext)
+  const { user } = useContext(UserContext)
 
   useEffect(() => {
-    drawAvatar({
-      body: getAvatarData(state.avatarData, 'body', avatar.body),
-      head: getAvatarData(state.avatarData, 'head', avatar.head),
-      hand: getAvatarData(state.avatarData, 'hand', avatar.hand),
-      foot: getAvatarData(state.avatarData, 'foot', avatar.foot),
+    drawAvatarFull({
+      avatar: getAvatarData(state.avatarData, 'full', avatar),
       gear: gear ? getGearData(state.itemData, Object.values(gear)) : null
     })
   }, [avatar, state.userData])
 
   return (
     <div className='avatar'>
-      <canvas id='canvas' style={{ border: '2px solid black' }}></canvas>
-      {edit && <button className='avatar__edit m-button' type='button' onClick={() => { navigate('/editAvatar') }} >Edit Avatar</button>}
+      <canvas id='canvas' style={{ border: '2px solid black' }}>
+      </canvas>
+      {edit && <>
+        <div className='avatar__edit'>
+          <button className='m-button' type='button' onClick={async () => {
+            await dispatch({ type: ACTIONS.CHANGE_AVATAR, payload: { userName: user.admin.userName, changeBy: -1 } })
+          }}>◀</button>
+          <button className='m-button' type='button' onClick={async () => {
+            await dispatch({ type: ACTIONS.CHANGE_AVATAR, payload: { userName: user.admin.userName, changeBy: 1 } })
+          }}>▶</button>
+        </div>
+      </>}
     </div>
   )
 }
 
 Avatar.propTypes = {
-  avatar: PropTypes.object,
+  avatar: PropTypes.number,
   gear: PropTypes.object,
   edit: PropTypes.bool
 }

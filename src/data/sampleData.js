@@ -1,4 +1,3 @@
-import defaultAvatar from '../assets/elf-avi.jpg'
 import avatar from './avatarData'
 import gear from './gearData'
 export const levelData = {
@@ -96,10 +95,6 @@ export const userData = [
   {
     data: { // public data
       name: 'Rex',
-      img: {
-        src: defaultAvatar,
-        name: 'elf hacker'
-      },
       level: 0,
       xp: 0,
       gold: 0,
@@ -121,12 +116,7 @@ export const userData = [
       currentQuest: '',
       submittedQuest: ''
     },
-    avatar: {
-      head: 1,
-      body: 1,
-      hand: 1,
-      foot: 1
-    },
+    avatar: 2,
     gear: {
       head: '',
       LHand: '',
@@ -140,10 +130,6 @@ export const userData = [
   {
     data: {
       name: 'Hunter',
-      img: {
-        src: defaultAvatar,
-        name: 'elf wizard'
-      },
       level: 2,
       xp: 80,
       gold: 80,
@@ -165,12 +151,7 @@ export const userData = [
       currentQuest: '',
       submittedQuest: ''
     },
-    avatar: {
-      head: 1,
-      body: 1,
-      hand: 1,
-      foot: 1
-    },
+    avatar: 2,
     gear: {
       head: '',
       LHand: '',
@@ -210,6 +191,23 @@ export const avatarData = {
       id: 1,
       name: 'normal',
       src: avatar.foot
+    }
+  ],
+  full: [
+    {
+      id: 1,
+      name: 'human',
+      src: avatar.human
+    },
+    {
+      id: 2,
+      name: 'elf',
+      src: avatar.elf
+    },
+    {
+      id: 3,
+      name: 'robot',
+      src: avatar.robot
     }
   ]
 }

@@ -1,8 +1,10 @@
 /* eslint-disable */
 
-import { debug } from '../../../utils/debug'
+// import { debug } from '../../../utils/debug'
 import { getQuestById } from '../../../utils/quest'
 import { getNextLevel } from '../../../utils/gameData'
+import { getAvatarData } from '../../../utils/avatar'
+
 import { updateUser } from '../../../utils/user'
 
 function editData (state, { userName, field, newVal }) {
@@ -21,13 +23,28 @@ function editAdmin (state, { userName, field, newVal }) {
   return stateCopy
 }
 
-function changeAvatar (state, { userName, newVals }) {
+/* for type based avatars */
+function changeAvatar (state, { userName, changeBy }) {
   const stateCopy = { ...state }
   const user = stateCopy.userData.find(i => i.admin.userName.toLowerCase() === userName.toLowerCase())
-  Object.keys(user.avatar).forEach(key => { if (user.avatar[key] !== newVals[key]) user.avatar[key] = newVals[key] })
+  const avatarLength = state.avatarData.full.length
+  const currentAvatar = user.avatar
+  if (currentAvatar + changeBy < 1) user.avatar = avatarLength
+  else if(currentAvatar + changeBy > avatarLength ) user.avatar = 1
+  else user.avatar = user.avatar + changeBy
+  user.data.type = getAvatarData(stateCopy.avatarData, 'full', user.avatar).name
   stateCopy.userData = updateUser(stateCopy, userName, user)
   return stateCopy
 }
+
+/* for mix and match avatars */
+// function changeAvatar (state, { userName, newVals }) {
+//   const stateCopy = { ...state }
+//   const user = stateCopy.userData.find(i => i.admin.userName.toLowerCase() === userName.toLowerCase())
+//   Object.keys(user.avatar).forEach(key => { if (user.avatar[key] !== newVals[key]) user.avatar[key] = newVals[key] })
+//   stateCopy.userData = updateUser(stateCopy, userName, user)
+//   return stateCopy
+// }
 
 function submitQuest (state, { userName, questId }) {
   const stateCopy = { ...state }

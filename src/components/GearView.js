@@ -12,7 +12,7 @@ export default function GearView () {
   return (
     <div className='gearView'>
       <div className='gearView__top'>
-        {user.data && <div className='gearView__img'><Avatar avatar={user.avatar} gear={user.gear} edit={true} /></div>}
+        {user.data && <div className='gearView__img'><Avatar avatar={user.avatar} gear={user.gear}/></div>}
         <div className='gearView__info'>
         {user.data && <div className='gearView__info'><GearInfo data={ user.data } /></div>}
         </div>

@@ -39,7 +39,7 @@ export function drawLine (from, to, line) {
   line.style.height = H + 'px'
 }
 
-export function drawAvatar ({ body, head, hand, foot, gear }) {
+export function drawAvatarBody ({ body, head, hand, foot, gear }) {
   if (gear !== null) Object.keys(gear).forEach((k) => gear[k] == null && delete gear[k])
 
   // load
@@ -95,6 +95,44 @@ export function drawAvatar ({ body, head, hand, foot, gear }) {
     ctx.drawImage(headImg, 0, 0, 400, 400)
     ctx.drawImage(handImg, 0, 0, 400, 400)
     ctx.drawImage(footImg, 0, 0, 400, 400)
+    if (gear !== null) {
+      gearImg.forEach(img => {
+        ctx.drawImage(img, 0, 0, 400, 400)
+      })
+    }
+  }
+}
+
+export function drawAvatarFull ({ avatar, gear }) {
+  if (gear !== null) Object.keys(gear).forEach((k) => gear[k] == null && delete gear[k])
+
+  // load
+  const avatarImg = new Image()
+  avatarImg.src = avatar.src
+
+  avatarImg.onload = () => {
+    buildImage()
+  }
+
+  const gearImg = []
+
+  if (gear !== null) {
+    gear.forEach(item => {
+      const itemImg = new Image()
+      itemImg.src = item.src
+      gearImg.push(itemImg)
+      itemImg.onload = () => {
+        buildImage()
+      }
+    })
+  }
+
+  function buildImage () {
+    const canvas = document.getElementById('canvas')
+    const ctx = canvas.getContext('2d')
+    canvas.width = 400
+    canvas.height = 400
+    ctx.drawImage(avatarImg, 0, 0, 400, 400)
     if (gear !== null) {
       gearImg.forEach(img => {
         ctx.drawImage(img, 0, 0, 400, 400)
