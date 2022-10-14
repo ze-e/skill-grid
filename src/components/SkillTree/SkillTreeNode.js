@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, { useEffect, useContext, useState } from 'react'
+import React, { useEffect, useContext, useState, useRef } from 'react'
 
 import PropTypes from 'prop-types'
 import { DataContext } from '../../contexts/DataContext'
@@ -11,6 +11,7 @@ import { createDarkVariation } from '../../utils/color'
 export default function SkillTreeNode ({ item }) {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
   const { user, setUser } = useContext(UserContext)
+  const hexRef = useRef(null);
   const xp = item.skills.length * 10
   const completed = user.admin?.userType === 'student' && user.admin?.completedQuests.includes(item.id)
   const hasCurrent = user.admin?.userType === 'student' && user.admin?.currentQuest
@@ -28,8 +29,8 @@ export default function SkillTreeNode ({ item }) {
   }, [user.admin])
 
   useEffect(() => {
-    drawHex({ id: item.id, color: isCurrent ? createDarkVariation(item.color) : item.color, bgImage: item.img, borderColor: isCurrent ? '#ffffff' : createDarkVariation(item.color), borderWidth: '100', dropShadow: completed || isCurrent ? true : false, glow: isAvailable ? true : false})
-  }, [item, isCurrent])
+    drawHex({ svg: hexRef.current, color: item.color, bgImage: item.img, borderColor: isCurrent ? '#ffffff' : createDarkVariation(item.color), borderWidth: '100', dropShadow:isAvailable || completed  ? true : false, glow: isAvailable ? true : false, innerShadow: !isAvailable && !isCurrent && !completed && true})
+  }, [hexRef, item, isCurrent])
 
   async function setCurrentQuest () {
     await dispatch({ type: ACTIONS.EDIT_ADMIN, payload: { userName: user.admin.userName, field: 'currentQuest', newVal: item.id } })
@@ -41,7 +42,7 @@ export default function SkillTreeNode ({ item }) {
     <div className={`skillTreeNodeContainer key-${item.id}`} data-id={item.id}>
       <div className='skillTreeNode'>
         
-        <div className='skillTreeNode__svg' data-id={`${item.id}-svg`}></div>
+        <div className='skillTreeNode__svg' data-id={`${item.id}-svg`} ref={hexRef}></div>
         {completed || isAvailable ?
           <>
             <h3 className={`skillTreeNode__text ${!!isCurrent && 'current'}`} >{item.name}</h3>
