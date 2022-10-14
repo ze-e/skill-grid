@@ -59,7 +59,7 @@ function SkillView () {
       {user.admin.currentQuest && <h2 className='skillView__current'>Current Quest: {' '} {getAllQuests(state.data?.levels).find(q => q.id === user.admin.currentQuest).name}
       </h2>}
       {user.admin.submittedQuest ? <h2 className='skillView__current'>Submitted✔️</h2> : user.admin.currentQuest && <button type='button' onClick={() => { dispatch({ type: ACTIONS.SUBMIT_QUEST, payload: { userName: user.admin.userName, questId: user.admin.currentQuest } }) }}>Submit Quest</button>}
-      <h3 className='skillView__title'>Skill Tree</h3>
+      {/* <h3 className='skillView__title'>Skill Tree</h3> */}
         <section className='skillView__tree' ref={skillTreeRef}>
             {state.data.levels.length > 0 && state.data.levels.map(level => {
               return <SkillTreeColumn
@@ -69,7 +69,7 @@ function SkillView () {
               />
             })}
         </section>
-      <h3 className='skillView__title'>Skill List</h3>
+      {/* <h3 className='skillView__title'>Skill List</h3> */}
       {user.admin?.userType === 'teacher' && <button
         className="m-skillListButton button"
         type='button'

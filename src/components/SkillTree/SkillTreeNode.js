@@ -29,7 +29,7 @@ export default function SkillTreeNode ({ item }) {
   }, [user.admin])
 
   useEffect(() => {
-    drawHex({ svg: hexRef.current, color: item.color, bgImage: item.img, borderColor: isCurrent ? '#ffffff' : createDarkVariation(item.color), borderWidth: '100', dropShadow:isAvailable || completed  ? true : false, glow: isAvailable ? true : false, innerShadow: !isAvailable && !isCurrent && !completed && true})
+    drawHex({ svg: hexRef.current, color: item.color, bgImage: item.img, borderColor: isCurrent ? '#ffffff' : createDarkVariation(item.color), borderWidth: '100', dropShadow: isCurrent || completed  ? true : false, glow: isAvailable ? true : false, innerShadow: !isAvailable && !isCurrent && !completed && true})
   }, [hexRef, item, isCurrent])
 
   async function setCurrentQuest () {
@@ -40,7 +40,12 @@ export default function SkillTreeNode ({ item }) {
 
   return (
     <div className={`skillTreeNodeContainer key-${item.id}`} data-id={item.id}>
-      <div className='skillTreeNode'>
+      <div className={`skillTreeNode ${!!isAvailable && !hasCurrent && 'current'}`}>
+        {(user.admin?.userType !== 'teacher' && isAvailable && !hasCurrent) &&
+          <button className={`skillTreeNode__button`} type="button" onClick={() => { setCurrentQuest() }}>
+            <span className={`skillTreeNode__overlay`}>START</span>
+          </button>
+        }
         
         <div className='skillTreeNode__svg' data-id={`${item.id}-svg`} ref={hexRef}></div>
         {completed || isAvailable ?
@@ -50,7 +55,6 @@ export default function SkillTreeNode ({ item }) {
           </>
           : <div className={`skillTreeNode__blank`}></div>
         }
-        {(user.admin?.userType !== 'teacher' && isAvailable && !hasCurrent) && <button className={`skillTreeNode__button m-button`} type="button" onClick={() => { setCurrentQuest() }}>Start Quest</button>}
       </div>
     </div>
   )
