@@ -8,11 +8,14 @@
   }
 
   &--isAvailable {
-    color: grey;
+    -webkit-box-shadow: inset -1px 3px 8px 5px #fff, 2px 5px 16px 0px #fff, 0px 10px 24px 1px rgba(0,0,0,0); 
+    box-shadow: inset -1px 3px 8px 5px #fff, 2px 5px 16px 0px #fff, 0px 10px 24px 1px rgba(0,0,0,0);
   }
 
   &--isCurrent {
-    border: 3px solid green;
+    border: 10px solid #fff;
+    -webkit-box-shadow: inset -1px 3px 8px 5px #fff, 2px 5px 16px 0px green, 0px 10px 24px 1px rgba(0,0,0,0); 
+    box-shadow: inset -1px 3px 8px 5px #fff, 2px 5px 16px 0px green, 0px 10px 24px 1px rgba(0,0,0,0);
   }
   
   &__head {
