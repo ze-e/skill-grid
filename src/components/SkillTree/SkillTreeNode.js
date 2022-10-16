@@ -43,15 +43,15 @@ export default function SkillTreeNode ({ item }) {
       <div className={`skillTreeNode ${!!isAvailable && !hasCurrent && 'current'}`}>
         {(user.admin?.userType !== 'teacher' && isAvailable && !hasCurrent) &&
           <button className={`skillTreeNode__button`} type="button" onClick={() => { setCurrentQuest() }}>
-            <span className={`skillTreeNode__overlay`}>START</span>
+            <span className={`skillTreeNode__overlay m-title-stoke-black`}>START</span>
           </button>
         }
         
         <div className='skillTreeNode__svg' data-id={`${item.id}-svg`} ref={hexRef}></div>
         {completed || isAvailable ?
           <>
-            <h3 className={`skillTreeNode__text ${!!isCurrent && 'current'}`} >{item.name}</h3>
-            <h4 className={`skillTreeNode__xp ${!!isCurrent && 'current'}`} >XP: {xp}</h4>
+            <h3 className={`skillTreeNode__text ${!!isCurrent ? 'current m-title-stoke-white' : 'm-title-stoke-black'}`} >{item.name}</h3>
+            <h4 className={`skillTreeNode__xp ${!!isCurrent ? 'current m-title-stoke-white': 'm-title-stoke-black'}`} >XP: {xp}</h4>
           </>
           : <div className={`skillTreeNode__blank`}></div>
         }
