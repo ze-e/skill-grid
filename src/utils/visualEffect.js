@@ -33,7 +33,7 @@ export function drawLine (from, to, line) {
   line.style['-ms-transform'] = 'rotate(' + ANG + 'deg)'
   line.style['-o-transform'] = 'rotate(' + ANG + 'deg)'
   line.style['-transform'] = 'rotate(' + ANG + 'deg)'
-  line.style.top = top + 'px'
+  line.style.top = top - '45' + 'px'
   line.style.left = left + 'px'
   line.style.height = H + 'px'
 }

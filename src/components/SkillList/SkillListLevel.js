@@ -52,7 +52,7 @@ export default function SkillListLevel ({ index, level, teacherView }) {
   }
 
   return (
-    <div className='skillListLevel' style={{ backgroundColor: level.color }}>
+    <div className='skillListLevel'>
         <div className='skillListLevel__title m-title-stroke-white'>
           <h3>{`Level ${index + 1}`}</h3>
           <h3>{` ${levelXP} XP/ Gold`}</h3>

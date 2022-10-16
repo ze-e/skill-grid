@@ -11,10 +11,10 @@ export default function SkillListSkill ({ quest, skill, index, teacherView }) {
   return (
     <div key={skill} className='skillListSkill__skill'>
       { !edit
-        ? <>
-          <span className='skillListSkill__name'>{`Skill ${index + 1} - ${skill}`}</span>
-          <span className='skillListSkill__skillXP'>+10 XP/Gold</span>
-        </>
+        ? <div className='skillListSkill__text m-flex'>
+          <span className='skillListSkill__name m-title-stroke-black'>{`Skill ${index + 1} - ${skill}`}</span>
+          <span className='skillListSkill__skillXP m-title-stroke-black'>+10 XP/Gold</span>
+        </div>
         : <form onSubmit={(e) => { e.preventDefault(); dispatch({ type: ACTIONS.RENAME_SKILL, payload: { quest, skill, name: inputName } }); setEdit(false) }}>
         <input onChange={(e) => { setInputName(e.target.value) }} value={inputName} placeholder="Enter name..." minLength={3} maxLength={15}/>
         <button type="submit">Change Name</button>
