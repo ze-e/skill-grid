@@ -8,6 +8,7 @@ import { ModalQuestEdit, ModalSkillAdd } from '../Modal/ModalTypes'
 import { getParents, getDescendants } from '../../utils/quest'
 
 import { getNextLevel, getQuestLevel, getPrevLevel } from '../../utils/level'
+import { createDarkVariation } from '../../utils/color'
 import { v4 as uuidv4 } from 'uuid'
 import SETTINGS from '../../config/constants'
 
@@ -65,12 +66,12 @@ export default function SkillListQuest ({ index, quest, levelIndex, teacherView 
 
   return (
     (completed || user.admin?.userType === 'teacher' || isAvailable)
-      ? (<div className={`skillListQuest ${(user.admin?.userType !== 'teacher' && isAvailable && !isCurrent) && 'skillListQuest--isAvailable'}  ${(user.admin?.userType !== 'teacher' && isCurrent) && 'skillListQuest--isCurrent'}`}>
-          <div className='skillListQuest__head'>
-          <h4 className='skillListQuest__title' style={{ border: `3px solid ${quest.color}` }}>
-              {`Quest ${index + 1} - ${quest.name}`}
-            </h4>
-          {(user.admin?.userType !== 'teacher' && !isAvailable && !isCurrent) && <h5 className='skillListQuest__completed'>{' --> '}COMPLETED!</h5>}
+      ? (<div style={{ backgroundColor: createDarkVariation(quest.color) }} className={`skillListQuest  ${(user.admin?.userType !== 'teacher' && isAvailable && !isCurrent) && 'skillListQuest--isAvailable'}  ${(user.admin?.userType !== 'teacher' && isCurrent) && 'skillListQuest--isCurrent'}` }>
+        <div className='skillListQuest__head'>
+
+          <h3 className='skillListQuest__title m-title-stroke-white'>{`Quest ${index + 1} - ${quest.name}`}</h3>
+          <h3 className='skillListQuest__check m-title-stroke-white'>{completed && '✔'}</h3>
+
           {(user.admin?.userType !== 'teacher' && isCurrent) && <h5 className='skillListQuest__completed'>{' --> '}  In Progress...</h5>}
           {teacherView && <button
             className="m-skillListButton button"
@@ -111,21 +112,19 @@ export default function SkillListQuest ({ index, quest, levelIndex, teacherView 
         Delete
       </button>}
 
-          </div>
+        </div>
            <div className='m-flex'>
-            <div className="m-flexColumn skillListQuest__family">
-              {parents != null && <h5>Prerequisites:</h5>}
+            <div className="m-flexColumn">
               {parents != null && parents.map(p =>
-                <div key={p.id} style={{ border: `3px solid ${p.color}` }}>
-                  {p.name}
+                <div className='skillListQuest__family m-title-stroke-black' key={p.id} style={{ backgroundColor: p.color }}>
+                  {`BEFORE: ${p.name}`}
                 </div>
               )}
             </div>
             <div className="m-flexColumn">
-              {descendants != null && <h5>Next lesson:</h5>}
               {descendants != null && descendants.map(d =>
-                <div key={d.id} style={{ border: `3px solid ${d.color}` }}>
-                  {d.name}
+                <div className='skillListQuest__family m-title-stroke-black' key={d.id} style={{ backgroundColor: d.color }}>
+                  {`NEXT LESSON: ${d.name}`}
                 </div>
               )}
             </div>

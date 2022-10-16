@@ -158,7 +158,7 @@ export function drawHex ({ svg, color, borderColor, borderWidth, bgImage, dropSh
     <polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="none" stroke="${borderColor}" stroke-width="${borderWidth}" />
   ${!!innerShadow && '<g filter="url(#innerShadow)">'}
     
-    <polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="${color}" stroke="none"/>           
+    <polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="${color}" stroke="none" style="inset 39px 5px 15px 5px rgba(0,0,0,0.5)" />           
   ${!!innerShadow && '</g>'}
   
   ${!!bgImage && '<polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="url(#patternId)" opacity="0.75"/>'}          

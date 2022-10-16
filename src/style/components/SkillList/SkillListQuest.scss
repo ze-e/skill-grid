@@ -1,5 +1,11 @@
 .skillListQuest {
-  margin-left: 10px;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+
+  &:last-of-type {
+    margin-bottom: 0;
+  }
 
   &--isAvailable {
     color: grey;
@@ -12,19 +18,29 @@
   &__head {
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
 
   &__title {
-      margin-left: 20px;
+    margin-left: 20px;
+  }
+
+  &__check {
+    font-size: 56px;
+    color: green;
   }
 
   &__family {
-    margin-right: 20px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 12px;
+    padding: 4px;
     margin-left: 20px;
-    &:last-of-type {
-      margin-right: 0;
-    }
     margin-bottom: 10px;
+    &:last-of-type {
+      margin-bottom: 24px;
+    }
+    -webkit-box-shadow: 0px 10px 24px 1px rgba(0,0,0,0.8); 
+    box-shadow: 0px 10px 24px 1px rgba(0,0,0,0.8);
   }
-
 }

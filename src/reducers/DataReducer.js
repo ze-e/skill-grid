@@ -17,6 +17,7 @@ import itemFunctions from './itemData/functions/functions'
 function createData () {
   data.levels.forEach(level => {
     if (!level.id) level.id = uuidv4()
+    if (!level.color) level.color = createColor()
     level.quests.forEach(quest => { if (!quest.id) quest.id = uuidv4(); quest.color = quest.parents.length > 0 && quest.parents[0]?.color !== undefined ? quest.parents[0]?.color : createColor() })
   })
   return data

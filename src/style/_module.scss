@@ -35,17 +35,25 @@
   font-size: 26px;
 }
 
-.m-title-stoke-white {
+.m-title-stroke-white {
+  font-family: 'Monda', sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 26px;
   color: black;
-  text-shadow:
+    text-shadow:
     -1px -1px 0 #fff,  
     1px -1px 0 #fff,
     -1px 1px 0 #fff,
     1px 1px 0 #fff;
 }
 
-.m-title-stoke-black {
-  color: rgba(255, 255, 255, 0.8);
+.m-title-stroke-black {
+  font-family: 'Monda', sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 26px;
+    color: rgba(255, 255, 255, 0.8);
   text-shadow:
     -1px -1px 0 rgba(0, 0, 0, 0.5),  
     1px -1px 0 rgba(0, 0, 0, 0.5),
