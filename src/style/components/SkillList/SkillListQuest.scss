@@ -10,6 +10,26 @@
   &--isAvailable {
     -webkit-box-shadow: inset -1px 3px 8px 5px #fff, 2px 5px 16px 0px #fff, 0px 10px 24px 1px rgba(0,0,0,0); 
     box-shadow: inset -1px 3px 8px 5px #fff, 2px 5px 16px 0px #fff, 0px 10px 24px 1px rgba(0,0,0,0);
+    filter: brightness(0.5);
+    position: relative;
+
+    & .skillListSkill__skill, & .skillListQuest__family {
+      filter: blur(5px);
+    }
+
+    &::after {
+      background-color: rgba(0, 0, 0, 0.5);
+      color: white;
+      content: 'Not yet completed';
+      text-transform: uppercase;
+      text-align: center;
+      font-size: 100px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      filter: none;
+    }
   }
 
   &--isCurrent {
@@ -40,6 +60,7 @@
     padding: 4px;
     margin-left: 20px;
     margin-bottom: 10px;
+
     &:last-of-type {
       margin-bottom: 24px;
     }

@@ -66,53 +66,57 @@ export default function SkillListQuest ({ index, quest, levelIndex, teacherView 
 
   return (
     (completed || user.admin?.userType === 'teacher' || isAvailable)
-      ? (<div style={{ backgroundColor: createDarkVariation(quest.color) }} className={`skillListQuest  ${(user.admin?.userType !== 'teacher' && isAvailable && !isCurrent) && 'skillListQuest--isAvailable'}  ${(user.admin?.userType !== 'teacher' && isCurrent) && 'skillListQuest--isCurrent'}` }>
-        <div className='skillListQuest__head'>
+      ? (
+        <div style={{ backgroundColor: createDarkVariation(quest.color) }} className={`skillListQuest  ${(user.admin?.userType !== 'teacher' && isAvailable && !isCurrent) && 'skillListQuest--isAvailable'}  ${(user.admin?.userType !== 'teacher' && isCurrent) && 'skillListQuest--isCurrent'}`}>
+          {/* // */}
+          <button className={`skillListQuest__overlay ${(user.admin?.userType !== 'teacher' && isAvailable && !isCurrent) && 'skillListQuest--isAvailable'}}`}>START</button>
+          {/* // */}
+          <div className='skillListQuest__head'>
 
-          <h3 className='skillListQuest__title m-title-stroke-white'>{`Quest ${index + 1} - ${quest.name}`}</h3>
-          <h3 className='skillListQuest__check m-title-stroke-white'>{completed && '✔'}</h3>
+            <h3 className='skillListQuest__title m-title-stroke-white'>{`Quest ${index + 1} - ${quest.name}`}</h3>
+            <h3 className='skillListQuest__check m-title-stroke-white'>{completed && '✔'}</h3>
 
-          {(user.admin?.userType !== 'teacher' && isCurrent) && <h5 className='skillListQuest__completed m-title-stroke-white'> In Progress...</h5>}
-          {teacherView && <button
-            className="m-skillListButton button"
-            type='button'
-            onClick={() => {
-              setModalOpen(true)
-              setModalContent(
-              <ModalQuestEdit
-                prevLevel={prevLevel}
-                defaultName={quest.name}
-                defaultParents={levelIndex !== 0 && parents}
-                descendants={descendants}
-                addChild={addChild}
-                handleSubmit= {(e) => {
-                  e.preventDefault()
+            {(user.admin?.userType !== 'teacher' && isCurrent) && <h5 className='skillListQuest__completed m-title-stroke-white'> In Progress...</h5>}
+            {teacherView && <button
+              className="m-skillListButton button"
+              type='button'
+              onClick={() => {
+                setModalOpen(true)
+                setModalContent(
+                <ModalQuestEdit
+                  prevLevel={prevLevel}
+                  defaultName={quest.name}
+                  defaultParents={levelIndex !== 0 && parents}
+                  descendants={descendants}
+                  addChild={addChild}
+                  handleSubmit= {(e) => {
+                    e.preventDefault()
 
-                  // get input vals
-                  const nameInput = e.target[0]
-                  const nameVal = nameInput.value
-                  const parentInput = e.target[1]
-                  const parentVal = [...parentInput.selectedOptions].map(option => option.value)
+                    // get input vals
+                    const nameInput = e.target[0]
+                    const nameVal = nameInput.value
+                    const parentInput = e.target[1]
+                    const parentVal = [...parentInput.selectedOptions].map(option => option.value)
 
-                  // dispatch
-                  if (nameVal !== quest.name) dispatch({ type: ACTIONS.CHANGE_NAME, payload: { quest, name: nameVal } })
-                  if (parentVal !== quest.parents) dispatch({ type: ACTIONS.SET_PARENTS, payload: { quest, parentIds: parentVal } })
+                    // dispatch
+                    if (nameVal !== quest.name) dispatch({ type: ACTIONS.CHANGE_NAME, payload: { quest, name: nameVal } })
+                    if (parentVal !== quest.parents) dispatch({ type: ACTIONS.SET_PARENTS, payload: { quest, parentIds: parentVal } })
 
-                  // close modal
-                  setModalOpen(false)
-                }}
-              />)
-            }}
-            >Edit</button>}
+                    // close modal
+                    setModalOpen(false)
+                  }}
+                />)
+              }}
+              >Edit</button>}
 
-      {(levelIndex !== 0 && teacherView) && <button
-        className="m-skillListButton button"
-        type='button'
-        onClick={() => { dispatch({ type: ACTIONS.DELETE_ITEM, payload: { item: quest } }) }}>
-        Delete
-      </button>}
+              {(levelIndex !== 0 && teacherView) && <button
+                className="m-skillListButton button"
+                type='button'
+                onClick={() => { dispatch({ type: ACTIONS.DELETE_ITEM, payload: { item: quest } }) }}>
+                Delete
+              </button>}
 
-        </div>
+            </div>
            <div className='m-flex'>
             <div className="m-flexColumn">
               {parents != null && parents.map(p =>
@@ -130,30 +134,30 @@ export default function SkillListQuest ({ index, quest, levelIndex, teacherView 
             </div>
           </div>
 
-        {quest.skills.map((skill, index) =>
-          <SkillListSkill key={skill + ' ' + index} quest={quest} skill={skill} index={index} teacherView={teacherView} />
-        )}
-      {(quest.skills.length < SETTINGS.MAX_SKILLS && teacherView) &&
-        <button
-          className="m-skillListButton button"
-          type='button'
-          onClick={() => {
-            setModalOpen(true)
-            setModalContent(
-              <ModalSkillAdd skillList={quest.skills} handleSubmit={
-                (e) => {
-                  e.preventDefault()
-                  const nameInput = e.target[0]
-                  const nameVal = nameInput.value
-                  dispatch({ type: ACTIONS.ADD_SKILL, payload: { quest, skill: nameVal } })
-                  setModalOpen(false)
-                }
-              }/>
-            )
-          }}
-        >Add New Skill</button>}
+          {quest.skills.map((skill, index) =>
+            <SkillListSkill key={skill + ' ' + index} quest={quest} skill={skill} index={index} teacherView={teacherView} />
+          )}
+          {(quest.skills.length < SETTINGS.MAX_SKILLS && teacherView) &&
+            <button
+              className="m-skillListButton button"
+              type='button'
+              onClick={() => {
+                setModalOpen(true)
+                setModalContent(
+                  <ModalSkillAdd skillList={quest.skills} handleSubmit={
+                    (e) => {
+                      e.preventDefault()
+                      const nameInput = e.target[0]
+                      const nameVal = nameInput.value
+                      dispatch({ type: ACTIONS.ADD_SKILL, payload: { quest, skill: nameVal } })
+                      setModalOpen(false)
+                    }
+                  }/>
+                )
+              }}
+                  >Add New Skill</button>}
     </div>)
-      : <div className='skillListQuest'><em className='skillListQuest__title'>Quest not unlocked!</em><br/><br/></div>
+      : null
   )
 }
 
