@@ -122,8 +122,9 @@ export const userData = [
       RHand: '',
       legs: '',
       body: '',
-      feet: '',
-      LHand: ''
+      LHand: '',
+      feet: ''
+
     },
     inventory: []
   },
@@ -157,8 +158,8 @@ export const userData = [
       RHand: '',
       legs: '',
       body: '',
-      feet: '',
-      LHand: ''
+      LHand: '',
+      feet: ''
     },
     inventory: []
   }
