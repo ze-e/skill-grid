@@ -11,7 +11,7 @@ import shirt2 from '../assets/gear/Body/greenshirt.png'
 import shirt3 from '../assets/gear/Body/shirt.png'
 import body1 from '../assets/gear/Body/Body01.png'
 import body2 from '../assets/gear/Body/Body02.png'
-import body3 from '../assets/gear/Body/Body03.png'
+import robe from '../assets/gear/Body/Body03.png'
 import body4 from '../assets/gear/Body/Body04.png'
 
 import feet1 from '../assets/gear/Feet/Feet01.png'
@@ -47,7 +47,7 @@ export default {
   shirt3,
   body1,
   body2,
-  body3,
+  robe,
   body4,
   feet1,
   feet2,

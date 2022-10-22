@@ -119,11 +119,11 @@ export const userData = [
     avatar: 2,
     gear: {
       head: '',
-      LHand: '',
       RHand: '',
-      body: '',
       legs: '',
-      feet: ''
+      body: '',
+      feet: '',
+      LHand: ''
     },
     inventory: []
   },
@@ -154,11 +154,11 @@ export const userData = [
     avatar: 2,
     gear: {
       head: '',
-      LHand: '',
       RHand: '',
-      body: '',
       legs: '',
-      feet: ''
+      body: '',
+      feet: '',
+      LHand: ''
     },
     inventory: []
   }
@@ -251,7 +251,7 @@ export const itemData = [
     id: 'b1eab51e-1c6c-40fe-9469-9d2258db8251',
     name: 'black robe',
     location: 'body',
-    src: gear.body3,
+    src: gear.robe,
     cost: 10
   },
   {
