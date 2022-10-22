@@ -286,56 +286,56 @@ export const itemData = [
     id: '80525212-41e6-4a54-af4f-3cb344da9886',
     name: 'sword',
     location: 'LHand',
-    src: gear.l_hand1,
+    src: gear.lHand1,
     cost: 10
   },
   {
     id: '1eea31e1-7483-4bf8-88d5-35ffb3b442ea',
     name: 'wizard staff',
     location: 'LHand',
-    src: gear.l_hand2,
+    src: gear.lHand2,
     cost: 10
   },
   {
     id: '29d4a077-8a2c-443f-8351-0536766519f3',
     name: 'cyber glove',
     location: 'LHand',
-    src: gear.l_hand3,
+    src: gear.lHand3,
     cost: 10
   },
   {
     id: '1625d36e-af51-45da-8118-d731d1f12355',
     name: 'lazer gun',
     location: 'LHand',
-    src: gear.l_hand4,
+    src: gear.lHand4,
     cost: 10
   },
   {
     id: '9b6825bf-db81-4fc6-b3ea-c1badbf27052',
     name: 'shield',
     location: 'RHand',
-    src: gear.r_hand1,
+    src: gear.rHand1,
     cost: 10
   },
   {
     id: 'd8b0236b-8722-488f-a07f-6d76329c22d2',
     name: 'battle axe',
     location: 'RHand',
-    src: gear.r_hand2,
+    src: gear.rHand2,
     cost: 10
   },
   {
     id: '7c9ce93a-e6e4-4b40-9d48-5d529cd4e580',
     name: 'bow',
     location: 'RHand',
-    src: gear.r_hand3,
+    src: gear.rHand3,
     cost: 10
   },
   {
     id: '3d301693-1f5d-4108-8e0d-2c624901a9f0',
     name: 'double edged sword',
     location: 'RHand',
-    src: gear.r_hand4,
+    src: gear.rHand4,
     cost: 10
   },
   {

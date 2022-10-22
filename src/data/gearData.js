@@ -24,15 +24,15 @@ import head3 from '../assets/gear/Head/Head03.png'
 import head4 from '../assets/gear/Head/Head04.png'
 import head5 from '../assets/gear/Head/Head05.png'
 
-import l_hand1 from '../assets/gear/HandL/HandL01.png'
-import l_hand2 from '../assets/gear/HandL/HandL02.png'
-import l_hand3 from '../assets/gear/HandL/HandL03.png'
-import l_hand4 from '../assets/gear/HandL/HandL04.png'
+import lHand1 from '../assets/gear/L_Hand/HandL01.png'
+import lHand2 from '../assets/gear/L_Hand/HandL02.png'
+import lHand3 from '../assets/gear/L_Hand/HandL03.png'
+import lHand4 from '../assets/gear/L_Hand/HandL04.png'
 
-import r_hand1 from '../assets/gear/HandR/HandR01.png'
-import r_hand2 from '../assets/gear/HandR/HandR02.png'
-import r_hand3 from '../assets/gear/HandR/HandR03.png'
-import r_hand4 from '../assets/gear/HandR/HandR04.png'
+import rHand1 from '../assets/gear/R_Hand/HandR01.png'
+import rHand2 from '../assets/gear/R_Hand/HandR02.png'
+import rHand3 from '../assets/gear/R_Hand/HandR03.png'
+import rHand4 from '../assets/gear/R_Hand/HandR04.png'
 
 export default {
   pants1,
@@ -57,12 +57,12 @@ export default {
   head3,
   head4,
   head5,
-  l_hand1,
-  l_hand2,
-  l_hand3,
-  l_hand4,
-  r_hand1,
-  r_hand2,
-  r_hand3,
-  r_hand4,
+  lHand1,
+  lHand2,
+  lHand3,
+  lHand4,
+  rHand1,
+  rHand2,
+  rHand3,
+  rHand4
 }
