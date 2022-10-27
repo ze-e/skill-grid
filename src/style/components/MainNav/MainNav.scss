@@ -1,4 +1,5 @@
 .mainNav {
+  background-color: #63768D;
   &__items {
     display: flex;
     justify-content: center;
@@ -6,14 +7,25 @@
   }
 
   &__item {
-    &::after {
-      content: ' | ';
-      margin-left: 4px;
       margin-right: 4px;
-    }
-    &:last-of-type::after {
-      content: '';
+    &:last-of-type {
       margin: 0;
+    }
+  }
+
+  &__navLink {
+    &.active {
+      & button {
+        background-color: #E3E3E3;
+        color: black;
+      }
+    }
+
+    &:hover {
+      & button {
+        background-color: #E3E3E3;
+        color: black;
+      }
     }
   }
 }

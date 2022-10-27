@@ -31,7 +31,7 @@ export default function LoginButton () {
             setModalOpen(true)
             setModalContent(<ModalLogin handleSubmit= {(e) => { e.preventDefault(); login(e); setModalOpen(false) }} />)
           }}
-      >Login</button>
+      >Log In</button>
       : <>
         <button
           className='loginButton'

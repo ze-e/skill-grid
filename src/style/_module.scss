@@ -2,18 +2,14 @@
   appearance: none;
   border: 1px solid black;
   border-radius: 12px;
-  background-color: #36213E;
-  color: #FFD600;
+
   font-weight: bold;
   padding: 12px;
   box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5), 4px 4px 10px rgba(0, 0, 0, 0.5);
   text-transform: uppercase;
 
-  &:active, &:hover {
-    cursor: pointer;
-    background-color: #E3E3E3;
-    color: black;
-  }
+  background-color: #36213E;
+  color: #FFD600;
 }
 
 .m-flex {
@@ -67,7 +63,7 @@
   text-transform: uppercase;
   font-weight: bold;
   font-size: 26px;
-    color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255);
   text-shadow:
     -1px -1px 0 rgba(0, 0, 0, 0.5),  
     1px -1px 0 rgba(0, 0, 0, 0.5),
