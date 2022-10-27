@@ -16,10 +16,11 @@
     & .skillListSkill__skill, & .skillListQuest__family {
       filter: blur(5px);
     }
-
-    &::after {
+    
+    & .skillListQuest__overlay {
       background-color: rgba(0, 0, 0, 0.5);
       color: white;
+      border: none;
       content: 'Not yet completed';
       text-transform: uppercase;
       text-align: center;

@@ -17,7 +17,7 @@ import SkillListSkill from './SkillListSkill'
 export default function SkillListQuest ({ index, quest, levelIndex, teacherView }) {
   const { state, dispatch, ACTIONS } = useContext(DataContext)
   const { setModalOpen, setModalContent } = useContext(ModalContext)
-  const { user } = useContext(UserContext)
+  const { user, setUser } = useContext(UserContext)
 
   const [parents, setParents] = useState(null)
   const [descendants, setDescendants] = useState(null)
@@ -64,13 +64,17 @@ export default function SkillListQuest ({ index, quest, levelIndex, teacherView 
     setModalOpen(false)
   }
 
+  async function setCurrentQuest () {
+    await dispatch({ type: ACTIONS.EDIT_ADMIN, payload: { userName: user.admin.userName, field: 'currentQuest', newVal: quest.id } })
+    const userData = state.userData.find(i => i.admin.userName.toLowerCase() === user.admin.userName.toLowerCase())
+    setUser(userData)
+  }
+
   return (
     (completed || user.admin?.userType === 'teacher' || isAvailable)
       ? (
         <div style={{ backgroundColor: createDarkVariation(quest.color) }} className={`skillListQuest  ${(user.admin?.userType !== 'teacher' && isAvailable && !isCurrent) && 'skillListQuest--isAvailable'}  ${(user.admin?.userType !== 'teacher' && isCurrent) && 'skillListQuest--isCurrent'}`}>
-          {/* // */}
-          <button className={`skillListQuest__overlay ${(user.admin?.userType !== 'teacher' && isAvailable && !isCurrent) && 'skillListQuest--isAvailable'}}`}>START</button>
-          {/* // */}
+          {!!(user.admin?.userType !== 'teacher' && isAvailable && !isCurrent) && <button className={`skillListQuest__overlay ${(user.admin?.userType !== 'teacher' && isAvailable && !isCurrent) && 'skillListQuest--isAvailable'}}`} onClick={() => { setCurrentQuest() }}>START</button>}
           <div className='skillListQuest__head'>
 
             <h3 className='skillListQuest__title m-title-stroke-white'>{`Quest ${index + 1} - ${quest.name}`}</h3>
