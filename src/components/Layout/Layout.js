@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import DataLayer from '../DataLayer/DataLayer'
 import Header from '../Header/Header'
 import Modal from '../Modal/ModalContainer'
+import Footer from '../Footer/Footer'
 
 export default function Layout ({ children }) {
   return (
@@ -12,6 +13,7 @@ export default function Layout ({ children }) {
         {children}
         <Modal />
       </div>
+      <Footer />
     </DataLayer>
   )
 }
