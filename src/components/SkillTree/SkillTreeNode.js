@@ -13,12 +13,17 @@ export default function SkillTreeNode ({ item }) {
   const { user, setUser } = useContext(UserContext)
   const hexRef = useRef(null);
   const xp = item.skills.length * 10
-  const completed = user.admin?.userType === 'student' && user.admin?.completedQuests.includes(item.id)
+  // const completed = user.admin?.userType === 'student' && user.admin?.completedQuests.includes(item.id)
   const hasCurrent = user.admin?.userType === 'student' && user.admin?.currentQuest
 
+  const [completed, setCompleted] = useState(false)
   const [isAvailable, setIsAvailable] = useState(false)
   const [isCurrent, setIsCurrent] = useState(false)
-
+// TO DO USE UTILS INSTEAD FOR LOGIC, FIX STYLE, REFACTOR TO STATE WHEN APPROPRIATE
+  useEffect(() => {
+    setCompleted(user.admin?.userType === 'student' && user.admin?.completedQuests.includes(item.id))
+  }, [user.admin])
+// 
   useEffect(() => {
     if (!completed && (!item.parents.length > 0 || item.parents.every(p => user.admin.completedQuests.includes(p)))) setIsAvailable(true)
     else setIsAvailable(false)
