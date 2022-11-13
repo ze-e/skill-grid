@@ -1,8 +1,9 @@
 .mainNav {
   background-color: #63768D;
+  padding: 12px;
   &__items {
     display: flex;
-    justify-content: center;
+    justify-content: flex-end;
     align-items: center;
   }
 

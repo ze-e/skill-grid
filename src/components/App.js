@@ -31,7 +31,6 @@ export default function App () {
             <Route path="gear" element={<ProtectedRoute Component={<GearView />} />} >
             <Route path="inventory" element={<GearInventory />} />
               <Route path="store" element={<GearStore />} />
-
             </Route>
             <Route exact path="users" element={<TeacherRoute Component={<UserListView/>} />} />
         </Routes>
