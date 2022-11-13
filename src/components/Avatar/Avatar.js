@@ -18,7 +18,7 @@ export default function Avatar ({ avatar, gear, edit }) {
 
   return (
     <div className='avatar'>
-      <canvas id='canvas' style={{ border: '2px solid black' }}>
+      <canvas id='canvas'>
       </canvas>
       {edit && <>
         <div className='avatar__edit'>

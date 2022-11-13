@@ -12,6 +12,22 @@
   color: #FFD600;
 }
 
+.m-navLink {
+      &.active {
+      & button {
+        background-color: #E3E3E3;
+        color: black;
+      }
+    }
+
+    &:hover {
+      & button {
+        background-color: #E3E3E3;
+        color: black;
+      }
+    }
+}
+
 .m-flex {
   display: flex;
 }
