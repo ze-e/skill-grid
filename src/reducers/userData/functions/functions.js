@@ -19,9 +19,7 @@ function editAdmin (state, { userName, field, newVal }) {
   const stateCopy = { ...state }
   const user = stateCopy.userData.find(i => i.admin.userName.toLowerCase() === userName.toLowerCase())
   user.admin[field] = newVal
-  console.log('user.admin[field]', user.admin[field])
   stateCopy.userData = updateUser(stateCopy, userName, user)
-  console.log('stateCopy', stateCopy.userData.find(i => i.admin.userName.toLowerCase() === userName.toLowerCase()))
   return stateCopy
 }
 

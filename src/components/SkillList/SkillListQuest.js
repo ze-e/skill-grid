@@ -27,9 +27,11 @@ export default function SkillListQuest ({ index, quest, levelIndex, teacherView 
 
   const [isAvailable, setIsAvailable] = useState(false)
   const [isCurrent, setIsCurrent] = useState(false)
+  const hasCurrent = user.admin?.userType === 'student' && user.admin?.currentQuest
 
   useEffect(() => {
-    if (!completed && quest.parents.every(p => user.admin.completedQuests.includes(p)) && (quest.descendants.length > 0 && !quest.descendants.some(p => user.admin.completedQuests.includes(p)))) setIsAvailable(true)
+    // it is considered available if 1. it is not completed 2. all parents are completed 3.there are no descendants or there are descendants but none are completed
+    if (!completed && quest.parents.every(p => user.admin.completedQuests.includes(p)) && (!quest.descendants || !quest.descendants.length > 0 || (quest.descendants.length > 0 && !quest.descendants.some(p => user.admin.completedQuests.includes(p))))) setIsAvailable(true)
     else setIsAvailable(false)
   }, [user.admin.completedQuests])
 
@@ -74,7 +76,7 @@ export default function SkillListQuest ({ index, quest, levelIndex, teacherView 
     (completed || user.admin?.userType === 'teacher' || isAvailable)
       ? (
         <div style={{ backgroundColor: createDarkVariation(quest.color) }} className={`skillListQuest  ${(user.admin?.userType !== 'teacher' && isAvailable && !isCurrent) && 'skillListQuest--isAvailable'}  ${(user.admin?.userType !== 'teacher' && isCurrent) && 'skillListQuest--isCurrent'}`}>
-          {!!(user.admin?.userType !== 'teacher' && isAvailable && !isCurrent) && <button className={`skillListQuest__overlay ${(user.admin?.userType !== 'teacher' && isAvailable && !isCurrent) && 'skillListQuest--isAvailable'}}`} onClick={() => { setCurrentQuest() }}>START</button>}
+          {!!(user.admin?.userType !== 'teacher' && isAvailable && (!hasCurrent)) && <button className={`skillListQuest__overlay ${(user.admin?.userType !== 'teacher' && isAvailable && !isCurrent) && 'skillListQuest--isAvailable'}}`} onClick={() => { setCurrentQuest() }}>START</button>}
           <div className='skillListQuest__head'>
 
             <h3 className='skillListQuest__title m-title-stroke-white'>{`Quest ${index + 1} - ${quest.name}`}</h3>
