@@ -15,9 +15,9 @@ function SkillView () {
   const skillTreeRef = useRef(null)
 
   const [teacherView, setTeacherView] = useState(false)
+  // const [scrollX, setScrollX] = useState(0)
 
-  // creates the gridlines that connect nodes
-  useEffect(() => {
+  function drawGridLines () {
     if (user.admin) {
       const tree = skillTreeRef.current.querySelectorAll('.skillTreeColumn')
       const nodes = []
@@ -52,7 +52,39 @@ function SkillView () {
         }
       })
     }
+  }
+
+  // creates the gridlines that connect nodes
+  useEffect(() => {
+    drawGridLines()
   }, [state, user])
+
+  useEffect(() => {
+    window.addEventListener('resize', drawGridLines, false)
+
+    return () => {
+      window.removeEventListener('resize', drawGridLines, false)
+    }
+  }, [])
+
+  useEffect(() => {
+    function handleScroll () {
+      drawGridLines()
+
+      console.log('working', skillTreeRef.current.pageXOffset)
+      // const newPos = skillTreeRef.current.pageXOffset
+      // if (newPos !== scrollX) {
+      //   drawGridLines()
+      // }
+      // setScrollX(newPos)
+    }
+
+    skillTreeRef.current.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => {
+      skillTreeRef.current.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   return (
     <>

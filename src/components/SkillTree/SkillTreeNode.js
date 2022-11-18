@@ -50,7 +50,7 @@ export default function SkillTreeNode ({ item }) {
         <div className='skillTreeNode__svg' data-id={`${item.id}-svg`} ref={hexRef}></div>
         {completed || isAvailable ?
           <>
-            <h3 className={`skillTreeNode__text ${!!isCurrent ? 'current m-title-stroke-white' : 'm-title-stroke-black'}`} >{item.name}</h3>
+            <h3 className={`skillTreeNode__text ${!!isCurrent ? 'current m-title-stroke-white' : 'm-title-stroke-black'}`} >{item.name ? item.name : <div className='skillTreeNode__placeholder'></div>}</h3>
             <h4 className={`skillTreeNode__xp ${!!isCurrent ? 'current m-title-stroke-white': 'm-title-stroke-black'}`} >XP: {xp}</h4>
           </>
           : <div className={`skillTreeNode__blank`}></div>

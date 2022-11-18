@@ -44,8 +44,8 @@
 
 .m-line {
   position: absolute;
-  width: 90px;
-  margin-top: -1px;
+  width: 9rem;
+  margin-top: -.1rem;
   z-index: 1;
   background-color: black;
 }
@@ -78,7 +78,7 @@
   font-family: 'Monda', sans-serif;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 26px;
+  font-size: 2.6rem;
   color: rgb(255, 255, 255);
   text-shadow:
     -1px -1px 0 rgba(0, 0, 0, 0.5),  
