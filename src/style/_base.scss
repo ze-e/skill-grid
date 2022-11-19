@@ -1,6 +1,9 @@
 html {
-  // font-size:62.5% //10px
   font-size: 1vw;
+
+@media (min-width: 1200px) {
+    font-size: 14px;
+  }
 }
 
 * {

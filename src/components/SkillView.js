@@ -85,7 +85,7 @@ function SkillView () {
   }, [scrollX])
 
   return (
-    <>
+    <div className='skillView'>
       {user.admin.currentQuest && <h2 className='skillView__current'>Current Quest: {' '} {getAllQuests(state.data?.levels).find(q => q.id === user.admin.currentQuest).name}
       </h2>}
       {user.admin.submittedQuest ? <h2 className='skillView__current'>Submitted✔️</h2> : user.admin.currentQuest && <button type='button' onClick={() => { dispatch({ type: ACTIONS.SUBMIT_QUEST, payload: { userName: user.admin.userName, questId: user.admin.currentQuest } }) }}>Submit Quest</button>}
@@ -106,7 +106,7 @@ function SkillView () {
         {teacherView ? 'Close Teacher View' : 'Teacher View'}
       </button>}
       <SkillList teacherView={teacherView} />
-      </>
+      </div>
   )
 }
 
