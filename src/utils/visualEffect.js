@@ -1,9 +1,9 @@
-export function drawLine (from, to, line) {
+export function drawLine (from, to, line, scrollX) {
   if (!from || !to || !line) return
   const fT = from.offsetTop + from.offsetHeight / 2
   const tT = to.offsetTop + to.offsetHeight / 2
-  const fL = from.offsetLeft + from.offsetWidth / 2
-  const tL = to.offsetLeft + to.offsetWidth / 2
+  const fL = from.offsetLeft + from.offsetWidth / 2 - scrollX
+  const tL = to.offsetLeft + to.offsetWidth / 2 - scrollX
 
   const CA = Math.abs(tT - fT)
   const CO = Math.abs(tL - fL)

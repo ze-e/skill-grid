@@ -15,7 +15,7 @@ function SkillView () {
   const skillTreeRef = useRef(null)
 
   const [teacherView, setTeacherView] = useState(false)
-  // const [scrollX, setScrollX] = useState(0)
+  const [scrollX, setScrollX] = useState(0)
 
   function drawGridLines () {
     if (user.admin) {
@@ -48,7 +48,7 @@ function SkillView () {
           const parentNode = nodes.find(n => n.id === parent[0].id)
           const line = nodes[i].line
           line.style.backgroundColor = parent[0].color
-          if (parentNode) drawLine(parentNode.node, node, line)
+          if (parentNode) drawLine(parentNode.node, node, line, scrollX)
         }
       })
     }
@@ -69,22 +69,17 @@ function SkillView () {
 
   useEffect(() => {
     function handleScroll () {
-      drawGridLines()
-
-      console.log('working', skillTreeRef.current.pageXOffset)
-      // const newPos = skillTreeRef.current.pageXOffset
-      // if (newPos !== scrollX) {
-      //   drawGridLines()
-      // }
-      // setScrollX(newPos)
+      setScrollX(skillTreeRef.current.scrollLeft)
     }
-
     skillTreeRef.current.addEventListener('scroll', handleScroll, { passive: true })
-
     return () => {
       skillTreeRef.current.removeEventListener('scroll', handleScroll)
     }
   }, [])
+
+  useEffect(() => {
+    drawGridLines()
+  }, [scrollX])
 
   return (
     <>
