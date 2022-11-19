@@ -40,6 +40,26 @@
       cursor: pointer;
       opacity: 1;
     }
+
+    &.current.teacher:hover {
+      .skillTreeNode__svg {
+        filter: brightness(1);
+      }
+            
+      .skillTreeNode__text, 
+      .skillTreeNode__xp,  {
+        display: initial;
+      }
+
+      .skillTreeNode__overlay {
+        display: none;
+      }
+
+      .skillTreeNode__button {
+        cursor:auto;
+        opacity: 0;
+      }
+    }
   }
 
   &:last-of-type {

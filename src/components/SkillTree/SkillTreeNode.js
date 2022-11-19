@@ -29,7 +29,7 @@ export default function SkillTreeNode ({ item }) {
   }, [user.admin])
 
   useEffect(() => {
-    drawHex({ svg: hexRef.current, color: item.color, bgImage: item.img, borderColor: isCurrent ? '#ffffff' : createDarkVariation(item.color), borderWidth: '100', dropShadow: isCurrent || completed  ? true : false, glow: isAvailable ? true : false, innerShadow: !isAvailable && !isCurrent && !completed && true})
+    drawHex({ svg: hexRef.current, color: item.color, bgImage: item.img, borderColor: isCurrent ? '#ffffff' : createDarkVariation(item.color), borderWidth: '100', dropShadow: isCurrent || completed  ? true : false, glow: isAvailable ? true : false, innerShadow: !isAvailable && !isCurrent && !completed && true, teacherview : Boolean(user.admin?.userType !== 'teacher')})
   }, [hexRef, item, isCurrent, user.admin])
 
   async function setCurrentQuest () {
@@ -40,18 +40,18 @@ export default function SkillTreeNode ({ item }) {
 
   return (
     <div className={`skillTreeNodeContainer key-${item.id}`} data-id={item.id}>
-      <div className={`skillTreeNode ${!!isAvailable && !hasCurrent && 'current'}`}>
-        {(user.admin?.userType !== 'teacher' && isAvailable && !hasCurrent) &&
+      <div className={`skillTreeNode ${!!isAvailable && !hasCurrent && 'current'} ${Boolean(user.admin?.userType === 'teacher') && 'teacher'}`}>
+        {(Boolean(user.admin?.userType !== 'teacher') && isAvailable && !hasCurrent) &&
           <button className={`skillTreeNode__button`} type="button" onClick={() => { setCurrentQuest() }}>
             <span className={`skillTreeNode__overlay m-title-stroke-black`}>START</span>
           </button>
         }
         
         <div className='skillTreeNode__svg' data-id={`${item.id}-svg`} ref={hexRef}></div>
-        {!!completed || !!isAvailable ?
+        {Boolean(user.admin?.userType === 'teacher') || !!completed || !!isAvailable ?
           <>
-            <h3 className={`skillTreeNode__text ${!!isCurrent ? 'current m-title-stroke-white' : 'm-title-stroke-black'}`} >{item.name}</h3>
-            <h4 className={`skillTreeNode__xp ${!!isCurrent ? 'current m-title-stroke-white': 'm-title-stroke-black'}`} >XP: {xp}</h4>
+            <h3 className={`skillTreeNode__text ${!!isCurrent && Boolean(user.admin?.userType !== 'teacher') ? 'current m-title-stroke-white' : 'm-title-stroke-black'}`} >{item.name}</h3>
+            <h4 className={`skillTreeNode__xp ${!!isCurrent && Boolean(user.admin?.userType !== 'teacher') ? 'current m-title-stroke-white': 'm-title-stroke-black'}`} >XP: {xp}</h4>
           </>
           : <div className={`skillTreeNode__blank`}></div>
         }

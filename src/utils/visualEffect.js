@@ -140,7 +140,7 @@ export function drawAvatarFull ({ avatar, gear }) {
   }
 }
 
-export function drawHex ({ svg, color, borderColor, borderWidth, bgImage, dropShadow, innerShadow, glow }) {
+export function drawHex ({ svg, color, borderColor, borderWidth, bgImage, dropShadow, innerShadow, glow, teacherview }) {
   if (svg) {
     svg.innerHTML = ''
     svg.innerHTML += `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="-50 -50 900 900" width="150%" height="150%" style="transform: translate(-12%, -20%);">
@@ -172,22 +172,22 @@ export function drawHex ({ svg, color, borderColor, borderWidth, bgImage, dropSh
     <feDropShadow dx="10" dy="10" stdDeviation="32" flood-color="#fff" />
   </filter>
 
-  ${!!dropShadow && '<g filter="url(#dropShadow)">'}
+  ${!teacherview && !!dropShadow && '<g filter="url(#dropShadow)">'}
 
-  ${!!innerShadow && '<g filter="url(#innerShadow)">'}
+  ${!teacherview && !!innerShadow && '<g filter="url(#innerShadow)">'}
 
-  ${!!glow && '<g filter="url(#glow)">'}
+  ${!teacherview && !!glow && '<g filter="url(#glow)">'}
     <polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="none" stroke="${borderColor}" stroke-width="${borderWidth}" />
-  ${!!innerShadow && '<g filter="url(#innerShadow)">'}
+  ${!teacherview && !!innerShadow && '<g filter="url(#innerShadow)">'}
     
     <polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="${color}" stroke="none" style="inset 39px 5px 15px 5px rgba(0,0,0,0.5)" />           
-  ${!!innerShadow && '</g>'}
+  ${!teacherview && !!innerShadow && '</g>'}
   
-  ${!!bgImage && '<polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="url(#patternId)" opacity="0.75"/>'}          
-  ${!!glow && '</g>'}
-  ${!!innerShadow && '</g>'}
+  ${!teacherview && !!bgImage && '<polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="url(#patternId)" opacity="0.75"/>'}          
+  ${!teacherview && !!glow && '</g>'}
+  ${!teacherview && !!innerShadow && '</g>'}
 
-  ${!!dropShadow && '</g>'}
+  ${!teacherview && !!dropShadow && '</g>'}
 </svg>`
   }
 }
