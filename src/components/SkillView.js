@@ -69,7 +69,10 @@ function SkillView () {
 
   useEffect(() => {
     function handleScroll () {
-      setScrollX(skillTreeRef.current.scrollLeft)
+      const pos = skillTreeRef.current.scrollLeft
+      if (pos !== scrollX) {
+        setScrollX(pos)
+      }
     }
     skillTreeRef.current.addEventListener('scroll', handleScroll, { passive: true })
     return () => {
