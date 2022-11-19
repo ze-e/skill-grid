@@ -76,7 +76,7 @@ function SkillView () {
     }
     skillTreeRef.current.addEventListener('scroll', handleScroll, { passive: true })
     return () => {
-      skillTreeRef.current.removeEventListener('scroll', handleScroll)
+      skillTreeRef?.current?.removeEventListener('scroll', handleScroll)
     }
   }, [])
 
