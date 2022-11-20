@@ -1,5 +1,5 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from "react";
+import PropTypes from "prop-types";
 
 /*
   { inputs:
@@ -14,15 +14,30 @@ import PropTypes from 'prop-types'
   }
 */
 
-export default function Input ({ className, onSubmit, submitText, buttonClassName, disabled, inputs }) {
+export default function Input({
+  className,
+  onSubmit,
+  submitText,
+  buttonClassName,
+  disabled,
+  inputs,
+}) {
   return (
     <form className={className} onSubmit={onSubmit}>
-      {inputs.map((input, index) =>
-        <input key={index} className={input.className} onChange={ input.onChange } value={input.value} placeholder={input.placeholder}/>
-      )}
-      <button className={buttonClassName} disabled={disabled()} type="submit">{submitText}</button>
+      {inputs.map((input, index) => (
+        <input
+          key={index}
+          className={input.className}
+          onChange={input.onChange}
+          value={input.value}
+          placeholder={input.placeholder}
+        />
+      ))}
+      <button className={buttonClassName} disabled={disabled()} type="submit">
+        {submitText}
+      </button>
     </form>
-  )
+  );
 }
 
 Input.propTypes = {
@@ -31,5 +46,5 @@ Input.propTypes = {
   submitText: PropTypes.string,
   buttonClassName: PropTypes.string,
   disabled: PropTypes.func,
-  inputs: PropTypes.array
-}
+  inputs: PropTypes.array,
+};

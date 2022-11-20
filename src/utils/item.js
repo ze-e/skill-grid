@@ -1,7 +1,7 @@
 // import { debug } from './debug'
 
 export function getItemData (itemData, id) {
-  return itemData.find(i => i.id === id)
+  return itemData.find((i) => i.id === id)
 }
 
 export function canBuyItem (item, gold) {
@@ -10,6 +10,8 @@ export function canBuyItem (item, gold) {
 
 export function count (inventory, itemId) {
   let count = 0
-  inventory.forEach(i => { if (i === itemId) count++ })
+  inventory.forEach((i) => {
+    if (i === itemId) count++
+  })
   return count
 }

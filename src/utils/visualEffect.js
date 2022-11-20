@@ -8,7 +8,7 @@ export function drawLine (from, to, line, scrollX) {
   const CA = Math.abs(tT - fT)
   const CO = Math.abs(tL - fL)
   const H = Math.sqrt(CA * CA + CO * CO)
-  let ANG = 180 / Math.PI * Math.acos(CA / H)
+  let ANG = (180 / Math.PI) * Math.acos(CA / H)
   let top
   let left
 
@@ -23,7 +23,12 @@ export function drawLine (from, to, line, scrollX) {
     left = (fL - tL) / 2 + tL
   }
 
-  if ((fT < tT && fL < tL) || (tT < fT && tL < fL) || (fT > tT && fL > tL) || (tT > fT && tL > fL)) {
+  if (
+    (fT < tT && fL < tL) ||
+    (tT < fT && tL < fL) ||
+    (fT > tT && fL > tL) ||
+    (tT > fT && tL > fL)
+  ) {
     ANG *= -1
   }
   top -= H / 2
@@ -39,7 +44,9 @@ export function drawLine (from, to, line, scrollX) {
 }
 
 export function drawAvatarBody ({ body, head, hand, foot, gear }) {
-  if (gear !== null) Object.keys(gear).forEach((k) => gear[k] == null && delete gear[k])
+  if (gear !== null) {
+    Object.keys(gear).forEach((k) => gear[k] == null && delete gear[k])
+  }
 
   // load
   const bodyImg = new Image()
@@ -74,7 +81,7 @@ export function drawAvatarBody ({ body, head, hand, foot, gear }) {
   const gearImg = []
 
   if (gear !== null) {
-    gear.forEach(item => {
+    gear.forEach((item) => {
       const itemImg = new Image()
       itemImg.src = item.src
       gearImg.push(itemImg)
@@ -95,7 +102,7 @@ export function drawAvatarBody ({ body, head, hand, foot, gear }) {
     ctx.drawImage(handImg, 0, 0, 400, 400)
     ctx.drawImage(footImg, 0, 0, 400, 400)
     if (gear !== null) {
-      gearImg.forEach(img => {
+      gearImg.forEach((img) => {
         ctx.drawImage(img, 0, 0, 400, 400)
       })
     }
@@ -103,7 +110,9 @@ export function drawAvatarBody ({ body, head, hand, foot, gear }) {
 }
 
 export function drawAvatarFull ({ avatar, gear }) {
-  if (gear !== null) Object.keys(gear).forEach((k) => gear[k] == null && delete gear[k])
+  if (gear !== null) {
+    Object.keys(gear).forEach((k) => gear[k] == null && delete gear[k])
+  }
 
   // load
   const avatarImg = new Image()
@@ -116,7 +125,7 @@ export function drawAvatarFull ({ avatar, gear }) {
   const gearImg = []
 
   if (gear !== null) {
-    gear.forEach(item => {
+    gear.forEach((item) => {
       const itemImg = new Image()
       itemImg.src = item.src
       gearImg.push(itemImg)
@@ -133,22 +142,35 @@ export function drawAvatarFull ({ avatar, gear }) {
     canvas.height = 400
     ctx.drawImage(avatarImg, 0, 0, 400, 400)
     if (gear !== null) {
-      gearImg.forEach(img => {
+      gearImg.forEach((img) => {
         ctx.drawImage(img, 0, 0, 400, 400)
       })
     }
   }
 }
 
-export function drawHex ({ svg, color, borderColor, borderWidth, bgImage, dropShadow, innerShadow, glow, teacherview }) {
+export function drawHex ({
+  svg,
+  color,
+  borderColor,
+  borderWidth,
+  bgImage,
+  dropShadow,
+  innerShadow,
+  glow,
+  teacherview
+}) {
   if (svg) {
     svg.innerHTML = ''
     svg.innerHTML += `<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="-50 -50 900 900" width="150%" height="150%" style="transform: translate(-12%, -20%);">
-  ${!!bgImage && `<defs>
+  ${
+    !!bgImage &&
+    `<defs>
       <pattern id="patternId" patternUnits="userSpaceOnUse" width="75%" height="75%">
         <image href="${bgImage}" x="0" y="0" width="75%" height="75%" />
       </pattern>
-  </defs>`}
+  </defs>`
+  }
   <filter id="dropShadow">
     <feDropShadow dx="10" dy="10" stdDeviation="16" flood-color="#808080" flood-opacity="0.8" />
   </filter>
@@ -183,7 +205,11 @@ export function drawHex ({ svg, color, borderColor, borderWidth, bgImage, dropSh
     <polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="${color}" stroke="none" style="inset 39px 5px 15px 5px rgba(0,0,0,0.5)" />           
   ${!teacherview && !!innerShadow && '</g>'}
   
-  ${!teacherview && !!bgImage && '<polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="url(#patternId)" opacity="0.75"/>'}          
+  ${
+    !teacherview &&
+    !!bgImage &&
+    '<polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="url(#patternId)" opacity="0.75"/>'
+  }          
   ${!teacherview && !!glow && '</g>'}
   ${!teacherview && !!innerShadow && '</g>'}
 

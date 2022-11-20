@@ -1,7 +1,5 @@
-import React from 'react'
+import React from "react";
 
-export default function LoginView () {
-  return (
-    <div className='loginView'>Please log in...</div>
-  )
+export default function LoginView() {
+  return <div className="loginView">Please log in...</div>;
 }

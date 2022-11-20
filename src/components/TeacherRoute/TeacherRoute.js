@@ -1,17 +1,21 @@
-import React, { useContext } from 'react'
-import PropTypes from 'prop-types'
+import React, { useContext } from "react";
+import PropTypes from "prop-types";
 
-import { Navigate } from 'react-router-dom'
-import { UserContext } from '../../contexts/UserContext'
+import { Navigate } from "react-router-dom";
+import { UserContext } from "../../contexts/UserContext";
 
 const ProtectedRoute = ({ Component }) => {
-  const { user } = useContext(UserContext)
+  const { user } = useContext(UserContext);
 
-  return user?.admin?.userType === 'teacher' ? Component : <Navigate to="/login" />
-}
+  return user?.admin?.userType === "teacher" ? (
+    Component
+  ) : (
+    <Navigate to="/login" />
+  );
+};
 
-export default ProtectedRoute
+export default ProtectedRoute;
 
 ProtectedRoute.propTypes = {
-  Component: PropTypes.node
-}
+  Component: PropTypes.node,
+};
