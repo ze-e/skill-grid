@@ -15,28 +15,29 @@ export default function SkillList() {
   return (
     <div className="skillList">
       {user.admin?.userType === "teacher" && (
-        <button
-          className="skillList__button"
-          type="button"
-          onClick={() => {
-            setTeacherView(!teacherView);
-          }}
-        >
-          {teacherView ? "Close Teacher View" : "Teacher View"}
-        </button>
+          <button
+            className="skillList__button"
+            type="button"
+            onClick={() => {
+              setTeacherView(!teacherView);
+            }}
+          >
+            {teacherView ? "Close Teacher View" : "Teacher View"}
+            </button>
       )}
-
-      {levels.length > 0 &&
-        levels.map((level, index) => {
-          return (
-            <SkillListLevel
-              key={level.id}
-              index={index}
-              level={level}
-              teacherView={teacherView}
-            />
-          );
+      <div className="skillList__levels">
+        {levels.length > 0 &&
+          levels.map((level, index) => {
+            return (
+              <SkillListLevel
+                key={level.id}
+                index={index}
+                level={level}
+                teacherView={teacherView}
+              />
+            );
         })}
+      </div>
     </div>
   );
 }
