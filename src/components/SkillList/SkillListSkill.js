@@ -20,20 +20,22 @@ export default function SkillListSkill ({ quest, skill, index, teacherView }) {
         <button type="submit">Change Name</button>
       </form>
       }
-      {(!edit && teacherView) && <button
-        className="m-skillListButton button"
-        type='button'
-        onClick={() => { setEdit(true) }}>
-        Rename
-      </button>
-      }
-      {(!edit && teacherView) && <button
-        className="m-skillListButton button"
-        type='button'
-        disabled={quest.skills.length === 1}
-        onClick={() => { dispatch({ type: ACTIONS.DELETE_SKILL, payload: { quest, skill } }) }}>
-        Delete Skill
-      </button>}
+      <div className='m-flex'>
+        {(!edit && teacherView) && <button
+          className="m-skillListButton button"
+          type='button'
+          onClick={() => { setEdit(true) }}>
+          Rename
+        </button>
+        }
+        {(!edit && teacherView) && <button
+          className="m-skillListButton button"
+          type='button'
+          disabled={quest.skills.length === 1}
+          onClick={() => { dispatch({ type: ACTIONS.DELETE_SKILL, payload: { quest, skill } }) }}>
+          Delete Skill
+          </button>}
+      </div>
     </div>
   )
 }

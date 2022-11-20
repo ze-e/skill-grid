@@ -101,7 +101,7 @@ export const userData = [
       name: 'Rex',
       level: 0,
       xp: 0,
-      gold: 0,
+      gold: 1000,
       epiphet: 'l33t',
       type: 'elf',
       job: 'hacker',

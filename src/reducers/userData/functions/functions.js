@@ -62,6 +62,7 @@ function approveQuest (state, { userName, questId }) {
   user.admin.currentQuest = ''
   user.admin.submittedQuest = ''
 
+  // TODO: Make teacher/approver also gain xp
   // increase xp and gold by quest values
   const questData = getQuestById(stateCopy.data.levels, questId)
   user.data.gold = user.data.xp + (questData.skills.length * 10)

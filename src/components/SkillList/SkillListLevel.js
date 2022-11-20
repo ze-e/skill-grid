@@ -62,7 +62,7 @@ export default function SkillListLevel ({ index, level, teacherView }) {
         )}
         {(!disableButton && teacherView) &&
             <button
-            className="m-skillListButton button"
+            className="skillListLevel__button"
             type='button'
             onClick={() => {
               setModalOpen(true)
