@@ -1,9 +1,13 @@
 .mainNav {
   background-color: #63768D;
   padding: 12px;
+  display: flex;
+  justify-content: flex-end;
+  &--gear {
+    justify-content: space-between;
+  }
   &__items {
     display: flex;
-    justify-content: flex-end;
     align-items: center;
   }
 
