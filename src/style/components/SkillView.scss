@@ -1,13 +1,16 @@
 .skillView {
   &__tree {
+    position: static;
+    z-index: 1;
     display: flex;
     align-items: center;
     overflow-y: hidden;
     overflow-x: scroll;
-    // margin: 10px;
     background-color: #d9d9d9;
     border-radius: 12px;
-    border: 3px solid black;
+    width: 100%;
+    max-width: 1200px;
+    flex: 15 15 0;
   }
   &__title {
     margin-left: 10px;

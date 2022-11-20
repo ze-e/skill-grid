@@ -51,11 +51,6 @@
   text-align: center;
 }
 
-.m-skillListButton {
-  margin-left: 10px;
-  height: 100%;
-}
-
 .m-line {
   position: absolute;
   width: 9rem;
@@ -94,4 +89,14 @@
   color: rgb(255, 255, 255);
   text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.5), 1px -1px 0 rgba(0, 0, 0, 0.5),
     -1px 1px 0 rgba(0, 0, 0, 0.5), 1px 1px 0 rgba(0, 0, 0, 0.5);
+}
+
+.m-gutter {
+  @media (min-width: 1200px) {
+    width: calc(100vw - 600px);
+    flex: 1 1 0;
+    z-index: 100;
+    position: static;
+    background: #63768d;
+  }
 }

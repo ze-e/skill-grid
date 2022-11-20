@@ -14,7 +14,6 @@ function SkillView() {
 
   const skillTreeRef = useRef(null);
 
-  const [teacherView, setTeacherView] = useState(false);
   const [scrollX, setScrollX] = useState(0);
 
   function drawGridLines() {
@@ -67,6 +66,7 @@ function SkillView() {
     };
   }, []);
 
+  // these two useEffects make sure the gridlines follow the nodes as the user scrolls
   useEffect(() => {
     function handleScroll() {
       const pos = skillTreeRef.current.scrollLeft;
@@ -118,30 +118,23 @@ function SkillView() {
           </button>
         )
       )}
-      <section className="skillView__tree" ref={skillTreeRef}>
-        {state.data.levels.length > 0 &&
-          state.data.levels.map((level) => {
-            return (
-              <SkillTreeColumn
-                key={level.id}
-                color={level.color}
-                quests={level.quests}
-              />
-            );
-          })}
-      </section>
-      {user.admin?.userType === "teacher" && (
-        <button
-          className="m-skillListButton button"
-          type="button"
-          onClick={() => {
-            setTeacherView(!teacherView);
-          }}
-        >
-          {teacherView ? "Close Teacher View" : "Teacher View"}
-        </button>
-      )}
-      <SkillList teacherView={teacherView} />
+      <div className="skillView__treeContainer m-flex">
+        <div className="m-gutter"></div>
+        <section className="skillView__tree" ref={skillTreeRef}>
+          {state.data.levels.length > 0 &&
+            state.data.levels.map((level) => {
+              return (
+                <SkillTreeColumn
+                  key={level.id}
+                  color={level.color}
+                  quests={level.quests}
+                />
+              );
+            })}
+        </section>
+        <div className="m-gutter"></div>
+      </div>
+      <SkillList />
     </div>
   );
 }
