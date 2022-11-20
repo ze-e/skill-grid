@@ -6,7 +6,7 @@ export default function MainNav () {
   const { user } = useContext(UserContext)
   const { pathname } = useLocation()
 
-  const gearPage = Boolean(pathname.includes('/gear/'))
+  const gearPage = Boolean(pathname.includes('/gear'))
   return (
     <nav className={`mainNav ${gearPage && 'mainNav--gear'}` }>
       {
