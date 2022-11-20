@@ -13,7 +13,9 @@
   justify-content: center;
 
   &__inner {
-    background-color: white;
+    background-color: #63768D;
+    border: 1px solid black;
+    border-radius: 12px;
     padding: 34px 36px 28px 36px;
     display: flex;
     flex-direction: column;
@@ -21,6 +23,8 @@
     z-index: 10;
     margin: auto;
     position: relative;
+    min-width: 50vw;
+    min-height: 50vh;
   }
 
   &__close{

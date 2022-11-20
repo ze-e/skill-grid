@@ -12,20 +12,27 @@
   color: #FFD600;
 }
 
-.m-navLink {
-      &.active {
-      & button {
-        background-color: #E3E3E3;
-        color: black;
-      }
-    }
+.m-modalButton {
+  width: calc(100% - 20px);
+  margin: 20px auto;
+  display: flex;
+  justify-content: center;
+}
 
-    &:hover {
-      & button {
-        background-color: #E3E3E3;
-        color: black;
-      }
+.m-navLink {
+  &.active {
+  & button {
+    background-color: #E3E3E3;
+    color: black;
+  }
+}
+
+  &:hover {
+    & button {
+      background-color: #E3E3E3;
+      color: black;
     }
+  }
 }
 
 .m-flex {
@@ -35,6 +42,13 @@
 .m-flexColumn {
   display: flex;
   flex-direction: column;
+}
+.m-flexColumnCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  text-align: center;
 }
 
 .m-skillListButton {

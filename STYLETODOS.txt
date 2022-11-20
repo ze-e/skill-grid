@@ -1,5 +1,2 @@
 style todos: 
-1.signin 
-3.fix profileview 
-4.fix gearview 
-5.users section
+4.users section
