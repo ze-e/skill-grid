@@ -135,9 +135,26 @@ input {
   border: none;
   border-radius: 6px;
   color: black;
-  background-color: #b8f3ff;
+  background-color: #E3E3E3;
   &::placeholder {
     color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+select[multiple] {
+  appearance: none;
+  font-family: "Monda", sans-serif;
+  font-size: 18px;
+  padding: 12px;
+  margin: 10px;
+  border: none;
+  border-radius: 6px;
+  color: black;
+  background-color: #E3E3E3;
+
+  & option:checked {
+    background-color: #554971ff; 
+    color: white;
   }
 }
 

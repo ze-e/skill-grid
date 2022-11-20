@@ -167,7 +167,7 @@ export default function SkillListQuest({
 
         {teacherView && (
           <div className="skillListQuest__skillListButtons m-flex">
-            (
+            
             <button
               className="m-skillListButton button"
               type="button"
@@ -214,7 +214,7 @@ export default function SkillListQuest({
             >
               Edit
             </button>
-            )
+            
             {levelIndex !== 0 && teacherView && (
               <button
                 className="m-skillListButton button"

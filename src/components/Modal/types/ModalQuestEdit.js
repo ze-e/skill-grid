@@ -21,24 +21,31 @@ export default function ModalQuestEdit({
           setIsValidEdit(e.target.checkValidity());
         }}
       >
-        <input
-          defaultValue={defaultName}
-          placeholder="Enter name..."
-          minLength={3}
-          maxLength={15}
-        />
-        {defaultParents && (
-          <select name="parents" multiple>
-            {prevLevel &&
-              prevLevel.quests.map((q) => {
-                return (
-                  <option key={q.id} value={q.id}>
-                    {q.name}
-                  </option>
-                );
-              })}
-          </select>
-        )}
+        <div className="m-flexColumn">
+          <label className="m-title-stroke-white" for="name">Change name:</label>
+          <input
+            name="name"
+            defaultValue={defaultName}
+            placeholder="Enter name..."
+            minLength={3}
+            maxLength={15}
+          />
+          {defaultParents && (
+            <>
+              <label className="m-title-stroke-white" for="name">Change Parents:</label>
+              <select name="parents" multiple>
+                {prevLevel &&
+                  prevLevel.quests.map((q) => {
+                    return (
+                      <option key={q.id} value={q.id}>
+                        {q.name}
+                      </option>
+                    );
+                  })}
+              </select>
+            </>
+          )}
+        </div>
         <button
           className="m-skillListButton button"
           disabled={!isValidEdit}
@@ -49,6 +56,8 @@ export default function ModalQuestEdit({
       </form>
 
       {descendants?.length < SETTINGS.MAX_CHILDREN && (
+        <>
+        <br/><br/>
         <form
           onSubmit={addChild}
           onChange={(e) => {
@@ -70,6 +79,7 @@ export default function ModalQuestEdit({
             Add Child
           </button>
         </form>
+        </>
       )}
     </>
   );
