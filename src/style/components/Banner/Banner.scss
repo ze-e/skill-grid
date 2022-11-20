@@ -1,6 +1,5 @@
 .banner {
   background-color: #36213E;
-  color: #FFD600;
   height: 128px;
   padding: 22px;
   font-size: 64px;
@@ -10,6 +9,10 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  & a{
+  color: #FFD600;
+  }
 }
 
 @media only screen and (max-width: 600px) {
