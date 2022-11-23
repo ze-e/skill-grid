@@ -13,6 +13,7 @@ function SkillView() {
   const { user } = useContext(UserContext);
 
   const skillTreeRef = useRef(null);
+  const [teacherView, setTeacherView] = useState(false);
 
   const [scrollX, setScrollX] = useState(0);
 
@@ -134,7 +135,24 @@ function SkillView() {
         </section>
         <div className="m-gutter"></div>
       </div>
-      <SkillList />
+
+{user.admin?.userType === "teacher" && (
+        <div
+            className="skillList__container"
+        >
+          <button
+            className="skillList__teacherViewbutton"
+            type="button"
+            onClick={() => {
+              setTeacherView(!teacherView);
+            }}
+          >
+            {teacherView ? "Close Teacher View" : "Teacher View"}
+          </button>
+        <SkillList teacherView={teacherView} />
+        </div>
+      )}
+
     </div>
   );
 }

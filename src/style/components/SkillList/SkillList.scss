@@ -1,16 +1,17 @@
 .skillList {
   overflow-y: scroll;
   max-height: 800px;
-  max-width: 1200px;
-  margin: 0 auto;
+  
+  &__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
 
-  &__button {
-    position: absolute;
-    margin-top: 10px;
-    margin-bottom: 10px;
+  &__teacherViewbutton {
+    margin: 10px;
   }
 
   &__levels {
-    margin-top: 72px;
+    // margin-top: 72px;
   }
 }
