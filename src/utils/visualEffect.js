@@ -166,7 +166,7 @@ export function drawHex ({
   ${
     !!bgImage &&
     `<defs>
-      <pattern id="patternId" patternUnits="userSpaceOnUse" width="75%" height="75%">
+      <pattern id="${bgImage}" patternUnits="userSpaceOnUse" width="75%" height="75%">
         <image href="${bgImage}" x="0" y="0" width="75%" height="75%" />
       </pattern>
   </defs>`
@@ -205,11 +205,7 @@ export function drawHex ({
     <polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="${color}" stroke="none" style="inset 39px 5px 15px 5px rgba(0,0,0,0.5)" />           
   ${!teacherview && !!innerShadow && '</g>'}
   
-  ${
-    !teacherview &&
-    !!bgImage &&
-    '<polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="url(#patternId)" opacity="0.75"/>'
-  }          
+  ${!!bgImage && `${`<polygon points="723,314 543,625.769145 183,625.769145 3,314 183,2.230855 543,2.230855 723,314" fill="url(#${bgImage})" opacity="0.75"/>`}`}          
   ${!teacherview && !!glow && '</g>'}
   ${!teacherview && !!innerShadow && '</g>'}
 
