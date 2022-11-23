@@ -1,15 +1,12 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import PropTypes from "prop-types";
 import { DataContext } from "../../contexts/DataContext";
-import { UserContext } from "../../contexts/UserContext";
 
 import SkillListLevel from "./SkillListLevel";
 export default function SkillList({teacherView}) {
   const { state } = useContext(DataContext);
-  const { user } = useContext(UserContext);
 
   const levels = state.data.levels;
-
 
   return (
     <div className="skillList">

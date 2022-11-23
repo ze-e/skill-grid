@@ -136,24 +136,21 @@ function SkillView() {
         <div className="m-gutter"></div>
       </div>
 
-{user.admin?.userType === "teacher" && (
-        <div
-            className="skillList__container"
+    {user.admin?.userType === "teacher" && (
+      <div className="skillList__container">
+        <button
+          className="skillList__teacherViewbutton"
+          type="button"
+          onClick={() => {
+            setTeacherView(!teacherView);
+          }}
         >
-          <button
-            className="skillList__teacherViewbutton"
-            type="button"
-            onClick={() => {
-              setTeacherView(!teacherView);
-            }}
-          >
-            {teacherView ? "Close Teacher View" : "Teacher View"}
-          </button>
+          {teacherView ? "Close Teacher View" : "Teacher View"}
+        </button>
         <SkillList teacherView={teacherView} />
-        </div>
-      )}
-
-    </div>
+      </div>
+    )}
+  </div>
   );
 }
 
