@@ -37,7 +37,6 @@ export default function SkillTreeNode({ item }) {
   }, [user.admin]);
 
   useEffect(() => {
-    console.log("img", item.img);
     drawHex({
       svg: hexRef.current,
       color: item.color,

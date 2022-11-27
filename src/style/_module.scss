@@ -10,6 +10,12 @@
 
   background-color: #36213e;
   color: #ffd600;
+
+  &:hover {
+    background-color: #e3e3e3;
+    color: black;
+    opacity: 1;
+  }
 }
 
 .m-modalButton {
@@ -24,6 +30,7 @@
     & button {
       background-color: #e3e3e3;
       color: black;
+      opacity: 1;
     }
   }
 
@@ -31,6 +38,7 @@
     & button {
       background-color: #e3e3e3;
       color: black;
+      opacity: 1;
     }
   }
 }
@@ -75,7 +83,7 @@
   font-family: "Monda", sans-serif;
   text-transform: uppercase;
   font-weight: bold;
-  font-size: 26px;
+  font-size: 2.6rem;
   color: black;
   text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff,
     1px 1px 0 #fff;

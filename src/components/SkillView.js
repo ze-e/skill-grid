@@ -89,21 +89,28 @@ function SkillView() {
 
   return (
     <div className="skillView">
-      {user.admin.currentQuest && (
-        <h2 className="skillView__current">
-          Current Quest:{" "}
-          {
-            getAllQuests(state.data?.levels).find(
-              (q) => q.id === user.admin.currentQuest
-            ).name
-          }
-        </h2>
-      )}
-      {user.admin.submittedQuest ? (
+
+{user.admin.currentQuest &&      <div className="skillView__currentQuest">
+          <div className="m-flex">
+            <h2 className="skillView__currentTitle">
+              Current Quest : 
+            </h2>
+          
+            <h3 className="skillView__currentQuestName">
+              {
+                getAllQuests(state.data?.levels).find(
+                  (q) => q.id === user.admin.currentQuest
+                ).name
+              }
+            </h3>
+          </div>
+        
+        {user.admin.submittedQuest ? (
         <h2 className="skillView__current">Submitted✔️</h2>
       ) : (
         user.admin.currentQuest && (
-          <button
+            <button
+            className="skillView__submitButton m-button"
             type="button"
             onClick={() => {
               dispatch({
@@ -114,11 +121,20 @@ function SkillView() {
                 },
               });
             }}
-          >
-            Submit Quest
+              >
+              {' '} Submit
           </button>
         )
-      )}
+        )
+        }
+
+        
+      </div>}
+{/*  */}
+
+
+      
+{/*  */}
       <div className="skillView__treeContainer m-flex">
         <div className="m-gutter"></div>
         <section className="skillView__tree" ref={skillTreeRef}>
@@ -136,8 +152,9 @@ function SkillView() {
         <div className="m-gutter"></div>
       </div>
 
+        <div className="skillList__container">
     {user.admin?.userType === "teacher" && (
-      <div className="skillList__container">
+          
         <button
           className="skillList__teacherViewbutton"
           type="button"
@@ -146,10 +163,11 @@ function SkillView() {
           }}
         >
           {teacherView ? "Close Teacher View" : "Teacher View"}
-        </button>
+          </button>
+    )}
+          
         <SkillList teacherView={teacherView} />
       </div>
-    )}
   </div>
   );
 }
