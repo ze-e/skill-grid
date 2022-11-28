@@ -4,8 +4,8 @@ import { UserContext } from "../contexts/UserContext";
 
 import SkillTreeColumn from "./SkillTree/SkillTreeColumn";
 import SkillList from "./SkillList/SkillList";
-
-import { getAllQuests, getParentsWithId } from "../utils/quest";
+import CurrentQuest from "./CurrentQuest/CurrentQuest";
+import { getParentsWithId } from "../utils/quest";
 import { drawLine } from "../utils/visualEffect";
 
 function SkillView() {
@@ -89,52 +89,7 @@ function SkillView() {
 
   return (
     <div className="skillView">
-
-{user.admin.currentQuest &&      <div className="skillView__currentQuest">
-          <div className="m-flex">
-            <h2 className="skillView__currentTitle">
-              Current Quest : 
-            </h2>
-          
-            <h3 className="skillView__currentQuestName">
-              {
-                getAllQuests(state.data?.levels).find(
-                  (q) => q.id === user.admin.currentQuest
-                ).name
-              }
-            </h3>
-          </div>
-        
-        {user.admin.submittedQuest ? (
-        <h2 className="skillView__current">Submitted✔️</h2>
-      ) : (
-        user.admin.currentQuest && (
-            <button
-            className="skillView__submitButton m-button"
-            type="button"
-            onClick={() => {
-              dispatch({
-                type: ACTIONS.SUBMIT_QUEST,
-                payload: {
-                  userName: user.admin.userName,
-                  questId: user.admin.currentQuest,
-                },
-              });
-            }}
-              >
-              {' '} Submit
-          </button>
-        )
-        )
-        }
-
-        
-      </div>}
-{/*  */}
-
-
-      
-{/*  */}
+      <CurrentQuest />
       <div className="skillView__treeContainer m-flex">
         <div className="m-gutter"></div>
         <section className="skillView__tree" ref={skillTreeRef}>

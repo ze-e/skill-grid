@@ -14,11 +14,12 @@ import GearInventory from "../components/Gear/GearInventory";
 import GearStore from "../components/Gear/GearStore";
 
 export default function App() {
+  
   return (
     <BrowserRouter>
       <Layout>
         <Routes>
-          <Route index path="/" element={<Navigate to="/login" />} />
+          <Route index path="/" element={ <Navigate to="/login" />} />
           <Route exact path="login" element={<LoginView />} />
           <Route
             exact

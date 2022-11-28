@@ -57,7 +57,7 @@ export default function UserListView() {
                         }
                       </p>{" "}
                       <button
-                        className="m-button userListView__submitButton"
+                        className="userListView__submitButton"
                         type="button"
                         onClick={() =>
                           dispatch({

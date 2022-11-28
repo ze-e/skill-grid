@@ -7,8 +7,7 @@ export default function MainNav() {
   const { pathname } = useLocation();
 
   const gearPage = Boolean(pathname.includes("/gear"));
-  return (
-    <nav className={`mainNav ${gearPage && "mainNav--gear"}`}>
+  return !!user.data ? (<nav className={`mainNav ${!!gearPage && "mainNav--gear"}`}>
       {gearPage && (
         <ul className="mainNav__items">
           <li className="mainNav__item">
@@ -74,6 +73,5 @@ export default function MainNav() {
           </li>
         )}
       </ul>
-    </nav>
-  );
+    </nav>) : null
 }
